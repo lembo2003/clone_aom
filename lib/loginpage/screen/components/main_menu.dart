@@ -284,10 +284,14 @@ class MainMenu extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white, // Background color for menu items
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.blue[900]!,
-            width: 2,
-          ), // Dark blue border
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         alignment: Alignment.center,
         child: Column(
@@ -354,7 +358,14 @@ class MainMenu extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.blue[900]!, width: 2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: Row(

@@ -54,12 +54,17 @@ class IndexUserTiles extends StatelessWidget {
                             color: Colors.grey[600],
                           ),
                         ),
-                        Text(
-                          'Axelor',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
+                        Row(
+                          children: [
+                            Icon(Icons.ac_unit_sharp),
+                            Text(
+                              'Axelor',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[600],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
