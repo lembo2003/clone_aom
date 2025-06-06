@@ -8,7 +8,15 @@ class IndexPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('User profile')),
+      appBar: AppBar(
+        title: Text('User profile'),
+        actions: [
+          IconButton(
+            onPressed: () => {},
+            icon: Center(child: Icon(Icons.settings)),
+          ),
+        ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
