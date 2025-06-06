@@ -9,7 +9,7 @@ class IndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User profile'),
+        title: Text('User profile', style: TextStyle(fontFamily: "Montserrat")),
         actions: [
           IconButton(
             onPressed: () => {},

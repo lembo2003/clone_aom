@@ -27,6 +27,7 @@ class MainMenu extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      fontFamily: "Montserrat",
                     ),
                   ),
                 ),
@@ -117,7 +118,7 @@ class MainMenu extends StatelessWidget {
                           ),
                         ],
                       ),
-                      _buildMenuItem(context, Icons.work, 'Human Resources', [
+                      _buildMenuItem(context, Icons.work, 'HR', [
                         _buildExpandableDialogOption(context, 'Timesheets', [
                           _buildDialogOption(
                             context,
@@ -304,6 +305,7 @@ class MainMenu extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black, // Black label
                 fontWeight: FontWeight.bold,
+                fontFamily: "Montserrat",
               ),
             ),
           ],
@@ -335,7 +337,11 @@ class MainMenu extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Montserrat",
+                  ),
                 ),
                 SizedBox(height: 20),
                 ...options,
@@ -377,6 +383,7 @@ class MainMenu extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
+                fontFamily: "Montserrat",
               ),
             ),
           ],

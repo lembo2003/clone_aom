@@ -45,6 +45,7 @@ class IndexUserTiles extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            fontFamily: "Montserrat",
                           ),
                         ),
                         Text(
@@ -52,6 +53,7 @@ class IndexUserTiles extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[600],
+                            fontFamily: "Montserrat",
                           ),
                         ),
                         Row(
@@ -62,6 +64,7 @@ class IndexUserTiles extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[600],
+                                fontFamily: "Montserrat",
                               ),
                             ),
                           ],
