@@ -1,3 +1,5 @@
+import 'package:clone_aom/loginpage/screen/components/main_menu.dart';
+import 'package:clone_aom/loginpage/screen/login_page.dart';
 import 'package:flutter/material.dart';
 
 class IndexPage extends StatelessWidget {
@@ -7,64 +9,25 @@ class IndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('User profile')),
-      body: Center(child: Text('IndexPage')),
-      drawer: Drawer(
-        child: Scaffold(
-          body: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              color: Colors.white, // Background color for the drawer
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  Container(
-                    color: Colors.blue,
-                    height: 150,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Full-Screen Drawer',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('IndexPage'),
+            IconButton(
+              onPressed:
+                  () => {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
                     ),
-                  ),
-                  Expanded(
-                    child: ListView(
-                      children: [
-                        ListTile(
-                          leading: Icon(Icons.home),
-                          title: Text('Home'),
-                          onTap: () {
-                            Navigator.pop(context); // Close the drawer
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.settings),
-                          title: Text('Settings'),
-                          onTap: () {
-                            Navigator.pop(context); // Close the drawer
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.logout),
-                          title: Text('Logout'),
-                          onTap: () {
-                            Navigator.pop(context); // Close the drawer
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                  },
+              icon: Icon(Icons.arrow_back),
             ),
-          ),
+          ],
         ),
       ),
+      drawer: MainMenu(),
     );
   }
 }
