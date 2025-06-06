@@ -1,5 +1,5 @@
+import 'package:clone_aom/loginpage/screen/components/index_user_tiles.dart';
 import 'package:clone_aom/loginpage/screen/components/main_menu.dart';
-import 'package:clone_aom/loginpage/screen/login_page.dart';
 import 'package:flutter/material.dart';
 
 class IndexPage extends StatelessWidget {
@@ -17,24 +17,7 @@ class IndexPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('IndexPage'),
-            IconButton(
-              onPressed:
-                  () => {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    ),
-                  },
-              icon: Icon(Icons.arrow_back),
-            ),
-          ],
-        ),
-      ),
+      body: IndexUserTiles(),
       drawer: MainMenu(),
     );
   }
