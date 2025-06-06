@@ -27,6 +27,7 @@ class MainMenu extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      fontFamily: "Montserrat",
                     ),
                   ),
                 ),
@@ -117,7 +118,7 @@ class MainMenu extends StatelessWidget {
                           ),
                         ],
                       ),
-                      _buildMenuItem(context, Icons.work, 'Human Resources', [
+                      _buildMenuItem(context, Icons.work, 'HR', [
                         _buildExpandableDialogOption(context, 'Timesheets', [
                           _buildDialogOption(
                             context,
@@ -284,10 +285,14 @@ class MainMenu extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white, // Background color for menu items
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.blue[900]!,
-            width: 2,
-          ), // Dark blue border
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         alignment: Alignment.center,
         child: Column(
@@ -300,6 +305,7 @@ class MainMenu extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black, // Black label
                 fontWeight: FontWeight.bold,
+                fontFamily: "Montserrat",
               ),
             ),
           ],
@@ -331,7 +337,11 @@ class MainMenu extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Montserrat",
+                  ),
                 ),
                 SizedBox(height: 20),
                 ...options,
@@ -354,7 +364,14 @@ class MainMenu extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.blue[900]!, width: 2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
         ),
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: Row(
@@ -366,6 +383,7 @@ class MainMenu extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
+                fontFamily: "Montserrat",
               ),
             ),
           ],

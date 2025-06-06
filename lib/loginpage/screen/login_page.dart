@@ -13,7 +13,11 @@ class LoginPage extends StatelessWidget {
           title: Center(
             child: Text(
               'Create a session',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Montserrat",
+              ),
             ),
           ),
           insetPadding: EdgeInsets.symmetric(
@@ -83,7 +87,10 @@ class LoginPage extends StatelessWidget {
                     ),
                     Text(
                       'Default session?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat",
+                      ),
                     ),
                   ],
                 ),
@@ -104,7 +111,10 @@ class LoginPage extends StatelessWidget {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 0),
                     ),
-                    child: Text('Login'),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(fontFamily: "Montserrat"),
+                    ),
                   ),
                 ),
               ],
@@ -174,8 +184,14 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('@ 2005 - 2025 Axelor. All rights reserved.'),
-                Text('Version 8.3.5'),
+                Text(
+                  '@ 2005 - 2025 Axelor. All rights reserved.',
+                  style: TextStyle(fontFamily: "Montserrat"),
+                ),
+                Text(
+                  'Version 8.3.5',
+                  style: TextStyle(fontFamily: "Montserrat"),
+                ),
               ],
             ),
           ),

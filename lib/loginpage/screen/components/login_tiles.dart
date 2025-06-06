@@ -34,6 +34,7 @@ class LoginTiles extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat",
                       ),
                     ),
                     IconButton(
@@ -50,7 +51,10 @@ class LoginTiles extends StatelessWidget {
                     Expanded(
                       child: Text(
                         url,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "Montserrat",
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -64,7 +68,10 @@ class LoginTiles extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'admin', // Replace with dynamic username if needed
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "Montserrat",
+                        ),
                       ),
                     ),
                   ],
@@ -98,7 +105,10 @@ class LoginTiles extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                      child: Text('Login'),
+                      child: Text(
+                        'Login',
+                        style: TextStyle(fontFamily: "Montserrat"),
+                      ),
                     ),
                     IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
@@ -145,6 +155,7 @@ class LoginTiles extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat",
                       ),
                     ),
                     IconButton(
@@ -183,7 +194,10 @@ class LoginTiles extends StatelessWidget {
                 Row(
                   children: [
                     Checkbox(value: false, onChanged: (value) {}),
-                    Text('Default session?'),
+                    Text(
+                      'Default session?',
+                      style: TextStyle(fontFamily: "Montserrat"),
+                    ),
                   ],
                 ),
                 SizedBox(height: 16),
@@ -200,7 +214,10 @@ class LoginTiles extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                  child: Text('Update'),
+                  child: Text(
+                    'Update',
+                    style: TextStyle(fontFamily: "Montserrat"),
+                  ),
                 ),
               ],
             ),
@@ -302,6 +319,7 @@ class LoginTiles extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat",
                       ),
                     ),
                     Text(
@@ -311,6 +329,7 @@ class LoginTiles extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
+                        fontFamily: "Montserrat",
                       ),
                     ),
                   ],
