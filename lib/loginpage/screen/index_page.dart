@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 
 class IndexPage extends StatelessWidget {
   final String userId;
-  
+
   const IndexPage({super.key, this.userId = '0'});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User ID: $userId', style: TextStyle(fontFamily: "Montserrat")),
+        title: Text(
+          'User ID: $userId',
+          style: TextStyle(fontFamily: "Montserrat"),
+        ),
         actions: [
           IconButton(
             onPressed: () => {},

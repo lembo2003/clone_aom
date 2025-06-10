@@ -39,7 +39,8 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => IndexPage(userId: response.data.userId ?? '0'),
+            builder:
+                (context) => IndexPage(userId: response.data.userId ?? '0'),
           ),
         );
       } else {
@@ -48,9 +49,9 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error: $e')));
     } finally {
       setState(() {
         _isLoading = false;
@@ -74,10 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          insetPadding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 40,
-          ),
+          insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           content: SizedBox(
             height: 300,
             width: 400,
@@ -140,12 +138,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 0),
                     ),
-                    child: _isLoading
-                        ? CircularProgressIndicator()
-                        : Text(
-                            'Login',
-                            style: TextStyle(fontFamily: "Montserrat"),
-                          ),
+                    child:
+                        _isLoading
+                            ? CircularProgressIndicator()
+                            : Text(
+                              'Login',
+                              style: TextStyle(fontFamily: "Montserrat"),
+                            ),
                   ),
                 ),
               ],
@@ -185,10 +184,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 1.5,
-                  ),
+                  border: Border.all(color: Colors.blue, width: 1.5),
                 ),
                 child: IconButton(
                   onPressed: () => openNewCreateDialog(context),
