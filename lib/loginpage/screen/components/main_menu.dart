@@ -5,261 +5,298 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Scaffold(
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Container(
-            color: Colors.white, // Background color for the drawer
-            padding: EdgeInsets.zero,
-            child: Column(
-              children: [
-                Container(
-                  color: Colors.grey,
-                  padding: EdgeInsets.only(top: 40),
-                  height: 100,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Alexor Open Mobile',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Montserrat",
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Drawer(
+        child: Scaffold(
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              color: Colors.white, // Background color for the drawer
+              padding: EdgeInsets.zero,
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.grey,
+                    padding: EdgeInsets.only(top: 40),
+                    height: 100,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Alexor Open Mobile',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat",
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 2, // Number of columns in the grid
-                    padding: EdgeInsets.all(10),
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    children: [
-                      _buildMenuItem(context, Icons.inventory, 'Stock', [
-                        _buildDialogOption(context, Icons.category, 'Product'),
-                        _buildDialogOption(
-                          context,
-                          Icons.edit,
-                          'Stock Correction',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.compare_arrows,
-                          'Internal Move',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.local_shipping,
-                          'Customer Delivery',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.input,
-                          'Supplier Arrival',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.inventory,
-                          'Inventory',
-                        ),
-                      ]),
-                      _buildMenuItem(context, Icons.factory, 'Manufacturing', [
-                        _buildDialogOption(
-                          context,
-                          Icons.assignment,
-                          'Manufacturing Order',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.build,
-                          'Operation Order',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.schedule,
-                          'Planned Operations',
-                        ),
-                      ]),
-                      _buildMenuItem(context, Icons.people, 'CRM', [
-                        _buildDialogOption(context, Icons.lightbulb, 'Leads'),
-                        _buildDialogOption(context, Icons.person, 'Prospects'),
-                        _buildDialogOption(
-                          context,
-                          Icons.trending_up,
-                          'Opportunities',
-                        ),
-                        _buildDialogOption(context, Icons.group, 'Clients'),
-                        _buildDialogOption(context, Icons.contacts, 'Contacts'),
-                        _buildDialogOption(context, Icons.tour, 'Tours'),
-                        _buildDialogOption(context, Icons.event, 'Events'),
-                      ]),
-                      _buildMenuItem(
-                        context,
-                        Icons.support_agent,
-                        'Help Desk',
-                        [
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisCount: 2, // Number of columns in the grid
+                      padding: EdgeInsets.all(25),
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
+                      children: [
+                        _buildMenuItem(context, Icons.inventory, 'Stock', [
                           _buildDialogOption(
                             context,
-                            Icons.confirmation_number,
-                            'My Tickets',
+                            Icons.category,
+                            'Product',
                           ),
                           _buildDialogOption(
                             context,
-                            Icons.group,
-                            'My Team Tickets',
+                            Icons.edit,
+                            'Stock Correction',
                           ),
                           _buildDialogOption(
                             context,
-                            Icons.add,
-                            'Create Ticket',
-                          ),
-                        ],
-                      ),
-                      _buildMenuItem(context, Icons.work, 'HR', [
-                        _buildExpandableDialogOption(context, 'Timesheets', [
-                          _buildDialogOption(
-                            context,
-                            Icons.timer,
-                            'Active Timer',
+                            Icons.compare_arrows,
+                            'Internal Move',
                           ),
                           _buildDialogOption(
                             context,
-                            Icons.schedule,
-                            'Timesheets',
+                            Icons.local_shipping,
+                            'Customer Delivery',
+                          ),
+                          _buildDialogOption(
+                            context,
+                            Icons.input,
+                            'Supplier Arrival',
+                          ),
+                          _buildDialogOption(
+                            context,
+                            Icons.inventory,
+                            'Inventory',
                           ),
                         ]),
-                        _buildExpandableDialogOption(context, 'Expenses', [
-                          _buildDialogOption(
-                            context,
-                            Icons.money,
-                            'Expense Lines',
-                          ),
-                          _buildDialogOption(
-                            context,
-                            Icons.receipt,
-                            'Expenses',
-                          ),
-                        ]),
-                        _buildExpandableDialogOption(
+                        _buildMenuItem(
                           context,
-                          'Leave Requests',
+                          Icons.factory,
+                          'Manufacturing',
                           [
                             _buildDialogOption(
                               context,
-                              Icons.beach_access,
-                              'Leaves',
+                              Icons.assignment,
+                              'Manufacturing Order',
                             ),
                             _buildDialogOption(
                               context,
-                              Icons.check_circle,
-                              'Complete Request',
+                              Icons.build,
+                              'Operation Order',
+                            ),
+                            _buildDialogOption(
+                              context,
+                              Icons.schedule,
+                              'Planned Operations',
                             ),
                           ],
                         ),
-                      ]),
-                      _buildMenuItem(context, Icons.verified, 'Quality', [
-                        _buildDialogOption(
-                          context,
-                          Icons.check,
-                          'Control Entries',
-                        ),
-                      ]),
-                      _buildMenuItem(context, Icons.build, 'Intervention', [
-                        _buildExpandableDialogOption(context, 'Interventions', [
+                        _buildMenuItem(context, Icons.people, 'CRM', [
+                          _buildDialogOption(context, Icons.lightbulb, 'Leads'),
                           _buildDialogOption(
                             context,
-                            Icons.timer,
-                            'Active Intervention',
+                            Icons.person,
+                            'Prospects',
                           ),
                           _buildDialogOption(
                             context,
-                            Icons.today,
-                            'Of the Day',
+                            Icons.trending_up,
+                            'Opportunities',
                           ),
+                          _buildDialogOption(context, Icons.group, 'Clients'),
                           _buildDialogOption(
                             context,
-                            Icons.schedule,
-                            'Planned',
+                            Icons.contacts,
+                            'Contacts',
                           ),
-                          _buildDialogOption(context, Icons.history, 'History'),
+                          _buildDialogOption(context, Icons.tour, 'Tours'),
+                          _buildDialogOption(context, Icons.event, 'Events'),
                         ]),
-                        _buildExpandableDialogOption(context, 'Equipments', [
-                          _buildDialogOption(
-                            context,
-                            Icons.devices,
-                            'Customer Park',
-                          ),
-                        ]),
-                      ]),
-                      _buildMenuItem(context, Icons.shopping_cart, 'Sales', [
-                        _buildExpandableDialogOption(
+                        _buildMenuItem(
                           context,
-                          'Sales Follow-Up',
+                          Icons.support_agent,
+                          'Help Desk',
                           [
                             _buildDialogOption(
                               context,
-                              Icons.category,
-                              'Products & Services',
+                              Icons.confirmation_number,
+                              'My Tickets',
                             ),
                             _buildDialogOption(
                               context,
-                              Icons.description,
-                              'Sale Quotations',
+                              Icons.group,
+                              'My Team Tickets',
                             ),
                             _buildDialogOption(
                               context,
-                              Icons.shopping_bag,
-                              'Sale Orders',
+                              Icons.add,
+                              'Create Ticket',
                             ),
-                            _buildDialogOption(context, Icons.group, 'Clients'),
                           ],
                         ),
-                      ]),
-                      _buildMenuItem(context, Icons.task, 'Project', [
-                        _buildDialogOption(
+                        _buildMenuItem(context, Icons.work, 'HR', [
+                          _buildExpandableDialogOption(context, 'Timesheets', [
+                            _buildDialogOption(
+                              context,
+                              Icons.timer,
+                              'Active Timer',
+                            ),
+                            _buildDialogOption(
+                              context,
+                              Icons.schedule,
+                              'Timesheets',
+                            ),
+                          ]),
+                          _buildExpandableDialogOption(context, 'Expenses', [
+                            _buildDialogOption(
+                              context,
+                              Icons.money,
+                              'Expense Lines',
+                            ),
+                            _buildDialogOption(
+                              context,
+                              Icons.receipt,
+                              'Expenses',
+                            ),
+                          ]),
+                          _buildExpandableDialogOption(
+                            context,
+                            'Leave Requests',
+                            [
+                              _buildDialogOption(
+                                context,
+                                Icons.beach_access,
+                                'Leaves',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.check_circle,
+                                'Complete Request',
+                              ),
+                            ],
+                          ),
+                        ]),
+                        _buildMenuItem(context, Icons.verified, 'Quality', [
+                          _buildDialogOption(
+                            context,
+                            Icons.check,
+                            'Control Entries',
+                          ),
+                        ]),
+                        _buildMenuItem(context, Icons.build, 'Intervention', [
+                          _buildExpandableDialogOption(
+                            context,
+                            'Interventions',
+                            [
+                              _buildDialogOption(
+                                context,
+                                Icons.timer,
+                                'Active Intervention',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.today,
+                                'Of the Day',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.schedule,
+                                'Planned',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.history,
+                                'History',
+                              ),
+                            ],
+                          ),
+                          _buildExpandableDialogOption(context, 'Equipments', [
+                            _buildDialogOption(
+                              context,
+                              Icons.devices,
+                              'Customer Park',
+                            ),
+                          ]),
+                        ]),
+                        _buildMenuItem(context, Icons.shopping_cart, 'Sales', [
+                          _buildExpandableDialogOption(
+                            context,
+                            'Sales Follow-Up',
+                            [
+                              _buildDialogOption(
+                                context,
+                                Icons.category,
+                                'Products & Services',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.description,
+                                'Sale Quotations',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.shopping_bag,
+                                'Sale Orders',
+                              ),
+                              _buildDialogOption(
+                                context,
+                                Icons.group,
+                                'Clients',
+                              ),
+                            ],
+                          ),
+                        ]),
+                        _buildMenuItem(context, Icons.task, 'Project', [
+                          _buildDialogOption(
+                            context,
+                            Icons.timer,
+                            'Active Project',
+                          ),
+                          _buildDialogOption(context, Icons.folder, 'Projects'),
+                          _buildDialogOption(
+                            context,
+                            Icons.business,
+                            'Business Projects',
+                          ),
+                          _buildDialogOption(
+                            context,
+                            Icons.check_circle,
+                            'Tasks',
+                          ),
+                        ]),
+                        _buildMenuItem(context, Icons.folder, 'DMS', [
+                          _buildDialogOption(
+                            context,
+                            Icons.folder_open,
+                            'All Documents',
+                          ),
+                        ]),
+                        _buildMenuItem(
                           context,
-                          Icons.timer,
-                          'Active Project',
+                          Icons.shopping_bag,
+                          'Purchase',
+                          [
+                            _buildDialogOption(
+                              context,
+                              Icons.request_page,
+                              'Internal Requests',
+                            ),
+                            _buildDialogOption(
+                              context,
+                              Icons.add,
+                              'Create Request',
+                            ),
+                          ],
                         ),
-                        _buildDialogOption(context, Icons.folder, 'Projects'),
-                        _buildDialogOption(
-                          context,
-                          Icons.business,
-                          'Business Projects',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.check_circle,
-                          'Tasks',
-                        ),
-                      ]),
-                      _buildMenuItem(context, Icons.folder, 'DMS', [
-                        _buildDialogOption(
-                          context,
-                          Icons.folder_open,
-                          'All Documents',
-                        ),
-                      ]),
-                      _buildMenuItem(context, Icons.shopping_bag, 'Purchase', [
-                        _buildDialogOption(
-                          context,
-                          Icons.request_page,
-                          'Internal Requests',
-                        ),
-                        _buildDialogOption(
-                          context,
-                          Icons.add,
-                          'Create Request',
-                        ),
-                      ]),
-                      _buildMenuItem(context, Icons.home, 'HOME', []),
-                    ],
+                        _buildMenuItem(context, Icons.home, 'HOME', []),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -298,13 +335,13 @@ class MainMenu extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 40, color: Colors.black), // Black icon
+            Icon(icon, size: 60, color: Colors.black), // Black icon
             SizedBox(height: 8),
             Text(
               label,
               style: TextStyle(
                 color: Colors.black, // Black label
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
                 fontFamily: "Montserrat",
               ),
             ),

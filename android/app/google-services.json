@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "928278600395",
+    "project_id": "clone-aom",
+    "storage_bucket": "clone-aom.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928278600395:android:1fe61f78dd69cd28a8594e",
+        "android_client_info": {
+          "package_name": "com.example.clone_aom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIhmvMXiZPzfIihVG6VqPYNeQV6rCkV3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
