@@ -1,4 +1,3 @@
-import 'package:clone_aom/loginpage/screen/index_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -90,13 +89,7 @@ class LoginTiles extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        // Handle login - currently navigating to indexpage
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => IndexPage()),
-                        );
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey,
                         foregroundColor: Colors.black,
