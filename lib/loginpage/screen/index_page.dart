@@ -11,6 +11,8 @@ class IndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 2,
+        shadowColor: Colors.grey,
         title: Text(
           'User ID: $userId',
           style: TextStyle(fontFamily: "Montserrat"),

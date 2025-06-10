@@ -1,4 +1,5 @@
 import 'package:clone_aom/loginpage/screen/contact_page.dart';
+import 'package:clone_aom/loginpage/screen/index_page.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget {
@@ -385,7 +386,10 @@ class MainMenu extends StatelessWidget {
         if (options.isNotEmpty) {
           _showOptionsDialog(context, label, options);
         } else {
-          Navigator.pop(context); // Close the drawer
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => IndexPage()),
+          );
         }
       },
       child: Container(
