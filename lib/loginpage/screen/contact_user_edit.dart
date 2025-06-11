@@ -98,9 +98,9 @@ class _ContactUserEditState extends State<ContactUserEdit>
     }
   }
 
-  InputDecoration _inputDecoration(String label) {
+  InputDecoration _inputDecoration({String? label, bool showLabel = true}) {
     return InputDecoration(
-      labelText: label,
+      labelText: showLabel ? label : null,
       filled: true,
       fillColor: Colors.white,
       border: OutlineInputBorder(
@@ -118,6 +118,19 @@ class _ContactUserEditState extends State<ContactUserEdit>
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     );
   }
+
+  BoxDecoration get _fieldBoxDecoration => BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.grey.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.13),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      );
 
   Widget _buildField({
     required String label,
@@ -142,11 +155,7 @@ class _ContactUserEditState extends State<ContactUserEdit>
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: Colors.grey.shade200),
-        ),
+        decoration: _fieldBoxDecoration,
         child: Text(
           value.isNotEmpty ? value : '-',
           style: const TextStyle(fontSize: 16, fontFamily: 'Montserrat'),
@@ -215,16 +224,19 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Civility',
-                      child: DropdownButtonFormField<String>(
-                        value: _civility,
-                        decoration: _inputDecoration('Civility'),
-                        items: _civilities
-                            .map((c) => DropdownMenuItem(value: c, child: Text(c)))
-                            .toList(),
-                        onChanged: _isEditMode
-                            ? (val) => setState(() => _civility = val ?? _civility)
-                            : null,
-                        disabledHint: Text(_civility),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: DropdownButtonFormField<String>(
+                          value: _civility,
+                          decoration: _inputDecoration(showLabel: false),
+                          items: _civilities
+                              .map((c) => DropdownMenuItem(value: c, child: Text(c)))
+                              .toList(),
+                          onChanged: _isEditMode
+                              ? (val) => setState(() => _civility = val ?? _civility)
+                              : null,
+                          disabledHint: Text(_civility),
+                        ),
                       ),
                     )
                   : _buildViewField('Civility', _civility),
@@ -232,11 +244,14 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'First name',
-                      child: TextFormField(
-                        initialValue: _firstName,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('First name'),
-                        onChanged: (val) => setState(() => _firstName = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _firstName,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          onChanged: (val) => setState(() => _firstName = val),
+                        ),
                       ),
                     )
                   : _buildViewField('First name', _firstName),
@@ -244,11 +259,14 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Name',
-                      child: TextFormField(
-                        initialValue: _name,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('Name'),
-                        onChanged: (val) => setState(() => _name = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _name,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          onChanged: (val) => setState(() => _name = val),
+                        ),
                       ),
                     )
                   : _buildViewField('Name', _name),
@@ -258,12 +276,15 @@ class _ContactUserEditState extends State<ContactUserEdit>
                       label: 'Client / Prospect',
                       child: GestureDetector(
                         onTap: _openClientProspectDialog,
-                        child: AbsorbPointer(
-                          child: TextFormField(
-                            controller: TextEditingController(text: _clientProspect),
-                            enabled: false,
-                            decoration: _inputDecoration('Client / Prospect').copyWith(
-                              suffixIcon: const Icon(Icons.search),
+                        child: Container(
+                          decoration: _fieldBoxDecoration,
+                          child: AbsorbPointer(
+                            child: TextFormField(
+                              controller: TextEditingController(text: _clientProspect),
+                              enabled: false,
+                              decoration: _inputDecoration(showLabel: false).copyWith(
+                                suffixIcon: const Icon(Icons.search),
+                              ),
                             ),
                           ),
                         ),
@@ -274,12 +295,15 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Phone number',
-                      child: TextFormField(
-                        initialValue: _phone,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('Phone number'),
-                        keyboardType: TextInputType.phone,
-                        onChanged: (val) => setState(() => _phone = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _phone,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          keyboardType: TextInputType.phone,
+                          onChanged: (val) => setState(() => _phone = val),
+                        ),
                       ),
                     )
                   : _buildViewField('Phone number', _phone),
@@ -287,12 +311,15 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Mobile phone',
-                      child: TextFormField(
-                        initialValue: _mobile,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('Mobile phone'),
-                        keyboardType: TextInputType.phone,
-                        onChanged: (val) => setState(() => _mobile = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _mobile,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          keyboardType: TextInputType.phone,
+                          onChanged: (val) => setState(() => _mobile = val),
+                        ),
                       ),
                     )
                   : _buildViewField('Mobile phone', _mobile),
@@ -300,12 +327,15 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Mail address',
-                      child: TextFormField(
-                        initialValue: _mail,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('Mail address'),
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (val) => setState(() => _mail = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _mail,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (val) => setState(() => _mail = val),
+                        ),
                       ),
                     )
                   : _buildViewField('Mail address', _mail),
@@ -313,11 +343,14 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Web site',
-                      child: TextFormField(
-                        initialValue: _website,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('Web site'),
-                        onChanged: (val) => setState(() => _website = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _website,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          onChanged: (val) => setState(() => _website = val),
+                        ),
                       ),
                     )
                   : _buildViewField('Web site', _website),
@@ -325,12 +358,15 @@ class _ContactUserEditState extends State<ContactUserEdit>
               _isEditMode
                   ? _buildField(
                       label: 'Notes',
-                      child: TextFormField(
-                        initialValue: _notes,
-                        enabled: _isEditMode,
-                        decoration: _inputDecoration('Notes'),
-                        maxLines: 3,
-                        onChanged: (val) => setState(() => _notes = val),
+                      child: Container(
+                        decoration: _fieldBoxDecoration,
+                        child: TextFormField(
+                          initialValue: _notes,
+                          enabled: _isEditMode,
+                          decoration: _inputDecoration(showLabel: false),
+                          maxLines: 3,
+                          onChanged: (val) => setState(() => _notes = val),
+                        ),
                       ),
                     )
                   : _buildViewField('Notes', _notes),
