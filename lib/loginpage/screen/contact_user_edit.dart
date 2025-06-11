@@ -24,6 +24,8 @@ class _ContactUserEditState extends State<ContactUserEdit>
 
   // Edit/view mode toggle
   bool _isEditMode = false;
+  // Show expanded actions in edit mode
+  bool _showFabActions = false;
 
   // Civility options
   final List<String> _civilities = ['Ms.', 'Mr.'];
@@ -150,6 +152,35 @@ class _ContactUserEditState extends State<ContactUserEdit>
           style: const TextStyle(fontSize: 16, fontFamily: 'Montserrat'),
         ),
       ),
+    );
+  }
+
+  void _toggleEditMode() {
+    setState(() {
+      if (_isEditMode) {
+        // If already in edit mode, pressing main FAB acts as cancel
+        _isEditMode = false;
+        _showFabActions = false;
+      } else {
+        _isEditMode = true;
+        _showFabActions = true;
+      }
+    });
+  }
+
+  void _saveAndExitEditMode() {
+    setState(() {
+      _isEditMode = false;
+      _showFabActions = false;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Saved!')),
+    );
+  }
+
+  void _otherAction() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Other action!')),
     );
   }
 
@@ -307,21 +338,41 @@ class _ContactUserEditState extends State<ContactUserEdit>
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: _isEditMode ? Colors.green.shade200 : Colors.deepPurple.shade200,
-        onPressed: () {
-          setState(() {
-            _isEditMode = !_isEditMode;
-          });
-          if (!_isEditMode) {
-            // Optionally save changes here
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Saved!')),
-            );
-          }
-        },
-        child: Icon(_isEditMode ? Icons.save : Icons.edit, color: Colors.black, size: 32),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      floatingActionButton: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          if (_isEditMode && _showFabActions) ...[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 120.0, right: 8),
+              child: FloatingActionButton(
+                heroTag: 'save',
+                backgroundColor: Colors.green.shade200,
+                onPressed: _saveAndExitEditMode,
+                child: const Icon(Icons.save, color: Colors.black),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60.0, right: 8),
+              child: FloatingActionButton(
+                heroTag: 'other',
+                backgroundColor: Colors.orange.shade200,
+                onPressed: _otherAction,
+                child: const Icon(Icons.diamond, color: Colors.black),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+          ],
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: FloatingActionButton(
+              backgroundColor: _isEditMode ? Colors.red.shade200 : Colors.deepPurple.shade200,
+              onPressed: _toggleEditMode,
+              child: Icon(_isEditMode ? Icons.close : Icons.edit, color: Colors.black, size: 32),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            ),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
