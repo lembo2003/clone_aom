@@ -200,16 +200,16 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 10),
+            padding: EdgeInsets.only(bottom: 15),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '@ 2005 - 2025 Axelor. All rights reserved.',
+                  '@ 2025 Intechno. All rights reserved.',
                   style: TextStyle(fontFamily: "Montserrat"),
                 ),
                 Text(
-                  'Version 8.3.5',
+                  'Version 0.0.11',
                   style: TextStyle(fontFamily: "Montserrat"),
                 ),
               ],
