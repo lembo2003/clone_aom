@@ -1,3 +1,5 @@
+import 'package:clone_aom/loginpage/screen/contact_page.dart';
+import 'package:clone_aom/loginpage/screen/index_page.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget {
@@ -45,31 +47,37 @@ class MainMenu extends StatelessWidget {
                             context,
                             Icons.category,
                             'Product',
+                            () => {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.edit,
                             'Stock Correction',
+                            () {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.compare_arrows,
                             'Internal Move',
+                            () {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.local_shipping,
                             'Customer Delivery',
+                            () {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.input,
                             'Supplier Arrival',
+                            () {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.inventory,
                             'Inventory',
+                            () {},
                           ),
                         ]),
                         _buildMenuItem(
@@ -81,39 +89,72 @@ class MainMenu extends StatelessWidget {
                               context,
                               Icons.assignment,
                               'Manufacturing Order',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.build,
                               'Operation Order',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.schedule,
                               'Planned Operations',
+                              () {},
                             ),
                           ],
                         ),
                         _buildMenuItem(context, Icons.people, 'CRM', [
-                          _buildDialogOption(context, Icons.lightbulb, 'Leads'),
+                          _buildDialogOption(
+                            context,
+                            Icons.lightbulb,
+                            'Leads',
+                            () {},
+                          ),
                           _buildDialogOption(
                             context,
                             Icons.person,
                             'Prospects',
+                            () {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.trending_up,
                             'Opportunities',
+                            () {},
                           ),
-                          _buildDialogOption(context, Icons.group, 'Clients'),
+                          _buildDialogOption(
+                            context,
+                            Icons.group,
+                            'Clients',
+                            () {},
+                          ),
                           _buildDialogOption(
                             context,
                             Icons.contacts,
                             'Contacts',
+                            () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ContactPage(),
+                                ),
+                              );
+                            },
                           ),
-                          _buildDialogOption(context, Icons.tour, 'Tours'),
-                          _buildDialogOption(context, Icons.event, 'Events'),
+                          _buildDialogOption(
+                            context,
+                            Icons.tour,
+                            'Tours',
+                            () {},
+                          ),
+                          _buildDialogOption(
+                            context,
+                            Icons.event,
+                            'Events',
+                            () {},
+                          ),
                         ]),
                         _buildMenuItem(
                           context,
@@ -124,16 +165,19 @@ class MainMenu extends StatelessWidget {
                               context,
                               Icons.confirmation_number,
                               'My Tickets',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.group,
                               'My Team Tickets',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.add,
                               'Create Ticket',
+                              () {},
                             ),
                           ],
                         ),
@@ -143,11 +187,13 @@ class MainMenu extends StatelessWidget {
                               context,
                               Icons.timer,
                               'Active Timer',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.schedule,
                               'Timesheets',
+                              () {},
                             ),
                           ]),
                           _buildExpandableDialogOption(context, 'Expenses', [
@@ -155,11 +201,13 @@ class MainMenu extends StatelessWidget {
                               context,
                               Icons.money,
                               'Expense Lines',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.receipt,
                               'Expenses',
+                              () {},
                             ),
                           ]),
                           _buildExpandableDialogOption(
@@ -170,11 +218,13 @@ class MainMenu extends StatelessWidget {
                                 context,
                                 Icons.beach_access,
                                 'Leaves',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.check_circle,
                                 'Complete Request',
+                                () {},
                               ),
                             ],
                           ),
@@ -184,6 +234,7 @@ class MainMenu extends StatelessWidget {
                             context,
                             Icons.check,
                             'Control Entries',
+                            () {},
                           ),
                         ]),
                         _buildMenuItem(context, Icons.build, 'Intervention', [
@@ -195,21 +246,25 @@ class MainMenu extends StatelessWidget {
                                 context,
                                 Icons.timer,
                                 'Active Intervention',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.today,
                                 'Of the Day',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.schedule,
                                 'Planned',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.history,
                                 'History',
+                                () {},
                               ),
                             ],
                           ),
@@ -218,6 +273,7 @@ class MainMenu extends StatelessWidget {
                               context,
                               Icons.devices,
                               'Customer Park',
+                              () {},
                             ),
                           ]),
                         ]),
@@ -230,21 +286,25 @@ class MainMenu extends StatelessWidget {
                                 context,
                                 Icons.category,
                                 'Products & Services',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.description,
                                 'Sale Quotations',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.shopping_bag,
                                 'Sale Orders',
+                                () {},
                               ),
                               _buildDialogOption(
                                 context,
                                 Icons.group,
                                 'Clients',
+                                () {},
                               ),
                             ],
                           ),
@@ -254,17 +314,25 @@ class MainMenu extends StatelessWidget {
                             context,
                             Icons.timer,
                             'Active Project',
+                            () {},
                           ),
-                          _buildDialogOption(context, Icons.folder, 'Projects'),
+                          _buildDialogOption(
+                            context,
+                            Icons.folder,
+                            'Projects',
+                            () {},
+                          ),
                           _buildDialogOption(
                             context,
                             Icons.business,
                             'Business Projects',
+                            () {},
                           ),
                           _buildDialogOption(
                             context,
                             Icons.check_circle,
                             'Tasks',
+                            () {},
                           ),
                         ]),
                         _buildMenuItem(context, Icons.folder, 'DMS', [
@@ -272,6 +340,7 @@ class MainMenu extends StatelessWidget {
                             context,
                             Icons.folder_open,
                             'All Documents',
+                            () {},
                           ),
                         ]),
                         _buildMenuItem(
@@ -283,11 +352,13 @@ class MainMenu extends StatelessWidget {
                               context,
                               Icons.request_page,
                               'Internal Requests',
+                              () {},
                             ),
                             _buildDialogOption(
                               context,
                               Icons.add,
                               'Create Request',
+                              () {},
                             ),
                           ],
                         ),
@@ -315,7 +386,10 @@ class MainMenu extends StatelessWidget {
         if (options.isNotEmpty) {
           _showOptionsDialog(context, label, options);
         } else {
-          Navigator.pop(context); // Close the drawer
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => IndexPage()),
+          );
         }
       },
       child: Container(
@@ -390,12 +464,14 @@ class MainMenu extends StatelessWidget {
     );
   }
 
-  Widget _buildDialogOption(BuildContext context, IconData icon, String label) {
+  Widget _buildDialogOption(
+    BuildContext context,
+    IconData icon,
+    String label,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
-      onTap: () {
-        // Handle option click
-        Navigator.pop(context); // Close the dialog
-      },
+      onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
