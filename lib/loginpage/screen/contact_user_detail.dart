@@ -1,3 +1,4 @@
+import 'package:clone_aom/loginpage/screen/contact_user_edit.dart';
 import 'package:flutter/material.dart';
 
 import 'components/contact_user_tile.dart';
@@ -81,7 +82,7 @@ class ContactUserDetail extends StatelessWidget {
           Positioned(
             left: 0,
             right: 0,
-            top: 0,
+            top: -10,
             child: _UserHeaderCard(
               avatar: 'assets/images/female_avatar.png',
               name: username,
@@ -92,7 +93,12 @@ class ContactUserDetail extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple.shade200,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ContactUserEdit()),
+          );
+        },
         child: const Icon(Icons.edit, color: Colors.black, size: 32),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -103,7 +109,8 @@ class ContactUserDetail extends StatelessWidget {
   // Custom Contact Section
   Widget _buildContactSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -125,8 +132,6 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Icon(Icons.contact_page, color: Colors.black),
-              const SizedBox(width: 8),
               const Text(
                 'Contact',
                 style: TextStyle(
@@ -236,7 +241,7 @@ class ContactUserDetail extends StatelessWidget {
   // General informations Section
   Widget _buildGeneralInfoSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -291,7 +296,7 @@ class ContactUserDetail extends StatelessWidget {
   // Events Section
   Widget _buildEventsSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -338,7 +343,7 @@ class ContactUserDetail extends StatelessWidget {
   // Linked clients and/or prospects Section
   Widget _buildLinkedClientsSection() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -418,7 +423,7 @@ class _UserHeaderCard extends StatelessWidget {
       elevation: 4,
       borderRadius: BorderRadius.circular(18),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(18),
