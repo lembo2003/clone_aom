@@ -281,39 +281,46 @@ class _ContactPageState extends State<ContactPage> {
                         );
                       }
 
-                      return ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        itemCount: filteredEmployees.length,
-                        itemBuilder: (context, index) {
-                          final employee = filteredEmployees[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ContactUserDetail(
-                                    name: employee.fullName,
-                                    code: employee.code,
-                                    company: employee.department.organization.name,
-                                    phone: employee.mobile,
-                                    email: employee.email,
-                                    isFemale: employee.gender.toLowerCase() == 'female',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: ContactUserTileFromJson(
-                              name: employee.fullName,
-                              code: employee.code,
-                              company: employee.department.organization.name,
-                              birthday: employee.birthDate,
-                              phone: employee.mobile,
-                              email: employee.email,
-                              isFemale:
-                                  employee.gender.toLowerCase() == 'female',
-                            ),
-                          );
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          setState(() {
+                            _futureEmployee = _employeeService.fetchEmployees();
+                          });
                         },
+                        child: ListView.builder(
+                          padding: EdgeInsets.symmetric(vertical: 8),
+                          itemCount: filteredEmployees.length,
+                          itemBuilder: (context, index) {
+                            final employee = filteredEmployees[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ContactUserDetail(
+                                      name: employee.fullName,
+                                      code: employee.code,
+                                      company: employee.department.organization.name,
+                                      phone: employee.mobile,
+                                      email: employee.email,
+                                      isFemale: employee.gender.toLowerCase() == 'female',
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: ContactUserTileFromJson(
+                                name: employee.fullName,
+                                code: employee.code,
+                                company: employee.department.organization.name,
+                                birthday: employee.birthDate,
+                                phone: employee.mobile,
+                                email: employee.email,
+                                isFemale:
+                                    employee.gender.toLowerCase() == 'female',
+                              ),
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return Center(
