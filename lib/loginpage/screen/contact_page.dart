@@ -1,8 +1,9 @@
+import 'package:clone_aom/loginpage/models/employee_response.dart';
+import 'package:clone_aom/loginpage/screen/components/contact_user_tile_from_json.dart';
 import 'package:clone_aom/loginpage/screen/components/main_menu.dart';
 import 'package:clone_aom/loginpage/screen/contact_user_detail.dart';
+import 'package:clone_aom/loginpage/services/contact_services.dart';
 import 'package:flutter/material.dart';
-
-import 'components/contact_user_tile.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -14,6 +15,24 @@ class ContactPage extends StatefulWidget {
 class _ContactPageState extends State<ContactPage> {
   int _selectedTab = 0;
   final TextEditingController _searchController = TextEditingController();
+
+  //LIST OF CONTACT - API
+  late Future<EmployeeResponse> _futureEmployee;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureEmployee = EmployeeApiServices.fetchEmployees();
+    _searchController.addListener(() {
+      setState(() {}); // Trigger rebuild when search text changes
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,105 +180,157 @@ class _ContactPageState extends State<ContactPage> {
             ),
             // The rest of the page (contacts list, etc.)
             Expanded(
-              child: ListView(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) =>
-                                  ContactUserDetail(username: "ARAFI Zohra"),
+              child: FutureBuilder<EmployeeResponse>(
+                future: _futureEmployee,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 16),
+                          Text(
+                            'Loading contacts...',
+                            style: TextStyle(fontFamily: 'Montserrat'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            size: 64,
+                            color: Colors.red,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            "Error loading contacts",
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            '${snapshot.error}',
+                            style: TextStyle(fontFamily: 'Montserrat'),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _futureEmployee =
+                                    EmployeeApiServices.fetchEmployees();
+                              });
+                            },
+                            child: Text("Retry"),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasData) {
+                    final apiResponse = snapshot.data!;
+                    if (apiResponse.success) {
+                      final employees = apiResponse.data.content;
+                      final filteredEmployees =
+                          employees.where((employee) {
+                            final searchTerm =
+                                _searchController.text.toLowerCase();
+                            return employee.fullName.toLowerCase().contains(
+                                  searchTerm,
+                                ) ||
+                                employee.code.toLowerCase().contains(
+                                  searchTerm,
+                                ) ||
+                                employee.email.toLowerCase().contains(
+                                  searchTerm,
+                                ) ||
+                                employee.mobile.toLowerCase().contains(
+                                  searchTerm,
+                                );
+                          }).toList();
+
+                      if (filteredEmployees.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search_off,
+                                size: 64,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                "No contacts found",
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      return ListView.builder(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        itemCount: filteredEmployees.length,
+                        itemBuilder: (context, index) {
+                          final employee = filteredEmployees[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ContactUserDetail(
+                                    name: employee.fullName,
+                                    code: employee.code,
+                                    company: employee.department.organization.name,
+                                    phone: employee.mobile,
+                                    email: employee.email,
+                                    isFemale: employee.gender.toLowerCase() == 'female',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: ContactUserTileFromJson(
+                              name: employee.fullName,
+                              code: employee.code,
+                              company: employee.department.organization.name,
+                              birthday: employee.birthDate,
+                              phone: employee.mobile,
+                              email: employee.email,
+                              isFemale:
+                                  employee.gender.toLowerCase() == 'female',
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return Center(
+                        child: Text(
+                          apiResponse.message,
+                          style: TextStyle(fontFamily: 'Montserrat'),
                         ),
                       );
-                    },
-                    child: ContactUserTile(
-                      name: "ARAFI Zohra",
-                      code: "P0020",
-                      company: "P0018 - BOURGEOIS INDUSTRIES",
-                      address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                      phone: "01.72.29.71.99",
-                      email: "z.arafi@bourgeois-industries.fr",
-                      isFemale: true,
+                    }
+                  }
+                  return Center(
+                    child: Text(
+                      'No data available',
+                      style: TextStyle(fontFamily: 'Montserrat'),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) =>
-                                  ContactUserDetail(username: "BLANC Bernard"),
-                        ),
-                      );
-                    },
-                    child: ContactUserTile(
-                      name: "BLANC Bernard",
-                      code: "P0007",
-                      company: "P0005 - BLUEBERRY TELECOM",
-                      address: "75 RUE MARCEL SEMBAT 13000 MARSEILLE",
-                      phone: "04.32.13.60.99",
-                      email: "b.blanc@blueberry-telecom.fr",
-                      isFemale: false,
-                    ),
-                  ),
-                  ContactUserTile(
-                    name: "ARAFI Zohra",
-                    code: "P0020",
-                    company: "P0018 - BOURGEOIS INDUSTRIES",
-                    address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                    phone: "01.72.29.71.99",
-                    email: "z.arafi@bourgeois-industries.fr",
-                    isFemale: true,
-                  ),
-                  ContactUserTile(
-                    name: "ARAFI Zohra",
-                    code: "P0020",
-                    company: "P0018 - BOURGEOIS INDUSTRIES",
-                    address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                    phone: "01.72.29.71.99",
-                    email: "z.arafi@bourgeois-industries.fr",
-                    isFemale: true,
-                  ),
-                  ContactUserTile(
-                    name: "ARAFI Zohra",
-                    code: "P0020",
-                    company: "P0018 - BOURGEOIS INDUSTRIES",
-                    address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                    phone: "01.72.29.71.99",
-                    email: "z.arafi@bourgeois-industries.fr",
-                    isFemale: true,
-                  ),
-                  ContactUserTile(
-                    name: "ARAFI Zohra",
-                    code: "P0020",
-                    company: "P0018 - BOURGEOIS INDUSTRIES",
-                    address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                    phone: "01.72.29.71.99",
-                    email: "z.arafi@bourgeois-industries.fr",
-                    isFemale: true,
-                  ),
-                  ContactUserTile(
-                    name: "ARAFI Zohra",
-                    code: "P0020",
-                    company: "P0018 - BOURGEOIS INDUSTRIES",
-                    address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                    phone: "01.72.29.71.99",
-                    email: "z.arafi@bourgeois-industries.fr",
-                    isFemale: true,
-                  ),
-                  ContactUserTile(
-                    name: "ARAFI Zohra",
-                    code: "P0020",
-                    company: "P0018 - BOURGEOIS INDUSTRIES",
-                    address: "10 RUE DES ARCHIVES 94000 CRETEIL",
-                    phone: "01.72.29.71.99",
-                    email: "z.arafi@bourgeois-industries.fr",
-                    isFemale: true,
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ],

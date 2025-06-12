@@ -4,8 +4,22 @@ import 'package:flutter/material.dart';
 import 'components/contact_user_tile.dart';
 
 class ContactUserDetail extends StatelessWidget {
-  final String username;
-  const ContactUserDetail({super.key, required this.username});
+  final String name;
+  final String code;
+  final String company;
+  final String phone;
+  final String email;
+  final bool isFemale;
+
+  const ContactUserDetail({
+    super.key, 
+    required this.name,
+    required this.code,
+    required this.company,
+    required this.phone,
+    required this.email,
+    required this.isFemale,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +73,13 @@ class ContactUserDetail extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       child: ContactUserTile(
-                        name: 'BOURGEOIS INDUSTRIE',
-                        code: 'P0018',
-                        company: '',
-                        address: '10 RUE DES ARCHIVES 94000 CRETEIL',
-                        phone: '01.97.37.77.99',
-                        email: 'info@bourgeois-industries.fr',
-                        isFemale: false,
+                        name: name,
+                        code: code,
+                        company: company,
+                        address: '',
+                        phone: phone,
+                        email: email,
+                        isFemale: isFemale,
                       ),
                     ),
                     // Custom expansion tiles
@@ -84,9 +98,9 @@ class ContactUserDetail extends StatelessWidget {
             right: 0,
             top: -10,
             child: _UserHeaderCard(
-              avatar: 'assets/images/female_avatar.png',
-              name: username,
-              company: 'P0018 - BOURGEOIS INDUSTRIE',
+              avatar: isFemale ? 'assets/images/female_avatar.png' : 'assets/images/male_avatar.png',
+              name: name,
+              company: '$code - $company',
             ),
           ),
         ],
