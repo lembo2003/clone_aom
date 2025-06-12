@@ -15,6 +15,7 @@ class ContactPage extends StatefulWidget {
 class _ContactPageState extends State<ContactPage> {
   int _selectedTab = 0;
   final TextEditingController _searchController = TextEditingController();
+  final EmployeeApiServices _employeeService = EmployeeApiServices();
 
   //LIST OF CONTACT - API
   late Future<EmployeeResponse> _futureEmployee;
@@ -22,7 +23,7 @@ class _ContactPageState extends State<ContactPage> {
   @override
   void initState() {
     super.initState();
-    _futureEmployee = EmployeeApiServices.fetchEmployees();
+    _futureEmployee = _employeeService.fetchEmployees();
     _searchController.addListener(() {
       setState(() {}); // Trigger rebuild when search text changes
     });
@@ -226,8 +227,7 @@ class _ContactPageState extends State<ContactPage> {
                           ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                _futureEmployee =
-                                    EmployeeApiServices.fetchEmployees();
+                                _futureEmployee = _employeeService.fetchEmployees();
                               });
                             },
                             child: Text("Retry"),
