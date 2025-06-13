@@ -1,6 +1,6 @@
-import 'package:clone_aom/loginpage/screen/components/login_tiles.dart';
-import 'package:clone_aom/loginpage/screen/index_page.dart';
-import 'package:clone_aom/loginpage/services/auth_service.dart';
+import 'package:clone_aom/packages/screen/components/login_tiles.dart';
+import 'package:clone_aom/packages/screen/index_page.dart';
+import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {

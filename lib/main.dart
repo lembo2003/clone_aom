@@ -1,9 +1,13 @@
 import 'package:clone_aom/firebase_options.dart';
-import 'package:clone_aom/loginpage/screen/login_page.dart';
-import 'package:clone_aom/loginpage/services/firebase_api.dart';
+import 'package:clone_aom/l10n/app_localizations.dart';
+import 'package:clone_aom/packages/screen/login_page.dart';
+import 'package:clone_aom/packages/services/firebase_api.dart';
+import 'package:clone_aom/providers/language_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +24,9 @@ void main() async {
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   OneSignal.initialize("126c5868-73ff-49f7-aaf0-b30546856d6a");
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(create: (_) => LanguageProvider(), child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,13 +34,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const LoginPage(),
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          ),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('en'), Locale('vi')],
+          locale: languageProvider.currentLocale,
+          home: const LoginPage(),
+        );
+      },
     );
   }
 }

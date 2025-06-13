@@ -1,5 +1,5 @@
-import 'package:clone_aom/loginpage/screen/contact_page.dart';
-import 'package:clone_aom/loginpage/screen/index_page.dart';
+import 'package:clone_aom/packages/screen/contact_page.dart';
+import 'package:clone_aom/packages/screen/index_page.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:clone_aom/loginpage/screen/login_page.dart';
+import 'package:clone_aom/packages/screen/login_page.dart';
 import 'package:flutter/material.dart';
 
 class IndexUserTiles extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:clone_aom/loginpage/models/employee_response.dart';
-import 'package:clone_aom/loginpage/services/auth_service.dart';
+import 'package:clone_aom/packages/models/employee_response.dart';
+import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 
 class EmployeeApiServices {
@@ -16,11 +16,8 @@ class EmployeeApiServices {
 
       // Get auth headers with token
       final headers = await _authService.getAuthHeaders();
-      
-      final response = await http.post(
-        url,
-        headers: headers,
-      );
+
+      final response = await http.post(url, headers: headers);
 
       print('Response status code: ${response.statusCode}'); // Debug log
       print('Response body: ${response.body}'); // Debug log

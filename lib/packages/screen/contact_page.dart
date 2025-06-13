@@ -1,8 +1,8 @@
-import 'package:clone_aom/loginpage/models/employee_response.dart';
-import 'package:clone_aom/loginpage/screen/components/contact_user_tile_from_json.dart';
-import 'package:clone_aom/loginpage/screen/components/main_menu.dart';
-import 'package:clone_aom/loginpage/screen/contact_user_detail.dart';
-import 'package:clone_aom/loginpage/services/contact_services.dart';
+import 'package:clone_aom/packages/models/employee_response.dart';
+import 'package:clone_aom/packages/screen/components/contact_user_tile_from_json.dart';
+import 'package:clone_aom/packages/screen/components/main_menu.dart';
+import 'package:clone_aom/packages/screen/contact_user_detail.dart';
+import 'package:clone_aom/packages/services/contact_services.dart';
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatefulWidget {
@@ -227,7 +227,8 @@ class _ContactPageState extends State<ContactPage> {
                           ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                _futureEmployee = _employeeService.fetchEmployees();
+                                _futureEmployee =
+                                    _employeeService.fetchEmployees();
                               });
                             },
                             child: Text("Retry"),
@@ -297,14 +298,21 @@ class _ContactPageState extends State<ContactPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => ContactUserDetail(
-                                      name: employee.fullName,
-                                      code: employee.code,
-                                      company: employee.department.organization.name,
-                                      phone: employee.mobile,
-                                      email: employee.email,
-                                      isFemale: employee.gender.toLowerCase() == 'female',
-                                    ),
+                                    builder:
+                                        (context) => ContactUserDetail(
+                                          name: employee.fullName,
+                                          code: employee.code,
+                                          company:
+                                              employee
+                                                  .department
+                                                  .organization
+                                                  .name,
+                                          phone: employee.mobile,
+                                          email: employee.email,
+                                          isFemale:
+                                              employee.gender.toLowerCase() ==
+                                              'female',
+                                        ),
                                   ),
                                 );
                               },
