@@ -161,7 +161,7 @@ class _PDFTestPageState extends State<PDFTestPage> {
     if (selectedFilePath != null) {
       return PdfViewer.file(selectedFilePath!);
     } else {
-      return PdfViewer.asset('assets/pdf/BANG_TN.pdf');
+      return PdfViewer.asset('assets/pdf/hey.pdf');
     }
   }
 

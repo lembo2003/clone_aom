@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/models/employee_response.dart';
 import 'package:clone_aom/packages/screen/components/contact_user_tile_from_json.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
@@ -37,6 +38,7 @@ class _ContactPageState extends State<ContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context);
     return Scaffold(
       drawer: MainMenu(),
       body: SafeArea(
@@ -60,7 +62,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Contacts',
+                    localization.employeeList,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
@@ -96,7 +98,7 @@ class _ContactPageState extends State<ContactPage> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            'All',
+                            localization.all,
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w600,
@@ -124,7 +126,7 @@ class _ContactPageState extends State<ContactPage> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            'Assigned to me',
+                            localization.assignedToMe,
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w600,
@@ -158,7 +160,7 @@ class _ContactPageState extends State<ContactPage> {
                         controller: _searchController,
                         style: TextStyle(fontFamily: 'Montserrat'),
                         decoration: InputDecoration(
-                          hintText: 'Contacts',
+                          hintText: localization.employeeList,
                           hintStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Colors.grey,
