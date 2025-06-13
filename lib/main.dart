@@ -1,5 +1,4 @@
 import 'package:clone_aom/firebase_options.dart';
-import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/screen/login_page.dart';
 import 'package:clone_aom/packages/services/firebase_api.dart';
 import 'package:clone_aom/providers/language_provider.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
+
+import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(),
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

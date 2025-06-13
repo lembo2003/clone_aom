@@ -1,0 +1,34 @@
+{
+    "welcome": "Welcome",
+    "@welcome": {
+        "description": "Welcome message"
+    },
+    "selectLanguage": "Select Language",
+    "@selectLanguage": {
+        "description": "Language selection label"
+    },
+    "english": "English",
+    "@english": {
+        "description": "English language name"
+    },
+    "vietnamese": "Vietnamese",
+    "@vietnamese": {
+        "description": "Vietnamese language name"
+    },
+    "goToPdfDemo": "Go to PDF DEMO",
+    "@goToPdfDemo": {
+        "description": "Navigation label for PDF demo"
+    },
+    "all": "All",
+    "@all": {
+        "description": "All items label"
+    },
+    "assignedToMe": "Assigned to me",
+    "@assignedToMe": {
+        "description": "Tasks assigned to current user"
+    },
+    "employeeList": "Employee List",
+    "@employeeList": {
+        "description": "Employee list label"
+    }
+} 
