@@ -142,6 +142,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Employee List'**
   String get employeeList;
+
+  /// All the texts that have login
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginText;
+
+  /// Username label
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get userName;
+
+  /// Password label
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// Default session label
+  ///
+  /// In en, this message translates to:
+  /// **'Default Session?'**
+  String get defaultSession;
+
+  /// No description provided for @detailHomeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee detail:'**
+  String get detailHomeLabel;
+
+  /// No description provided for @detailEmployee_basicInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic information'**
+  String get detailEmployee_basicInformation;
+
+  /// No description provided for @detailEmployee_attendanceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance Code'**
+  String get detailEmployee_attendanceCode;
+
+  /// No description provided for @detailEmployee_recordID.
+  ///
+  /// In en, this message translates to:
+  /// **'Record ID'**
+  String get detailEmployee_recordID;
+
+  /// No description provided for @detailEmployee_employeeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee Name'**
+  String get detailEmployee_employeeName;
+
+  /// No description provided for @detailEmployee_birthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'BirthDate'**
+  String get detailEmployee_birthDate;
+
+  /// No description provided for @detailEmployee_gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get detailEmployee_gender;
+
+  /// No description provided for @detailEmployee_pob.
+  ///
+  /// In en, this message translates to:
+  /// **'Place of birth'**
+  String get detailEmployee_pob;
+
+  /// No description provided for @detailEmployee_nationality.
+  ///
+  /// In en, this message translates to:
+  /// **'Nationality'**
+  String get detailEmployee_nationality;
+
+  /// No description provided for @detailEmployee_ethnicGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Ethnic Group'**
+  String get detailEmployee_ethnicGroup;
+
+  /// No description provided for @detailEmployee_maritalStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Marital Status'**
+  String get detailEmployee_maritalStatus;
+
+  /// No description provided for @detailEmployee_religion.
+  ///
+  /// In en, this message translates to:
+  /// **'Religion'**
+  String get detailEmployee_religion;
+
+  /// No description provided for @detailEmployee_highSchoolLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'High school level'**
+  String get detailEmployee_highSchoolLevel;
+
+  /// No description provided for @detailEmployee_specialization.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialization'**
+  String get detailEmployee_specialization;
+
+  /// No description provided for @detailEmployee_personalTaxCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Tax Code'**
+  String get detailEmployee_personalTaxCode;
+
+  /// No description provided for @detailEmployee_citizenIdentificationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizen Identification Info'**
+  String get detailEmployee_citizenIdentificationInfo;
+
+  /// No description provided for @detailEmployee_citizenID.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizen ID'**
+  String get detailEmployee_citizenID;
+
+  /// No description provided for @detailEmployee_issueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Date'**
+  String get detailEmployee_issueDate;
+
+  /// No description provided for @detailEmployee_issuePlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Place'**
+  String get detailEmployee_issuePlace;
+
+  /// No description provided for @detailEmployee_frontIdCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Front ID Card'**
+  String get detailEmployee_frontIdCard;
+
+  /// No description provided for @detailEmployee_backIdCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Back ID Card'**
+  String get detailEmployee_backIdCard;
+
+  /// No description provided for @detailEmployee_bankAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Account'**
+  String get detailEmployee_bankAccount;
+
+  /// No description provided for @detailEmployee_bankName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Name'**
+  String get detailEmployee_bankName;
+
+  /// No description provided for @detailEmployee_cardNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Number'**
+  String get detailEmployee_cardNumber;
+
+  /// No description provided for @detailEmployee_accountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name'**
+  String get detailEmployee_accountName;
+
+  /// No description provided for @detailEmployee_health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get detailEmployee_health;
+
+  /// No description provided for @detailEmployee_height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get detailEmployee_height;
+
+  /// No description provided for @detailEmployee_weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get detailEmployee_weight;
+
+  /// No description provided for @detailEmployee_bloodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood Type'**
+  String get detailEmployee_bloodType;
+
+  /// No description provided for @detailEmployee_attachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment'**
+  String get detailEmployee_attachment;
+
+  /// No description provided for @detailEmployee_contactInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Information'**
+  String get detailEmployee_contactInfo;
+
+  /// No description provided for @detailEmployee_phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get detailEmployee_phoneNumber;
+
+  /// No description provided for @detailEmployee_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get detailEmployee_email;
+
+  /// No description provided for @detailEmployee_houseNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'House Number, Street'**
+  String get detailEmployee_houseNumber;
+
+  /// No description provided for @detailEmployee_wardCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Ward, District, City'**
+  String get detailEmployee_wardCity;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

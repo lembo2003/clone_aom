@@ -31,4 +31,121 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get employeeList => 'Employee List';
+
+  @override
+  String get loginText => 'Login';
+
+  @override
+  String get userName => 'Username';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get defaultSession => 'Default Session?';
+
+  @override
+  String get detailHomeLabel => 'Employee detail:';
+
+  @override
+  String get detailEmployee_basicInformation => 'Basic information';
+
+  @override
+  String get detailEmployee_attendanceCode => 'Attendance Code';
+
+  @override
+  String get detailEmployee_recordID => 'Record ID';
+
+  @override
+  String get detailEmployee_employeeName => 'Employee Name';
+
+  @override
+  String get detailEmployee_birthDate => 'BirthDate';
+
+  @override
+  String get detailEmployee_gender => 'Gender';
+
+  @override
+  String get detailEmployee_pob => 'Place of birth';
+
+  @override
+  String get detailEmployee_nationality => 'Nationality';
+
+  @override
+  String get detailEmployee_ethnicGroup => 'Ethnic Group';
+
+  @override
+  String get detailEmployee_maritalStatus => 'Marital Status';
+
+  @override
+  String get detailEmployee_religion => 'Religion';
+
+  @override
+  String get detailEmployee_highSchoolLevel => 'High school level';
+
+  @override
+  String get detailEmployee_specialization => 'Specialization';
+
+  @override
+  String get detailEmployee_personalTaxCode => 'Personal Tax Code';
+
+  @override
+  String get detailEmployee_citizenIdentificationInfo => 'Citizen Identification Info';
+
+  @override
+  String get detailEmployee_citizenID => 'Citizen ID';
+
+  @override
+  String get detailEmployee_issueDate => 'Issue Date';
+
+  @override
+  String get detailEmployee_issuePlace => 'Issue Place';
+
+  @override
+  String get detailEmployee_frontIdCard => 'Front ID Card';
+
+  @override
+  String get detailEmployee_backIdCard => 'Back ID Card';
+
+  @override
+  String get detailEmployee_bankAccount => 'Bank Account';
+
+  @override
+  String get detailEmployee_bankName => 'Bank Name';
+
+  @override
+  String get detailEmployee_cardNumber => 'Card Number';
+
+  @override
+  String get detailEmployee_accountName => 'Account Name';
+
+  @override
+  String get detailEmployee_health => 'Health';
+
+  @override
+  String get detailEmployee_height => 'Height';
+
+  @override
+  String get detailEmployee_weight => 'Weight';
+
+  @override
+  String get detailEmployee_bloodType => 'Blood Type';
+
+  @override
+  String get detailEmployee_attachment => 'Attachment';
+
+  @override
+  String get detailEmployee_contactInfo => 'Contact Information';
+
+  @override
+  String get detailEmployee_phoneNumber => 'Phone Number';
+
+  @override
+  String get detailEmployee_email => 'Email';
+
+  @override
+  String get detailEmployee_houseNumber => 'House Number, Street';
+
+  @override
+  String get detailEmployee_wardCity => 'Ward, District, City';
 }

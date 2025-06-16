@@ -4,6 +4,8 @@ import 'package:clone_aom/packages/models/employee_response.dart';
 import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/employeeDetail_response.dart';
+
 class EmployeeApiServices {
   static const String baseUrl = 'http://dev-api.intechno.io.vn';
   final AuthService _authService = AuthService();
@@ -40,4 +42,39 @@ class EmployeeApiServices {
   }
 
   //other functions
+}
+
+class EmployeeDetailApiServices {
+  static const String baseUrl = 'http://dev-gateway.intechno.io.vn';
+  final AuthService _authService = AuthService();
+
+  Future<EmployeeDetailResponse> fetchEmployeeDetail(int employeeId) async {
+    try {
+      final url = Uri.parse('$baseUrl/hcm/employee/$employeeId/detail');
+      print('Fetching employee detail from: $url'); // Debug log
+
+      // Get auth headers with token
+      final headers = await _authService.getAuthHeaders();
+
+      final response = await http.get(url, headers: headers);
+
+      print('Response status code: ${response.statusCode}'); // Debug log
+      print('Response body: ${response.body}'); // Debug log
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return EmployeeDetailResponse.fromJson(jsonData);
+      } else if (response.statusCode == 401) {
+        // Handle unauthorized error (token expired or invalid)
+        throw Exception('Authentication failed. Please login again.');
+      } else {
+        throw Exception(
+          'Failed to fetch employee detail: ${response.statusCode} - ${response.body}',
+        );
+      }
+    } catch (e) {
+      print('Error fetching employee detail: $e'); // Debug log
+      throw Exception('Network error: $e');
+    }
+  }
 }

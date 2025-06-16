@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/screen/contact_user_edit.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +33,12 @@ class ContactUserDetail extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Contact',
+        title: Text(
+          AppLocalizations.of(context)!.detailHomeLabel,
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
@@ -83,15 +84,14 @@ class ContactUserDetail extends StatelessWidget {
                     //   ),
                     // ),
                     // Custom expansion tiles
-                    _buildBasicInfoSection(),
-                    _buildCitizenIdentificationSection(),
-                    _buildBankAccountSection(),
-                    _buildFamilyInformationSection(),
-                    _buildWorkExperienceSection(),
-                    _buildCertificateSection(),
-                    _buildHealthSection(),
-                    _buildContactInfomationSection(),
-                    _buildLinkedClientsSection(),
+                    _buildBasicInfoSection(context),
+                    _buildCitizenIdentificationSection(context),
+                    _buildBankAccountSection(context),
+                    _buildHealthSection(context),
+                    _buildContactInfomationSection(context),
+                    _buildFamilyInformationSection(context),
+                    _buildWorkExperienceSection(context),
+                    _buildCertificateSection(context),
                   ],
                 ),
               ),
@@ -129,7 +129,7 @@ class ContactUserDetail extends StatelessWidget {
   }
 
   // Custom Contact Section
-  Widget _buildBasicInfoSection() {
+  Widget _buildBasicInfoSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -154,8 +154,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Basic information',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_basicInformation,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -169,60 +169,67 @@ class ContactUserDetail extends StatelessWidget {
           children: [
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Attendance Code',
+              AppLocalizations.of(context)!.detailEmployee_attendanceCode,
               'NULL',
             ),
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Profile Code',
+              AppLocalizations.of(context)!.detailEmployee_recordID,
               'NULL',
             ),
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Employee Name',
-              'NULL',
-            ),
-            _buildContactRow(Icons.calendar_month_sharp, 'Birth Date', 'NULL'),
-            _buildContactRow(Icons.people_sharp, 'Gender', 'NULL'),
-            _buildContactRow(
-              Icons.account_circle_rounded,
-              'Place of birth',
+              AppLocalizations.of(context)!.detailEmployee_employeeName,
               'NULL',
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Nationality',
+              Icons.calendar_month_sharp,
+              AppLocalizations.of(context)!.detailEmployee_birthDate,
               'NULL',
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Ethnic Group',
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_gender,
               'NULL',
             ),
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Marital Status',
+              AppLocalizations.of(context)!.detailEmployee_pob,
               'NULL',
             ),
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Nationality',
-              'NULL',
-            ),
-            _buildContactRow(Icons.account_circle_rounded, 'Religion', 'NULL'),
-            _buildContactRow(
-              Icons.account_circle_rounded,
-              'High School Level',
+              AppLocalizations.of(context)!.detailEmployee_nationality,
               'NULL',
             ),
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Specialization',
+              AppLocalizations.of(context)!.detailEmployee_ethnicGroup,
               'NULL',
             ),
             _buildContactRow(
               Icons.account_circle_rounded,
-              'Personal Tax Code',
+              AppLocalizations.of(context)!.detailEmployee_maritalStatus,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.account_circle_rounded,
+              AppLocalizations.of(context)!.detailEmployee_religion,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.account_circle_rounded,
+              AppLocalizations.of(context)!.detailEmployee_highSchoolLevel,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.account_circle_rounded,
+              AppLocalizations.of(context)!.detailEmployee_specialization,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.account_circle_rounded,
+              AppLocalizations.of(context)!.detailEmployee_personalTaxCode,
               'NULL',
             ),
           ],
@@ -231,7 +238,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildContactInfomationSection() {
+  Widget _buildContactInfomationSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -256,8 +263,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Contact Information',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_contactInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -269,16 +276,25 @@ class ContactUserDetail extends StatelessWidget {
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
           children: [
-            _buildContactRow(Icons.phone, 'Phone number', '01.72.29.71.99'),
             _buildContactRow(
-              Icons.smartphone,
-              'Mobile phone',
-              '06.43.52.92.99',
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_phoneNumber,
+              'NULL',
             ),
             _buildContactRow(
-              Icons.email,
-              'Mail address',
-              'z.arafi@bourgeois-industries.fr',
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_email,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_houseNumber,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_wardCity,
+              'NULL',
             ),
           ],
         ),
@@ -286,7 +302,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildCitizenIdentificationSection() {
+  Widget _buildCitizenIdentificationSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -311,8 +327,10 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Citizen Identification',
+              Text(
+                AppLocalizations.of(
+                  context,
+                )!.detailEmployee_citizenIdentificationInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -323,13 +341,39 @@ class ContactUserDetail extends StatelessWidget {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_citizenID,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_issueDate,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_issuePlace,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_frontIdCard,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_backIdCard,
+              'NULL',
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildBankAccountSection() {
+  Widget _buildBankAccountSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -354,8 +398,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Bank Account',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_bankAccount,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -366,13 +410,29 @@ class ContactUserDetail extends StatelessWidget {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_bankName,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_cardNumber,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_accountName,
+              'NULL',
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildFamilyInformationSection() {
+  Widget _buildFamilyInformationSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -415,7 +475,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildWorkExperienceSection() {
+  Widget _buildWorkExperienceSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -458,7 +518,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildCertificateSection() {
+  Widget _buildCertificateSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -501,7 +561,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildHealthSection() {
+  Widget _buildHealthSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -526,8 +586,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Health',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_health,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -538,7 +598,28 @@ class ContactUserDetail extends StatelessWidget {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_height,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_weight,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_bloodType,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.people_sharp,
+              AppLocalizations.of(context)!.detailEmployee_attachment,
+              'NULL',
+            ),
+          ],
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/screen/components/login_tiles.dart';
 import 'package:clone_aom/packages/screen/index_page.dart';
 import 'package:clone_aom/packages/services/auth_service.dart';
@@ -14,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _authService = AuthService();
+
   bool _isLoading = false;
 
   void _handleLogin() async {
@@ -67,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.white,
           title: Center(
             child: Text(
-              'Login',
+              AppLocalizations.of(context)!.loginText,
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
@@ -89,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _usernameController,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.people_alt_rounded),
-                      hintText: 'Username',
+                      hintText: AppLocalizations.of(context)!.userName,
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -102,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: true,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.key),
-                      hintText: 'Password',
+                      hintText: AppLocalizations.of(context)!.password,
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -116,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                     ),
                     Text(
-                      'Default session?',
+                      AppLocalizations.of(context)!.defaultSession,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: "Montserrat",
@@ -142,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                         _isLoading
                             ? CircularProgressIndicator()
                             : Text(
-                              'Login',
+                              AppLocalizations.of(context)!.loginText,
                               style: TextStyle(fontFamily: "Montserrat"),
                             ),
                   ),
