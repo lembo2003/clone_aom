@@ -62,7 +62,7 @@ class _ContactPageState extends State<ContactPage> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    localization.employeeList,
+                    localization!.employeeList,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
@@ -314,6 +314,7 @@ class _ContactPageState extends State<ContactPage> {
                                           isFemale:
                                               employee.gender.toLowerCase() ==
                                               'female',
+                                          employeeId: employee.id,
                                         ),
                                   ),
                                 );

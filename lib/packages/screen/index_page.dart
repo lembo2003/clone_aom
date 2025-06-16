@@ -41,7 +41,7 @@ class IndexPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => PDFTestPage()),
               );
             },
-            child: Text(localizations.goToPdfDemo),
+            child: Text(localizations!.goToPdfDemo),
           ),
           SizedBox(height: 20),
           Container(

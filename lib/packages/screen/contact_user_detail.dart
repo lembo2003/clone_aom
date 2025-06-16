@@ -1,15 +1,19 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
+import 'package:clone_aom/packages/models/employeeDetail_response.dart';
 import 'package:clone_aom/packages/screen/contact_user_edit.dart';
+import 'package:clone_aom/packages/services/contact_services.dart';
 import 'package:flutter/material.dart';
 
 import 'components/contact_user_tile.dart';
 
-class ContactUserDetail extends StatelessWidget {
+class ContactUserDetail extends StatefulWidget {
   final String name;
   final String code;
   final String company;
   final String phone;
   final String email;
   final bool isFemale;
+  final int employeeId;
 
   const ContactUserDetail({
     super.key,
@@ -19,7 +23,25 @@ class ContactUserDetail extends StatelessWidget {
     required this.phone,
     required this.email,
     required this.isFemale,
+    required this.employeeId,
   });
+
+  @override
+  State<ContactUserDetail> createState() => _ContactUserDetailState();
+}
+
+class _ContactUserDetailState extends State<ContactUserDetail> {
+  final EmployeeDetailApiServices _employeeDetailService =
+      EmployeeDetailApiServices();
+  late Future<EmployeeDetailResponse> _futureEmployeeDetail;
+
+  @override
+  void initState() {
+    super.initState();
+    _futureEmployeeDetail = _employeeDetailService.fetchEmployeeDetail(
+      widget.employeeId,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +54,12 @@ class ContactUserDetail extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Contact',
+        title: Text(
+          AppLocalizations.of(context)!.detailHomeLabel,
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
@@ -55,63 +77,146 @@ class ContactUserDetail extends StatelessWidget {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          // Main content
-          Padding(
-            padding: const EdgeInsets.only(top: 60), // space for the user card
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
+      body: FutureBuilder<EmployeeDetailResponse>(
+        future: _futureEmployeeDetail,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  Text(
+                    'Loading employee details...',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: Colors.red,
+                    size: 60,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Error loading employee details',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Text(
+                      snapshot.error.toString(),
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        _futureEmployeeDetail = _employeeDetailService
+                            .fetchEmployeeDetail(widget.employeeId);
+                      });
+                    },
+                    icon: Icon(Icons.refresh),
+                    label: Text(
+                      'Retry',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 16,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
+                      backgroundColor: Colors.deepPurple.shade200,
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else if (snapshot.hasData) {
+            final employeeDetail = snapshot.data!.data.employee;
+
+            return Stack(
+              children: [
+                // Main content
+                Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 8,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildBasicInfoSection(context, employeeDetail),
+                          _buildCitizenIdentificationSection(context),
+                          _buildBankAccountSection(context),
+                          _buildHealthSection(context),
+                          _buildContactInfomationSection(context),
+                          _buildFamilyInformationSection(context),
+                          _buildWorkExperienceSection(context),
+                          _buildCertificateSection(context),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Company tile (reuse ContactUserTile)
-                    // Container(
-                    //   margin: const EdgeInsets.symmetric(vertical: 8),
-                    //   child: ContactUserTile(
-                    //     name: name,
-                    //     code: code,
-                    //     company: company,
-                    //     address: '',
-                    //     phone: phone,
-                    //     email: email,
-                    //     isFemale: isFemale,
-                    //   ),
-                    // ),
-                    // Custom expansion tiles
-                    _buildBasicInfoSection(),
-                    _buildCitizenIdentificationSection(),
-                    _buildBankAccountSection(),
-                    _buildFamilyInformationSection(),
-                    _buildWorkExperienceSection(),
-                    _buildCertificateSection(),
-                    _buildHealthSection(),
-                    _buildContactInfomationSection(),
-                    _buildLinkedClientsSection(),
-                  ],
+                // User info card overlapping app bar
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: -10,
+                  child: _UserHeaderCard(
+                    avatar:
+                        widget.isFemale
+                            ? 'assets/images/female_avatar.png'
+                            : 'assets/images/male_avatar.png',
+                    name: widget.name,
+                    company: '${widget.code} - ${widget.company}',
+                  ),
                 ),
+              ],
+            );
+          }
+          return const Center(
+            child: Text(
+              'No data available',
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 16,
               ),
             ),
-          ),
-          // User info card overlapping app bar
-          Positioned(
-            left: 0,
-            right: 0,
-            top: -10,
-            child: _UserHeaderCard(
-              avatar:
-                  isFemale
-                      ? 'assets/images/female_avatar.png'
-                      : 'assets/images/male_avatar.png',
-              name: name,
-              company: '$code - $company',
-            ),
-          ),
-        ],
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.deepPurple.shade200,
@@ -129,10 +234,12 @@ class ContactUserDetail extends StatelessWidget {
   }
 
   // Custom Contact Section
-  Widget _buildBasicInfoSection() {
+  Widget _buildBasicInfoSection(
+    BuildContext context,
+    EmployeeDetail employeeDetail,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -154,8 +261,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Basic information',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_basicInformation,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -168,62 +275,69 @@ class ContactUserDetail extends StatelessWidget {
           trailing: const Icon(Icons.expand_more, color: Colors.black),
           children: [
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Attendance Code',
-              'NULL',
+              Icons.badge,
+              AppLocalizations.of(context)!.detailEmployee_attendanceCode,
+              employeeDetail.code,
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Profile Code',
-              'NULL',
+              Icons.numbers,
+              AppLocalizations.of(context)!.detailEmployee_recordID,
+              employeeDetail.id.toString(),
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Employee Name',
-              'NULL',
-            ),
-            _buildContactRow(Icons.calendar_month_sharp, 'Birth Date', 'NULL'),
-            _buildContactRow(Icons.people_sharp, 'Gender', 'NULL'),
-            _buildContactRow(
-              Icons.account_circle_rounded,
-              'Place of birth',
-              'NULL',
+              Icons.person,
+              AppLocalizations.of(context)!.detailEmployee_employeeName,
+              employeeDetail.fullName,
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Nationality',
-              'NULL',
+              Icons.calendar_month_sharp,
+              AppLocalizations.of(context)!.detailEmployee_birthDate,
+              employeeDetail.birthDate,
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Ethnic Group',
-              'NULL',
+              Icons.wc,
+              AppLocalizations.of(context)!.detailEmployee_gender,
+              employeeDetail.gender,
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Marital Status',
-              'NULL',
+              Icons.location_city,
+              AppLocalizations.of(context)!.detailEmployee_pob,
+              employeeDetail.placeOfBirth ?? 'N/A',
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Nationality',
-              'NULL',
-            ),
-            _buildContactRow(Icons.account_circle_rounded, 'Religion', 'NULL'),
-            _buildContactRow(
-              Icons.account_circle_rounded,
-              'High School Level',
-              'NULL',
+              Icons.flag,
+              AppLocalizations.of(context)!.detailEmployee_nationality,
+              employeeDetail.nationality ?? 'N/A',
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Specialization',
-              'NULL',
+              Icons.groups,
+              AppLocalizations.of(context)!.detailEmployee_ethnicGroup,
+              employeeDetail.ethnicGroup ?? 'N/A',
             ),
             _buildContactRow(
-              Icons.account_circle_rounded,
-              'Personal Tax Code',
-              'NULL',
+              Icons.favorite,
+              AppLocalizations.of(context)!.detailEmployee_maritalStatus,
+              employeeDetail.maritalStatus ?? 'N/A',
+            ),
+            _buildContactRow(
+              Icons.church,
+              AppLocalizations.of(context)!.detailEmployee_religion,
+              employeeDetail.religion ?? 'N/A',
+            ),
+            _buildContactRow(
+              Icons.school,
+              AppLocalizations.of(context)!.detailEmployee_highSchoolLevel,
+              employeeDetail.highSchoolLevel ?? 'N/A',
+            ),
+            _buildContactRow(
+              Icons.psychology,
+              AppLocalizations.of(context)!.detailEmployee_specialization,
+              employeeDetail.specialization ?? 'N/A',
+            ),
+            _buildContactRow(
+              Icons.receipt_long,
+              AppLocalizations.of(context)!.detailEmployee_personalTaxCode,
+              employeeDetail.personalTaxCode ?? 'N/A',
             ),
           ],
         ),
@@ -231,7 +345,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildContactInfomationSection() {
+  Widget _buildContactInfomationSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -256,8 +370,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Contact Information',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_contactInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -269,16 +383,25 @@ class ContactUserDetail extends StatelessWidget {
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
           children: [
-            _buildContactRow(Icons.phone, 'Phone number', '01.72.29.71.99'),
             _buildContactRow(
-              Icons.smartphone,
-              'Mobile phone',
-              '06.43.52.92.99',
+              Icons.phone,
+              AppLocalizations.of(context)!.detailEmployee_phoneNumber,
+              'NULL',
             ),
             _buildContactRow(
               Icons.email,
-              'Mail address',
-              'z.arafi@bourgeois-industries.fr',
+              AppLocalizations.of(context)!.detailEmployee_email,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.home,
+              AppLocalizations.of(context)!.detailEmployee_houseNumber,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.location_on,
+              AppLocalizations.of(context)!.detailEmployee_wardCity,
+              'NULL',
             ),
           ],
         ),
@@ -286,7 +409,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildCitizenIdentificationSection() {
+  Widget _buildCitizenIdentificationSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -311,8 +434,10 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Citizen Identification',
+              Text(
+                AppLocalizations.of(
+                  context,
+                )!.detailEmployee_citizenIdentificationInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -323,13 +448,39 @@ class ContactUserDetail extends StatelessWidget {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            _buildContactRow(
+              Icons.badge,
+              AppLocalizations.of(context)!.detailEmployee_citizenID,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.date_range,
+              AppLocalizations.of(context)!.detailEmployee_issueDate,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.place,
+              AppLocalizations.of(context)!.detailEmployee_issuePlace,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.image,
+              AppLocalizations.of(context)!.detailEmployee_frontIdCard,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.image,
+              AppLocalizations.of(context)!.detailEmployee_backIdCard,
+              'NULL',
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildBankAccountSection() {
+  Widget _buildBankAccountSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -354,8 +505,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Bank Account',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_bankAccount,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -366,13 +517,29 @@ class ContactUserDetail extends StatelessWidget {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            _buildContactRow(
+              Icons.account_balance,
+              AppLocalizations.of(context)!.detailEmployee_bankName,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.credit_card,
+              AppLocalizations.of(context)!.detailEmployee_cardNumber,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.person,
+              AppLocalizations.of(context)!.detailEmployee_accountName,
+              'NULL',
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildFamilyInformationSection() {
+  Widget _buildFamilyInformationSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -415,7 +582,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildWorkExperienceSection() {
+  Widget _buildWorkExperienceSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -458,7 +625,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildCertificateSection() {
+  Widget _buildCertificateSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -501,7 +668,7 @@ class ContactUserDetail extends StatelessWidget {
     );
   }
 
-  Widget _buildHealthSection() {
+  Widget _buildHealthSection(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
@@ -526,8 +693,8 @@ class ContactUserDetail extends StatelessWidget {
           ),
           title: Row(
             children: [
-              const Text(
-                'Health',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_health,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -538,7 +705,28 @@ class ContactUserDetail extends StatelessWidget {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            _buildContactRow(
+              Icons.height,
+              AppLocalizations.of(context)!.detailEmployee_height,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.monitor_weight,
+              AppLocalizations.of(context)!.detailEmployee_weight,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.bloodtype,
+              AppLocalizations.of(context)!.detailEmployee_bloodType,
+              'NULL',
+            ),
+            _buildContactRow(
+              Icons.attach_file,
+              AppLocalizations.of(context)!.detailEmployee_attachment,
+              'NULL',
+            ),
+          ],
         ),
       ),
     );

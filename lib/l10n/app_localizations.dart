@@ -1,62 +1,411 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class AppLocalizations {
-  final Locale locale;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
 
-  AppLocalizations(this.locale);
+import 'app_localizations_en.dart';
+import 'app_localizations_vi.dart';
 
-  static AppLocalizations of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'l10n/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const _localizedValues = <String, Map<String, String>>{
-    'en': {
-      'welcome': 'Welcome',
-      'selectLanguage': 'Select Language',
-      'english': 'English',
-      'vietnamese': 'Vietnamese',
-      'goToPdfDemo': 'Go to PDF DEMO',
-      'all': 'All',
-      'assignedToMe': 'Assigned to me',
-      'employeeList': 'Employee List',
-    },
-    'vi': {
-      'welcome': 'Xin chào',
-      'selectLanguage': 'Chọn ngôn ngữ',
-      'english': 'Tiếng Anh',
-      'vietnamese': 'Tiếng Việt',
-      'goToPdfDemo': 'Đến trang PDF DEMO',
-      'all': 'Tất cả',
-      'assignedToMe': 'Gắn cho tôi',
-      'employeeList': 'Danh sách nhân viên',
-    },
-  };
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
-  String get welcome => _localizedValues[locale.languageCode]!['welcome']!;
-  String get selectLanguage =>
-      _localizedValues[locale.languageCode]!['selectLanguage']!;
-  String get english => _localizedValues[locale.languageCode]!['english']!;
-  String get vietnamese =>
-      _localizedValues[locale.languageCode]!['vietnamese']!;
-  String get goToPdfDemo =>
-      _localizedValues[locale.languageCode]!['goToPdfDemo']!;
-  String get all => _localizedValues[locale.languageCode]!['all']!;
-  String get assignedToMe =>
-      _localizedValues[locale.languageCode]!['assignedToMe']!;
-  String get employeeList =>
-      _localizedValues[locale.languageCode]!['employeeList']!;
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('vi')
+  ];
+
+  /// Welcome message
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get welcome;
+
+  /// Language selection label
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLanguage;
+
+  /// English language name
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// Vietnamese language name
+  ///
+  /// In en, this message translates to:
+  /// **'Vietnamese'**
+  String get vietnamese;
+
+  /// Navigation label for PDF demo
+  ///
+  /// In en, this message translates to:
+  /// **'Go to PDF DEMO'**
+  String get goToPdfDemo;
+
+  /// All items label
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// Tasks assigned to current user
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned to me'**
+  String get assignedToMe;
+
+  /// Employee list label
+  ///
+  /// In en, this message translates to:
+  /// **'Employee List'**
+  String get employeeList;
+
+  /// All the texts that have login
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get loginText;
+
+  /// Username label
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get userName;
+
+  /// Password label
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// Default session label
+  ///
+  /// In en, this message translates to:
+  /// **'Default Session?'**
+  String get defaultSession;
+
+  /// No description provided for @detailHomeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee detail:'**
+  String get detailHomeLabel;
+
+  /// No description provided for @detailEmployee_basicInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic information'**
+  String get detailEmployee_basicInformation;
+
+  /// No description provided for @detailEmployee_attendanceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance Code'**
+  String get detailEmployee_attendanceCode;
+
+  /// No description provided for @detailEmployee_recordID.
+  ///
+  /// In en, this message translates to:
+  /// **'Record ID'**
+  String get detailEmployee_recordID;
+
+  /// No description provided for @detailEmployee_employeeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee Name'**
+  String get detailEmployee_employeeName;
+
+  /// No description provided for @detailEmployee_birthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'BirthDate'**
+  String get detailEmployee_birthDate;
+
+  /// No description provided for @detailEmployee_gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get detailEmployee_gender;
+
+  /// No description provided for @detailEmployee_pob.
+  ///
+  /// In en, this message translates to:
+  /// **'Place of birth'**
+  String get detailEmployee_pob;
+
+  /// No description provided for @detailEmployee_nationality.
+  ///
+  /// In en, this message translates to:
+  /// **'Nationality'**
+  String get detailEmployee_nationality;
+
+  /// No description provided for @detailEmployee_ethnicGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Ethnic Group'**
+  String get detailEmployee_ethnicGroup;
+
+  /// No description provided for @detailEmployee_maritalStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Marital Status'**
+  String get detailEmployee_maritalStatus;
+
+  /// No description provided for @detailEmployee_religion.
+  ///
+  /// In en, this message translates to:
+  /// **'Religion'**
+  String get detailEmployee_religion;
+
+  /// No description provided for @detailEmployee_highSchoolLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'High school level'**
+  String get detailEmployee_highSchoolLevel;
+
+  /// No description provided for @detailEmployee_specialization.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialization'**
+  String get detailEmployee_specialization;
+
+  /// No description provided for @detailEmployee_personalTaxCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Tax Code'**
+  String get detailEmployee_personalTaxCode;
+
+  /// No description provided for @detailEmployee_citizenIdentificationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizen Identification Info'**
+  String get detailEmployee_citizenIdentificationInfo;
+
+  /// No description provided for @detailEmployee_citizenID.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizen ID'**
+  String get detailEmployee_citizenID;
+
+  /// No description provided for @detailEmployee_issueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Date'**
+  String get detailEmployee_issueDate;
+
+  /// No description provided for @detailEmployee_issuePlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Place'**
+  String get detailEmployee_issuePlace;
+
+  /// No description provided for @detailEmployee_frontIdCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Front ID Card'**
+  String get detailEmployee_frontIdCard;
+
+  /// No description provided for @detailEmployee_backIdCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Back ID Card'**
+  String get detailEmployee_backIdCard;
+
+  /// No description provided for @detailEmployee_bankAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Account'**
+  String get detailEmployee_bankAccount;
+
+  /// No description provided for @detailEmployee_bankName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Name'**
+  String get detailEmployee_bankName;
+
+  /// No description provided for @detailEmployee_cardNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Card Number'**
+  String get detailEmployee_cardNumber;
+
+  /// No description provided for @detailEmployee_accountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name'**
+  String get detailEmployee_accountName;
+
+  /// No description provided for @detailEmployee_health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get detailEmployee_health;
+
+  /// No description provided for @detailEmployee_height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get detailEmployee_height;
+
+  /// No description provided for @detailEmployee_weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get detailEmployee_weight;
+
+  /// No description provided for @detailEmployee_bloodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood Type'**
+  String get detailEmployee_bloodType;
+
+  /// No description provided for @detailEmployee_attachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment'**
+  String get detailEmployee_attachment;
+
+  /// No description provided for @detailEmployee_contactInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Information'**
+  String get detailEmployee_contactInfo;
+
+  /// No description provided for @detailEmployee_phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get detailEmployee_phoneNumber;
+
+  /// No description provided for @detailEmployee_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get detailEmployee_email;
+
+  /// No description provided for @detailEmployee_houseNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'House Number, Street'**
+  String get detailEmployee_houseNumber;
+
+  /// No description provided for @detailEmployee_wardCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Ward, District, City'**
+  String get detailEmployee_wardCity;
 }
 
-class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
-  const AppLocalizationsDelegate();
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'vi'].contains(locale.languageCode);
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
 
   @override
-  Future<AppLocalizations> load(Locale locale) async =>
-      AppLocalizations(locale);
+  bool isSupported(Locale locale) => <String>['en', 'vi'].contains(locale.languageCode);
 
   @override
-  bool shouldReload(AppLocalizationsDelegate old) => false;
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en': return AppLocalizationsEn();
+    case 'vi': return AppLocalizationsVi();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

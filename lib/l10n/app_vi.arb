@@ -1,0 +1,62 @@
+{
+    "welcome": "Xin chào",
+    "selectLanguage": "Chọn ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt",
+    "goToPdfDemo": "Đến trang PDF DEMO",
+    "all": "Tất cả",
+    "assignedToMe": "Gắn cho tôi",
+    "employeeList": "Danh sách nhân viên",
+    "loginText" : "Đăng nhập",
+    "userName" : "Tên đăng nhập",
+    "password" : "Mật khẩu",
+    "defaultSession": "Đặt làm session mặc định?",
+    "detailHomeLabel" : "Chi tiết nv:",
+
+
+
+    "detailEmployee_basicInformation":"Thông tin cơ bản",
+
+    "detailEmployee_attendanceCode" :"Mã chấm công",
+    "detailEmployee_recordID" :"Mã hồ sơ",
+    "detailEmployee_employeeName" :"Tên nhân viên",
+    "detailEmployee_birthDate" :"Ngày sinh",
+    "detailEmployee_gender" :"Giới tính",
+    "detailEmployee_pob" :"Nơi sinh",
+    "detailEmployee_nationality" :"Quốc tịch",
+    "detailEmployee_ethnicGroup" :"Dân tộc",
+    "detailEmployee_maritalStatus" :"Tình trạng hôn nhân",
+    "detailEmployee_religion" :"Tôn giáo",
+    "detailEmployee_highSchoolLevel" :"Trình độ học vấn",
+    "detailEmployee_specialization" :"Chuyên ngành",
+    "detailEmployee_personalTaxCode" :"Mã số thuế cá nhân",
+
+
+    "detailEmployee_citizenIdentificationInfo" : "TT Căn cước công dân",
+
+    "detailEmployee_citizenID" : "Số CCCD",
+    "detailEmployee_issueDate" : "Ngày cấp",
+    "detailEmployee_issuePlace" : "Nơi cấp",
+    "detailEmployee_frontIdCard" : "Mặt trước CCCD",
+    "detailEmployee_backIdCard" : "Mặt sau CCCD",
+
+
+    "detailEmployee_bankAccount" : "Tài khoản ngân hàng",
+
+    "detailEmployee_bankName" : "Tên ngân hàng",
+    "detailEmployee_cardNumber" : "Số thẻ",
+    "detailEmployee_accountName" : "Tên tài khoản",
+
+    "detailEmployee_health" : "Sức khỏe",
+    "detailEmployee_height" : "Chiều cao",
+    "detailEmployee_weight" : "Cân nặng",
+    "detailEmployee_bloodType" : "Nhóm máu",
+    "detailEmployee_attachment" : "Tài liệu",
+
+    "detailEmployee_contactInfo" : "Thông tin liên hệ",
+    "detailEmployee_phoneNumber" : "Số điện thoại",
+    "detailEmployee_email" : "Email",
+    "detailEmployee_houseNumber" : "Số nhà, đường",
+    "detailEmployee_wardCity" : "Phường, Quận, Thành phố"
+
+}

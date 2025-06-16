@@ -1,0 +1,97 @@
+{
+    "welcome": "Welcome",
+    "@welcome": {
+        "description": "Welcome message"
+    },
+    "selectLanguage": "Select Language",
+    "@selectLanguage": {
+        "description": "Language selection label"
+    },
+    "english": "English",
+    "@english": {
+        "description": "English language name"
+    },
+    "vietnamese": "Vietnamese",
+    "@vietnamese": {
+        "description": "Vietnamese language name"
+    },
+    "goToPdfDemo": "Go to PDF DEMO",
+    "@goToPdfDemo": {
+        "description": "Navigation label for PDF demo"
+    },
+    "all": "All",
+    "@all": {
+        "description": "All items label"
+    },
+    "assignedToMe": "Assigned to me",
+    "@assignedToMe": {
+        "description": "Tasks assigned to current user"
+    },
+    "employeeList": "Employee List",
+    "@employeeList": {
+        "description": "Employee list label"
+    },
+    "loginText" : "Login",
+    "@loginText": {
+        "description": "All the texts that have login"
+    },
+    "userName" : "Username",
+    "@userName": {
+        "description": "Username label"
+    },
+    "password" : "Password",
+    "@password": {
+        "description": "Password label"
+    },
+    "defaultSession": "Default Session?",
+    "@defaultSession": {
+        "description": "Default session label"
+    },
+    "detailHomeLabel" : "Employee detail:",
+
+    "detailEmployee_basicInformation":"Basic information",
+    "detailEmployee_attendanceCode" :"Attendance Code",
+    "detailEmployee_recordID" :"Record ID",
+    "detailEmployee_employeeName" :"Employee Name",
+    "detailEmployee_birthDate" :"BirthDate",
+    "detailEmployee_gender" :"Gender",
+    "detailEmployee_pob" :"Place of birth",
+    "detailEmployee_nationality" :"Nationality",
+    "detailEmployee_ethnicGroup" :"Ethnic Group",
+    "detailEmployee_maritalStatus" :"Marital Status",
+    "detailEmployee_religion" :"Religion",
+    "detailEmployee_pob" :"Place of birth",
+    "detailEmployee_highSchoolLevel" :"High school level",
+    "detailEmployee_specialization" :"Specialization",
+    "detailEmployee_personalTaxCode" :"Personal Tax Code",
+
+
+    "detailEmployee_citizenIdentificationInfo" : "Citizen Identification Info",
+    "detailEmployee_citizenID" : "Citizen ID",
+    "detailEmployee_issueDate" : "Issue Date",
+    "detailEmployee_issuePlace" : "Issue Place",
+    "detailEmployee_frontIdCard" : "Front ID Card",
+    "detailEmployee_backIdCard" : "Back ID Card",
+
+
+    "detailEmployee_bankAccount" : "Bank Account",
+    "detailEmployee_bankName" : "Bank Name",
+    "detailEmployee_cardNumber" : "Card Number",
+    "detailEmployee_accountName" : "Account Name",
+
+    "detailEmployee_health" : "Health",
+    "detailEmployee_height" : "Height",
+    "detailEmployee_weight" : "Weight",
+    "detailEmployee_bloodType" : "Blood Type",
+    "detailEmployee_attachment" : "Attachment",
+
+    "detailEmployee_contactInfo" : "Contact Information",
+    "detailEmployee_phoneNumber" : "Phone Number",
+    "detailEmployee_email" : "Email",
+    "detailEmployee_houseNumber" : "House Number, Street",
+    "detailEmployee_wardCity" : "Ward, District, City"
+
+
+
+
+} 
