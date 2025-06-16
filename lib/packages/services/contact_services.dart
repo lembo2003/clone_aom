@@ -45,7 +45,7 @@ class EmployeeApiServices {
 }
 
 class EmployeeDetailApiServices {
-  static const String baseUrl = 'http://dev-gateway.intechno.io.vn';
+  static const String baseUrl = 'http://dev-api.intechno.io.vn';
   final AuthService _authService = AuthService();
 
   Future<EmployeeDetailResponse> fetchEmployeeDetail(int employeeId) async {
