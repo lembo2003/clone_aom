@@ -148,4 +148,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detailEmployee_wardCity => 'Ward, District, City';
+
+  @override
+  String get detailEmployee_familyInfo => 'Family Information';
+
+  @override
+  String get detailEmployee_relativeRelationship => 'Relative Relationship';
+
+  @override
+  String get detailEmployee_relativeName => 'Relative Name';
+
+  @override
+  String get detailEmployee_relativePhoneNumber => 'Phone Number';
+
+  @override
+  String get detailEmployee_relativeCitizenID => 'Citizen ID';
+
+  @override
+  String get detailEmployee_relativeIssueDate => 'Issue Date';
+
+  @override
+  String get detailEmployee_relativeIssuePlace => 'Issue Place';
+
+  @override
+  String get detailEmployee_relativeDependant => 'Dependant?';
+
+  @override
+  String get detailEmployee_relativeTaxCode => 'Tax Code';
+
+  @override
+  String get detailEmployee_workExp => 'Work Experiences';
+
+  @override
+  String get detailEmployee_workExpCompany => 'Company';
+
+  @override
+  String get detailEmployee_workExpRole => 'Role';
+
+  @override
+  String get detailEmployee_workExpFrom => 'From Date';
+
+  @override
+  String get detailEmployee_workExpTo => 'To Date';
+
+  @override
+  String get detailEmployee_workExpLeave => 'Reason for Leaving';
+
+  @override
+  String get detailEmployee_cert => 'Certificates';
+
+  @override
+  String get detailEmployee_certName => 'Certificate Name';
+
+  @override
+  String get detailEmployee_certClass => 'Classification';
+
+  @override
+  String get detailEmployee_certIssueDate => 'Issue Date';
+
+  @override
+  String get detailEmployee_certYear => 'Attachment';
 }

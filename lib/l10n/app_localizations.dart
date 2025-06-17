@@ -376,6 +376,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ward, District, City'**
   String get detailEmployee_wardCity;
+
+  /// No description provided for @detailEmployee_familyInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Information'**
+  String get detailEmployee_familyInfo;
+
+  /// No description provided for @detailEmployee_relativeRelationship.
+  ///
+  /// In en, this message translates to:
+  /// **'Relative Relationship'**
+  String get detailEmployee_relativeRelationship;
+
+  /// No description provided for @detailEmployee_relativeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Relative Name'**
+  String get detailEmployee_relativeName;
+
+  /// No description provided for @detailEmployee_relativePhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get detailEmployee_relativePhoneNumber;
+
+  /// No description provided for @detailEmployee_relativeCitizenID.
+  ///
+  /// In en, this message translates to:
+  /// **'Citizen ID'**
+  String get detailEmployee_relativeCitizenID;
+
+  /// No description provided for @detailEmployee_relativeIssueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Date'**
+  String get detailEmployee_relativeIssueDate;
+
+  /// No description provided for @detailEmployee_relativeIssuePlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Place'**
+  String get detailEmployee_relativeIssuePlace;
+
+  /// No description provided for @detailEmployee_relativeDependant.
+  ///
+  /// In en, this message translates to:
+  /// **'Dependant?'**
+  String get detailEmployee_relativeDependant;
+
+  /// No description provided for @detailEmployee_relativeTaxCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Code'**
+  String get detailEmployee_relativeTaxCode;
+
+  /// No description provided for @detailEmployee_workExp.
+  ///
+  /// In en, this message translates to:
+  /// **'Work Experiences'**
+  String get detailEmployee_workExp;
+
+  /// No description provided for @detailEmployee_workExpCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Company'**
+  String get detailEmployee_workExpCompany;
+
+  /// No description provided for @detailEmployee_workExpRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get detailEmployee_workExpRole;
+
+  /// No description provided for @detailEmployee_workExpFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From Date'**
+  String get detailEmployee_workExpFrom;
+
+  /// No description provided for @detailEmployee_workExpTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To Date'**
+  String get detailEmployee_workExpTo;
+
+  /// No description provided for @detailEmployee_workExpLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for Leaving'**
+  String get detailEmployee_workExpLeave;
+
+  /// No description provided for @detailEmployee_cert.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificates'**
+  String get detailEmployee_cert;
+
+  /// No description provided for @detailEmployee_certName.
+  ///
+  /// In en, this message translates to:
+  /// **'Certificate Name'**
+  String get detailEmployee_certName;
+
+  /// No description provided for @detailEmployee_certClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Classification'**
+  String get detailEmployee_certClass;
+
+  /// No description provided for @detailEmployee_certIssueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Date'**
+  String get detailEmployee_certIssueDate;
+
+  /// No description provided for @detailEmployee_certYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment'**
+  String get detailEmployee_certYear;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

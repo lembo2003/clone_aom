@@ -89,10 +89,7 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                   SizedBox(height: 16),
                   Text(
                     'Loading employee details...',
-                    style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
                   ),
                 ],
               ),
@@ -102,11 +99,7 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
-                  ),
+                  Icon(Icons.error_outline, color: Colors.red, size: 60),
                   SizedBox(height: 16),
                   Text(
                     'Error loading employee details',
@@ -140,10 +133,7 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                     icon: Icon(Icons.refresh),
                     label: Text(
                       'Retry',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 16,
-                      ),
+                      style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
                     ),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(
@@ -161,8 +151,11 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
               ),
             );
           } else if (snapshot.hasData) {
-            final employeeDetail = snapshot.data!.data.employee;
-
+            final employeeData = snapshot.data!.data;
+            final employeeDetail = employeeData.employee;
+            final address = employeeData.employeeAddress.isNotEmpty
+                ? employeeData.employeeAddress.first
+                : null;
             return Stack(
               children: [
                 // Main content
@@ -178,13 +171,19 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           _buildBasicInfoSection(context, employeeDetail),
-                          _buildCitizenIdentificationSection(context),
-                          _buildBankAccountSection(context),
-                          _buildHealthSection(context),
-                          _buildContactInfomationSection(context),
-                          _buildFamilyInformationSection(context),
-                          _buildWorkExperienceSection(context),
-                          _buildCertificateSection(context),
+                          _buildCitizenIdentificationSection(
+                            context,
+                            employeeData,
+                          ),
+                          _buildBankAccountSection(context, employeeData),
+                          _buildHealthSection(context, employeeData),
+                          _buildContactInfomationSection(
+                            context,
+                            employeeData,
+                          ),
+                          _buildFamilyInformationSection(context, employeeData),
+                          _buildWorkExperienceSection(context, employeeData),
+                          _buildCertificateSection(context, employeeData),
                         ],
                       ),
                     ),
@@ -210,10 +209,7 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           return const Center(
             child: Text(
               'No data available',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 16,
-              ),
+              style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
             ),
           );
         },
@@ -345,10 +341,17 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
     );
   }
 
-  Widget _buildContactInfomationSection(BuildContext context) {
+  Widget _buildContactInfomationSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final employeeDetail = data.employee;
+    final address = data.employeeAddress.isNotEmpty 
+        ? data.employeeAddress.first 
+        : null;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -386,22 +389,22 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
             _buildContactRow(
               Icons.phone,
               AppLocalizations.of(context)!.detailEmployee_phoneNumber,
-              'NULL',
+              employeeDetail.mobile,
             ),
             _buildContactRow(
               Icons.email,
               AppLocalizations.of(context)!.detailEmployee_email,
-              'NULL',
+              employeeDetail.email,
             ),
             _buildContactRow(
               Icons.home,
               AppLocalizations.of(context)!.detailEmployee_houseNumber,
-              'NULL',
+              address?.addressDetail ?? 'N/A',
             ),
             _buildContactRow(
               Icons.location_on,
               AppLocalizations.of(context)!.detailEmployee_wardCity,
-              'NULL',
+              '${address?.districtCode ?? 'N/A'} - ${address?.provinceCode ?? 'N/A'}',
             ),
           ],
         ),
@@ -409,10 +412,14 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
     );
   }
 
-  Widget _buildCitizenIdentificationSection(BuildContext context) {
+  Widget _buildCitizenIdentificationSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final identity = data.identityEmployee;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -435,9 +442,7 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           title: Row(
             children: [
               Text(
-                AppLocalizations.of(
-                  context,
-                )!.detailEmployee_citizenIdentificationInfo,
+                AppLocalizations.of(context)!.detailEmployee_citizenIdentificationInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -450,29 +455,19 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           trailing: const Icon(Icons.expand_more, color: Colors.black),
           children: [
             _buildContactRow(
-              Icons.badge,
+              Icons.credit_card,
               AppLocalizations.of(context)!.detailEmployee_citizenID,
-              'NULL',
+              identity?.no ?? 'N/A',
             ),
             _buildContactRow(
               Icons.date_range,
               AppLocalizations.of(context)!.detailEmployee_issueDate,
-              'NULL',
+              identity?.issueDate ?? 'N/A',
             ),
             _buildContactRow(
               Icons.place,
               AppLocalizations.of(context)!.detailEmployee_issuePlace,
-              'NULL',
-            ),
-            _buildContactRow(
-              Icons.image,
-              AppLocalizations.of(context)!.detailEmployee_frontIdCard,
-              'NULL',
-            ),
-            _buildContactRow(
-              Icons.image,
-              AppLocalizations.of(context)!.detailEmployee_backIdCard,
-              'NULL',
+              identity?.issuePlace ?? 'N/A',
             ),
           ],
         ),
@@ -480,10 +475,14 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
     );
   }
 
-  Widget _buildBankAccountSection(BuildContext context) {
+  Widget _buildBankAccountSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final bank = data.employeeBank;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -521,17 +520,17 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
             _buildContactRow(
               Icons.account_balance,
               AppLocalizations.of(context)!.detailEmployee_bankName,
-              'NULL',
+              bank?.bank ?? 'N/A',
             ),
             _buildContactRow(
               Icons.credit_card,
               AppLocalizations.of(context)!.detailEmployee_cardNumber,
-              'NULL',
+              bank?.cardNumber ?? 'N/A',
             ),
             _buildContactRow(
               Icons.person,
               AppLocalizations.of(context)!.detailEmployee_accountName,
-              'NULL',
+              bank?.accountName ?? 'N/A',
             ),
           ],
         ),
@@ -539,10 +538,14 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
     );
   }
 
-  Widget _buildFamilyInformationSection(BuildContext context) {
+  Widget _buildFamilyInformationSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final familyMembers = data.employeeDependent;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -564,8 +567,8 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           ),
           title: Row(
             children: [
-              const Text(
-                'Family Information',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_familyInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -576,16 +579,77 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            if (familyMembers.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'No family members found',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+              )
+            else
+              ...familyMembers.map((member) => Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey[200]!),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildContactRow(
+                          Icons.person,
+                          AppLocalizations.of(context)!.detailEmployee_relativeName,
+                          member.fullName,
+                        ),
+                        _buildContactRow(
+                          Icons.phone,
+                          AppLocalizations.of(context)!.detailEmployee_relativePhoneNumber,
+                          member.phone ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.family_restroom,
+                          AppLocalizations.of(context)!.detailEmployee_relativeRelationship,
+                          member.relationship ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.badge,
+                          AppLocalizations.of(context)!.detailEmployee_relativeCitizenID,
+                          member.identityNo ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.place,
+                          AppLocalizations.of(context)!.detailEmployee_relativeIssuePlace,
+                          member.issuePlace ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.receipt,
+                          AppLocalizations.of(context)!.detailEmployee_relativeTaxCode,
+                          member.personalTaxCode ?? 'N/A',
+                        ),
+                      ],
+                    ),
+                  )),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildWorkExperienceSection(BuildContext context) {
+  Widget _buildWorkExperienceSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final workExperiences = data.employeeWorkExp;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -607,8 +671,8 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           ),
           title: Row(
             children: [
-              const Text(
-                'Work Experiences',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_workExp,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -619,16 +683,72 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            if (workExperiences.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'No work experience found',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+              )
+            else
+              ...workExperiences.map((exp) => Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey[200]!),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildContactRow(
+                          Icons.business,
+                          AppLocalizations.of(context)!.detailEmployee_workExpCompany,
+                          exp.company ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.work,
+                          AppLocalizations.of(context)!.detailEmployee_workExpRole,
+                          exp.role ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.date_range,
+                          AppLocalizations.of(context)!.detailEmployee_workExpFrom,
+                          exp.fromDate ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.date_range,
+                          AppLocalizations.of(context)!.detailEmployee_workExpTo,
+                          exp.toDate ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.note,
+                          AppLocalizations.of(context)!.detailEmployee_workExp,
+                          exp.reasonOff ?? 'N/A',
+                        ),
+                      ],
+                    ),
+                  )),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildCertificateSection(BuildContext context) {
+  Widget _buildCertificateSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final certificates = data.employeeCertificate;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -650,8 +770,8 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           ),
           title: Row(
             children: [
-              const Text(
-                'Certificate',
+              Text(
+                AppLocalizations.of(context)!.detailEmployee_cert,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -662,16 +782,67 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
             ],
           ),
           trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [],
+          children: [
+            if (certificates.isEmpty)
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'No certificates found',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+              )
+            else
+              ...certificates.map((cert) => Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey[200]!),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildContactRow(
+                          Icons.school,
+                          AppLocalizations.of(context)!.detailEmployee_certName,
+                          cert.name ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.grade,
+                          AppLocalizations.of(context)!.detailEmployee_certClass,
+                          cert.classification ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.date_range,
+                          AppLocalizations.of(context)!.detailEmployee_certIssueDate,
+                          cert.issueDate ?? 'N/A',
+                        ),
+                        _buildContactRow(
+                          Icons.calendar_today,
+                          AppLocalizations.of(context)!.detailEmployee_certYear,
+                          cert.year ?? 'N/A',
+                        ),
+                      ],
+                    ),
+                  )),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildHealthSection(BuildContext context) {
+  Widget _buildHealthSection(
+    BuildContext context,
+    EmployeeDetailData data,
+  ) {
+    final health = data.employeeHealthy;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -709,22 +880,17 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
             _buildContactRow(
               Icons.height,
               AppLocalizations.of(context)!.detailEmployee_height,
-              'NULL',
+              health?.height ?? 'N/A',
             ),
             _buildContactRow(
               Icons.monitor_weight,
               AppLocalizations.of(context)!.detailEmployee_weight,
-              'NULL',
+              health?.weight ?? 'N/A',
             ),
             _buildContactRow(
               Icons.bloodtype,
               AppLocalizations.of(context)!.detailEmployee_bloodType,
-              'NULL',
-            ),
-            _buildContactRow(
-              Icons.attach_file,
-              AppLocalizations.of(context)!.detailEmployee_attachment,
-              'NULL',
+              health?.blood ?? 'N/A',
             ),
           ],
         ),
