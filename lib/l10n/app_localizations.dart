@@ -491,11 +491,11 @@ abstract class AppLocalizations {
   /// **'Issue Date'**
   String get detailEmployee_certIssueDate;
 
-  /// No description provided for @detailEmployee_certYear.
+  /// No description provided for @detailEmployee_certAttachment.
   ///
   /// In en, this message translates to:
   /// **'Attachment'**
-  String get detailEmployee_certYear;
+  String get detailEmployee_certAttachment;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

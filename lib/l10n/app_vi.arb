@@ -80,5 +80,5 @@
     "detailEmployee_certName" : "Tên chứng chỉ",
     "detailEmployee_certClass" : "Phân loại",
     "detailEmployee_certIssueDate" : "Ngày cấp",
-    "detailEmployee_certYear" : "Đính kèm"
+    "detailEmployee_certAttachment" : "Đính kèm"
 }

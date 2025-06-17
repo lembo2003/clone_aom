@@ -207,5 +207,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get detailEmployee_certIssueDate => 'Issue Date';
 
   @override
-  String get detailEmployee_certYear => 'Attachment';
+  String get detailEmployee_certAttachment => 'Attachment';
 }

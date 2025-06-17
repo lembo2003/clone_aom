@@ -153,9 +153,10 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           } else if (snapshot.hasData) {
             final employeeData = snapshot.data!.data;
             final employeeDetail = employeeData.employee;
-            final address = employeeData.employeeAddress.isNotEmpty
-                ? employeeData.employeeAddress.first
-                : null;
+            final address =
+                employeeData.employeeAddress.isNotEmpty
+                    ? employeeData.employeeAddress.first
+                    : null;
             return Stack(
               children: [
                 // Main content
@@ -175,14 +176,11 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                             context,
                             employeeData,
                           ),
-                          _buildBankAccountSection(context, employeeData),
-                          _buildHealthSection(context, employeeData),
-                          _buildContactInfomationSection(
-                            context,
-                            employeeData,
-                          ),
                           _buildFamilyInformationSection(context, employeeData),
                           _buildWorkExperienceSection(context, employeeData),
+                          _buildContactInfomationSection(context, employeeData),
+                          _buildBankAccountSection(context, employeeData),
+                          _buildHealthSection(context, employeeData),
                           _buildCertificateSection(context, employeeData),
                         ],
                       ),
@@ -346,9 +344,8 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
     EmployeeDetailData data,
   ) {
     final employeeDetail = data.employee;
-    final address = data.employeeAddress.isNotEmpty 
-        ? data.employeeAddress.first 
-        : null;
+    final address =
+        data.employeeAddress.isNotEmpty ? data.employeeAddress.first : null;
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
@@ -442,7 +439,9 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           title: Row(
             children: [
               Text(
-                AppLocalizations.of(context)!.detailEmployee_citizenIdentificationInfo,
+                AppLocalizations.of(
+                  context,
+                )!.detailEmployee_citizenIdentificationInfo,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
@@ -593,49 +592,63 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                 ),
               )
             else
-              ...familyMembers.map((member) => Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey[200]!),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildContactRow(
-                          Icons.person,
-                          AppLocalizations.of(context)!.detailEmployee_relativeName,
-                          member.fullName,
-                        ),
-                        _buildContactRow(
-                          Icons.phone,
-                          AppLocalizations.of(context)!.detailEmployee_relativePhoneNumber,
-                          member.phone ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.family_restroom,
-                          AppLocalizations.of(context)!.detailEmployee_relativeRelationship,
-                          member.relationship ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.badge,
-                          AppLocalizations.of(context)!.detailEmployee_relativeCitizenID,
-                          member.identityNo ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.place,
-                          AppLocalizations.of(context)!.detailEmployee_relativeIssuePlace,
-                          member.issuePlace ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.receipt,
-                          AppLocalizations.of(context)!.detailEmployee_relativeTaxCode,
-                          member.personalTaxCode ?? 'N/A',
-                        ),
-                      ],
-                    ),
-                  )),
+              ...familyMembers.map(
+                (member) => Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey[200]!),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildContactRow(
+                        Icons.person,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_relativeName,
+                        member.fullName,
+                      ),
+                      _buildContactRow(
+                        Icons.phone,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_relativePhoneNumber,
+                        member.phone ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.family_restroom,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_relativeRelationship,
+                        member.relationship ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.badge,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_relativeCitizenID,
+                        member.identityNo ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.place,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_relativeIssuePlace,
+                        member.issuePlace ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.receipt,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_relativeTaxCode,
+                        member.personalTaxCode ?? 'N/A',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -697,44 +710,52 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                 ),
               )
             else
-              ...workExperiences.map((exp) => Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey[200]!),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildContactRow(
-                          Icons.business,
-                          AppLocalizations.of(context)!.detailEmployee_workExpCompany,
-                          exp.company ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.work,
-                          AppLocalizations.of(context)!.detailEmployee_workExpRole,
-                          exp.role ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.date_range,
-                          AppLocalizations.of(context)!.detailEmployee_workExpFrom,
-                          exp.fromDate ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.date_range,
-                          AppLocalizations.of(context)!.detailEmployee_workExpTo,
-                          exp.toDate ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.note,
-                          AppLocalizations.of(context)!.detailEmployee_workExp,
-                          exp.reasonOff ?? 'N/A',
-                        ),
-                      ],
-                    ),
-                  )),
+              ...workExperiences.map(
+                (exp) => Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey[200]!),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildContactRow(
+                        Icons.business,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_workExpCompany,
+                        exp.company ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.work,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_workExpRole,
+                        exp.role ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.date_range,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_workExpFrom,
+                        exp.fromDate ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.date_range,
+                        AppLocalizations.of(context)!.detailEmployee_workExpTo,
+                        exp.toDate ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.note,
+                        AppLocalizations.of(context)!.detailEmployee_workExp,
+                        exp.reasonOff ?? 'N/A',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),
@@ -796,49 +817,52 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                 ),
               )
             else
-              ...certificates.map((cert) => Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.grey[200]!),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildContactRow(
-                          Icons.school,
-                          AppLocalizations.of(context)!.detailEmployee_certName,
-                          cert.name ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.grade,
-                          AppLocalizations.of(context)!.detailEmployee_certClass,
-                          cert.classification ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.date_range,
-                          AppLocalizations.of(context)!.detailEmployee_certIssueDate,
-                          cert.issueDate ?? 'N/A',
-                        ),
-                        _buildContactRow(
-                          Icons.calendar_today,
-                          AppLocalizations.of(context)!.detailEmployee_certYear,
-                          cert.year ?? 'N/A',
-                        ),
-                      ],
-                    ),
-                  )),
+              ...certificates.map(
+                (cert) => Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey[200]!),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildContactRow(
+                        Icons.school,
+                        AppLocalizations.of(context)!.detailEmployee_certName,
+                        cert.name ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.grade,
+                        AppLocalizations.of(context)!.detailEmployee_certClass,
+                        cert.classification ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.date_range,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_certIssueDate,
+                        cert.issueDate ?? 'N/A',
+                      ),
+                      _buildContactRow(
+                        Icons.calendar_today,
+                        AppLocalizations.of(
+                          context,
+                        )!.detailEmployee_certAttachment,
+                        cert.year ?? 'N/A',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHealthSection(
-    BuildContext context,
-    EmployeeDetailData data,
-  ) {
+  Widget _buildHealthSection(BuildContext context, EmployeeDetailData data) {
     final health = data.employeeHealthy;
 
     return Container(

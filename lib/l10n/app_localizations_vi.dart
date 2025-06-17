@@ -207,5 +207,5 @@ class AppLocalizationsVi extends AppLocalizations {
   String get detailEmployee_certIssueDate => 'Ngày cấp';
 
   @override
-  String get detailEmployee_certYear => 'Đính kèm';
+  String get detailEmployee_certAttachment => 'Đính kèm';
 }

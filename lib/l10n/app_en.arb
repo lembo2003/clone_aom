@@ -112,5 +112,5 @@
     "detailEmployee_certName" : "Certificate Name",
     "detailEmployee_certClass" : "Classification",
     "detailEmployee_certIssueDate" : "Issue Date",
-    "detailEmployee_certYear" : "Attachment"
+    "detailEmployee_certAttachment" : "Attachment"
 } 
