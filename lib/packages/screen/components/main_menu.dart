@@ -1,4 +1,5 @@
 import 'package:clone_aom/packages/screen/contact_page.dart';
+import 'package:clone_aom/packages/screen/documents_page.dart';
 import 'package:clone_aom/packages/screen/index_page.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class MainMenu extends StatelessWidget {
                     width: double.infinity,
                     alignment: Alignment.center,
                     child: Text(
-                      'Alexor Open Mobile',
+                      'Intechno Mobile App',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 24,
@@ -335,14 +336,21 @@ class MainMenu extends StatelessWidget {
                         //     () {},
                         //   ),
                         // ]),
-                        // _buildMenuItem(context, Icons.folder, 'DMS', [
-                        //   _buildDialogOption(
-                        //     context,
-                        //     Icons.folder_open,
-                        //     'All Documents',
-                        //     () {},
-                        //   ),
-                        // ]),
+                        _buildMenuItem(context, Icons.folder, 'DMS', [
+                          _buildDialogOption(
+                            context,
+                            Icons.folder_open,
+                            'All Documents',
+                            () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DocumentsPage(),
+                                ),
+                              );
+                            },
+                          ),
+                        ]),
                         // _buildMenuItem(
                         //   context,
                         //   Icons.shopping_bag,
