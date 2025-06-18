@@ -210,18 +210,26 @@ class _DocumentsPageState extends State<DocumentsPage> {
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: TextField(
-        controller: _searchController,
-        decoration: InputDecoration(
-          hintText: 'Search files...',
-          prefixIcon: Icon(Icons.search, color: Colors.grey),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
-            borderSide: BorderSide.none,
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey.shade300, width: 2),
+        ),
+        child: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            hintText: 'Search files...',
+            prefixIcon: Icon(Icons.search, color: Colors.grey),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
+            filled: true,
+            fillColor: Colors.grey[100],
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           ),
-          filled: true,
-          fillColor: Colors.grey[100],
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
         ),
       ),
     );
@@ -317,7 +325,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.15),
+                color: Colors.grey.withOpacity(0.5),
                 blurRadius: 8,
                 offset: Offset(0, 2),
               ),
@@ -382,7 +390,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.15),
+                color: Colors.grey.withOpacity(0.5),
                 blurRadius: 8,
                 offset: Offset(0, 2),
               ),
