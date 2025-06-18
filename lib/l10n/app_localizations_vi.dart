@@ -148,4 +148,64 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get detailEmployee_wardCity => 'Phường, Quận, Thành phố';
+
+  @override
+  String get detailEmployee_familyInfo => 'Thông tin gia đình';
+
+  @override
+  String get detailEmployee_relativeRelationship => 'Quan hệ';
+
+  @override
+  String get detailEmployee_relativeName => 'Họ tên';
+
+  @override
+  String get detailEmployee_relativePhoneNumber => 'Số điện thoại';
+
+  @override
+  String get detailEmployee_relativeCitizenID => 'CCCD';
+
+  @override
+  String get detailEmployee_relativeIssueDate => 'Ngày cấp';
+
+  @override
+  String get detailEmployee_relativeIssuePlace => 'Nơi cấp';
+
+  @override
+  String get detailEmployee_relativeDependant => 'Phụ thuộc?';
+
+  @override
+  String get detailEmployee_relativeTaxCode => 'Mã số thuế';
+
+  @override
+  String get detailEmployee_workExp => 'Kinh nghiệm làm việc';
+
+  @override
+  String get detailEmployee_workExpCompany => 'Công ty';
+
+  @override
+  String get detailEmployee_workExpRole => 'Chức vụ';
+
+  @override
+  String get detailEmployee_workExpFrom => 'Từ Ngày';
+
+  @override
+  String get detailEmployee_workExpTo => 'Đến Ngày';
+
+  @override
+  String get detailEmployee_workExpLeave => 'Lý do nghỉ việc';
+
+  @override
+  String get detailEmployee_cert => 'Chứng chỉ';
+
+  @override
+  String get detailEmployee_certName => 'Tên chứng chỉ';
+
+  @override
+  String get detailEmployee_certClass => 'Phân loại';
+
+  @override
+  String get detailEmployee_certIssueDate => 'Ngày cấp';
+
+  @override
+  String get detailEmployee_certAttachment => 'Đính kèm';
 }

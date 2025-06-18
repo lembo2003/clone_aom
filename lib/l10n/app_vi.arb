@@ -57,6 +57,28 @@
     "detailEmployee_phoneNumber" : "Số điện thoại",
     "detailEmployee_email" : "Email",
     "detailEmployee_houseNumber" : "Số nhà, đường",
-    "detailEmployee_wardCity" : "Phường, Quận, Thành phố"
+    "detailEmployee_wardCity" : "Phường, Quận, Thành phố",
 
+    "detailEmployee_familyInfo" : "Thông tin gia đình",
+    "detailEmployee_relativeRelationship" : "Quan hệ",
+    "detailEmployee_relativeName" : "Họ tên",
+    "detailEmployee_relativePhoneNumber" : "Số điện thoại",
+    "detailEmployee_relativeCitizenID" : "CCCD",
+    "detailEmployee_relativeIssueDate" : "Ngày cấp",
+    "detailEmployee_relativeIssuePlace" : "Nơi cấp",
+    "detailEmployee_relativeDependant" : "Phụ thuộc?",
+    "detailEmployee_relativeTaxCode" : "Mã số thuế",
+
+    "detailEmployee_workExp" : "Kinh nghiệm làm việc",
+    "detailEmployee_workExpRole" : "Chức vụ",
+    "detailEmployee_workExpCompany" : "Công ty",
+    "detailEmployee_workExpFrom" : "Từ Ngày",
+    "detailEmployee_workExpTo" : "Đến Ngày",
+    "detailEmployee_workExpLeave" : "Lý do nghỉ việc",
+
+    "detailEmployee_cert" : "Chứng chỉ",
+    "detailEmployee_certName" : "Tên chứng chỉ",
+    "detailEmployee_certClass" : "Phân loại",
+    "detailEmployee_certIssueDate" : "Ngày cấp",
+    "detailEmployee_certAttachment" : "Đính kèm"
 }

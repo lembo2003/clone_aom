@@ -89,9 +89,28 @@
     "detailEmployee_phoneNumber" : "Phone Number",
     "detailEmployee_email" : "Email",
     "detailEmployee_houseNumber" : "House Number, Street",
-    "detailEmployee_wardCity" : "Ward, District, City"
+    "detailEmployee_wardCity" : "Ward, District, City",
 
+    "detailEmployee_familyInfo" : "Family Information",
+    "detailEmployee_relativeRelationship" : "Relative Relationship",
+    "detailEmployee_relativeName" : "Relative Name",
+    "detailEmployee_relativePhoneNumber" : "Phone Number",
+    "detailEmployee_relativeCitizenID" : "Citizen ID",
+    "detailEmployee_relativeIssueDate" : "Issue Date",
+    "detailEmployee_relativeIssuePlace" : "Issue Place",
+    "detailEmployee_relativeDependant" : "Dependant?",
+    "detailEmployee_relativeTaxCode" : "Tax Code",
 
+    "detailEmployee_workExp" : "Work Experiences",
+    "detailEmployee_workExpCompany" : "Company",
+    "detailEmployee_workExpRole" : "Role",
+    "detailEmployee_workExpFrom" : "From Date",
+    "detailEmployee_workExpTo" : "To Date",
+    "detailEmployee_workExpLeave" : "Reason for Leaving",
 
-
+    "detailEmployee_cert" : "Certificates",
+    "detailEmployee_certName" : "Certificate Name",
+    "detailEmployee_certClass" : "Classification",
+    "detailEmployee_certIssueDate" : "Issue Date",
+    "detailEmployee_certAttachment" : "Attachment"
 } 
