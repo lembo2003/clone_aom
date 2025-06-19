@@ -7,7 +7,7 @@ class IndexUserTiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 21),
+      padding: EdgeInsets.all(20),
       child: SizedBox(
         width:
             MediaQuery.of(context).size.width *
