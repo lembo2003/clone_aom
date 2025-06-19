@@ -112,5 +112,17 @@
     "detailEmployee_certName" : "Certificate Name",
     "detailEmployee_certClass" : "Classification",
     "detailEmployee_certIssueDate" : "Issue Date",
-    "detailEmployee_certAttachment" : "Attachment"
+    "detailEmployee_certAttachment" : "Attachment",
+
+
+    "documentPage_title" : "Document Page",
+    "documentPage_searchBar" : "Search files and folders",
+    "documentPage_storage" : "Storage",
+    "documentPage_upload" : "Upload",
+    "documentPage_newFolder" : "New Folder",
+    "documentPage_download" : "Download",
+    "documentPage_share" : "Share",
+    "documentPage_delete" : "Delete",
+    "documentPage_rename" : "Rename",
+    "documentPage_back" : "Back"
 } 

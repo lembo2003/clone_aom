@@ -80,5 +80,18 @@
     "detailEmployee_certName" : "Tên chứng chỉ",
     "detailEmployee_certClass" : "Phân loại",
     "detailEmployee_certIssueDate" : "Ngày cấp",
-    "detailEmployee_certAttachment" : "Đính kèm"
+    "detailEmployee_certAttachment" : "Đính kèm",
+
+
+    "documentPage_title" : "Tài liệu công ty",
+    "documentPage_searchBar" : "Tìm kiếm files",
+    "documentPage_storage" : "Lưu trữ",
+    "documentPage_upload" : "Tải file lên",
+    "documentPage_newFolder" : "Tạo mới files",
+    "documentPage_download" : "Tải xuống",
+    "documentPage_share" : "Chia sẻ",
+    "documentPage_delete" : "Xoá",
+    "documentPage_rename" : "Đổi tên",
+    "documentPage_back" : "Quay lại"
+
 }
