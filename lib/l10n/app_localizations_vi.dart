@@ -208,4 +208,34 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get detailEmployee_certAttachment => 'Đính kèm';
+
+  @override
+  String get documentPage_title => 'Tài liệu công ty';
+
+  @override
+  String get documentPage_searchBar => 'Tìm kiếm files';
+
+  @override
+  String get documentPage_storage => 'Lưu trữ';
+
+  @override
+  String get documentPage_upload => 'Tải file lên';
+
+  @override
+  String get documentPage_newFolder => 'Tạo mới files';
+
+  @override
+  String get documentPage_download => 'Tải xuống';
+
+  @override
+  String get documentPage_share => 'Chia sẻ';
+
+  @override
+  String get documentPage_delete => 'Xoá';
+
+  @override
+  String get documentPage_rename => 'Đổi tên';
+
+  @override
+  String get documentPage_back => 'Quay lại';
 }

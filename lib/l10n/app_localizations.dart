@@ -496,6 +496,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Attachment'**
   String get detailEmployee_certAttachment;
+
+  /// No description provided for @documentPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Document Page'**
+  String get documentPage_title;
+
+  /// No description provided for @documentPage_searchBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Search files and folders'**
+  String get documentPage_searchBar;
+
+  /// No description provided for @documentPage_storage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage'**
+  String get documentPage_storage;
+
+  /// No description provided for @documentPage_upload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get documentPage_upload;
+
+  /// No description provided for @documentPage_newFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'New Folder'**
+  String get documentPage_newFolder;
+
+  /// No description provided for @documentPage_download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get documentPage_download;
+
+  /// No description provided for @documentPage_share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get documentPage_share;
+
+  /// No description provided for @documentPage_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get documentPage_delete;
+
+  /// No description provided for @documentPage_rename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get documentPage_rename;
+
+  /// No description provided for @documentPage_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get documentPage_back;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

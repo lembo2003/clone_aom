@@ -4,7 +4,7 @@ import 'package:clone_aom/packages/models/employee_response.dart';
 import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/employeeDetail_response.dart';
+import '../models/employee_detail_response.dart';
 
 class EmployeeApiServices {
   static const String baseUrl = 'http://dev-api.intechno.io.vn';

@@ -50,7 +50,7 @@ class IndexPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  localizations.selectLanguage + ': ',
+                  '${localizations.selectLanguage}: ',
                   style: TextStyle(fontSize: 16),
                 ),
                 Consumer<LanguageProvider>(

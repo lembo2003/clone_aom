@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/services/document_services.dart';
 import 'package:flutter/material.dart';
@@ -12,43 +13,135 @@ class DocumentsPage extends StatefulWidget {
 
 class _DocumentsPageState extends State<DocumentsPage> {
   bool _isGridView = false;
-  String _currentPath = "attachment";
+  String _currentPath = "Root";
   final TextEditingController _searchController = TextEditingController();
+  final DocumentServices _documentServices = DocumentServices();
 
   // Storage usage variables
   final double _totalStorageGB = 1.0; // 1GB total
-  final double _usedStorageGB = 0.54; // 540MB used
+  final double _usedStorageGB = 0.56; // 560MB used
 
-  // Current folder content - initialize with empty list
+  // Current folder content
   List<FileItem> _currentFiles = [];
-
-  // All files and folders structure
-  late final Map<String, List<FileItem>> _folderContents;
+  List<FileItem> _filteredFiles = []; // Add filtered files list
+  bool _isLoading = true;
+  String? _error;
+  FileItem? _currentFolder; // Track current folder
+  List<FileItem> _navigationStack = []; // Add navigation stack
 
   @override
   void initState() {
     super.initState();
-    _folderContents = DocumentServices.getInitialFolderContents();
-    _currentFiles = _folderContents[_currentPath] ?? [];
+    _loadCurrentFolder();
+    _searchController.addListener(_handleSearch); // Add search listener
   }
 
-  void _navigateToFolder(String path) {
-    if (_folderContents.containsKey(path)) {
+  @override
+  void dispose() {
+    _searchController.removeListener(_handleSearch);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _handleSearch() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      if (query.isEmpty) {
+        _filteredFiles = _currentFiles;
+      } else {
+        _filteredFiles =
+            _currentFiles.where((file) {
+              return file.name.toLowerCase().contains(query) ||
+                  (file.pathFolder?.toLowerCase().contains(query) ?? false);
+            }).toList();
+
+        // Keep folders first in search results
+        _filteredFiles.sort((a, b) {
+          if (a.type == FileType.folder && b.type != FileType.folder) {
+            return -1;
+          } else if (a.type != FileType.folder && b.type == FileType.folder) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+    });
+  }
+
+  Future<void> _loadCurrentFolder() async {
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      List<FileItem> files;
+      if (_currentFolder == null) {
+        // Load root folders
+        files = await _documentServices.fetchRootFolders();
+        _currentPath = "Root";
+      } else {
+        // Load folder contents using the current folder's ID
+        files = await _documentServices.fetchFolderContents(
+          _currentFolder!.id!,
+        );
+        _currentPath = _currentFolder!.getDisplayPath();
+      }
+
       setState(() {
-        _currentPath = path;
-        _currentFiles = _folderContents[path]!;
+        _currentFiles = files;
+        _filteredFiles = files; // Initialize filtered files
+        _isLoading = false;
+        // Clear search when loading new folder
+        if (_searchController.text.isNotEmpty) {
+          _searchController.clear();
+        }
+      });
+    } catch (e) {
+      print('Error in _loadCurrentFolder: $e'); // Debug log
+      setState(() {
+        _error = _formatErrorMessage(e.toString());
+        _isLoading = false;
+        _currentFiles = [];
+        _filteredFiles = [];
       });
     }
   }
 
-  void _navigateBack() {
-    if (_currentPath != "attachment") {
-      final parentPath = _currentPath.substring(
-        0,
-        _currentPath.lastIndexOf('/'),
-      );
-      _navigateToFolder(parentPath);
+  String _formatErrorMessage(String error) {
+    // Clean up the error message for display
+    if (error.contains('SocketException') ||
+        error.contains('Failed host lookup')) {
+      return 'Network connection error.\nPlease check your internet connection and try again.';
+    } else if (error.contains('Authentication failed')) {
+      return 'Your session has expired.\nPlease log in again.';
     }
+    // Remove Exception prefix if present
+    return error.replaceAll('Exception: ', '');
+  }
+
+  void _navigateToFolder(FileItem folder) {
+    setState(() {
+      // Add current folder to navigation stack before moving to new folder
+      if (_currentFolder != null) {
+        _navigationStack.add(_currentFolder!);
+      }
+      _currentFolder = folder;
+    });
+    _loadCurrentFolder();
+  }
+
+  void _navigateBack() {
+    setState(() {
+      if (_navigationStack.isNotEmpty) {
+        // Pop the last folder from navigation stack
+        _currentFolder = _navigationStack.removeLast();
+      } else {
+        // If stack is empty, go back to root
+        _currentFolder = null;
+      }
+    });
+    _loadCurrentFolder();
   }
 
   void _showOptionsMenu(BuildContext context, FileItem file) {
@@ -68,7 +161,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     Icons.drive_file_rename_outline,
                     color: Colors.blue,
                   ),
-                  title: Text('Rename'),
+                  title: Text(
+                    AppLocalizations.of(context)!.documentPage_rename,
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                     // Handle rename
@@ -77,7 +172,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 if (file.type != FileType.folder) ...[
                   ListTile(
                     leading: Icon(Icons.download_rounded, color: Colors.blue),
-                    title: Text('Download'),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_download,
+                    ),
                     onTap: () {
                       Navigator.pop(context);
                       // Handle download
@@ -85,7 +182,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   ),
                   ListTile(
                     leading: Icon(Icons.share, color: Colors.blue),
-                    title: Text('Share'),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_share,
+                    ),
                     onTap: () {
                       Navigator.pop(context);
                       // Handle share
@@ -94,7 +193,10 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 ],
                 ListTile(
                   leading: Icon(Icons.delete_outline, color: Colors.red),
-                  title: Text('Delete', style: TextStyle(color: Colors.red)),
+                  title: Text(
+                    AppLocalizations.of(context)!.documentPage_delete,
+                    style: TextStyle(color: Colors.red),
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                     // Handle delete
@@ -108,7 +210,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isRootFolder = _currentPath == "attachment";
+    final bool isRootFolder = _currentPath == "Root";
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -116,7 +218,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          "File Manager",
+          AppLocalizations.of(context)!.documentPage_title,
           style: TextStyle(
             fontFamily: "Montserrat",
             fontWeight: FontWeight.bold,
@@ -133,12 +235,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
               });
             },
           ),
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {
-              // Show menu
-            },
-          ),
+          IconButton(icon: Icon(Icons.refresh), onPressed: _loadCurrentFolder),
         ],
       ),
       drawer: MainMenu(),
@@ -158,7 +255,45 @@ class _DocumentsPageState extends State<DocumentsPage> {
           if (!isRootFolder) _buildBackNavigation(),
           Expanded(
             child:
-                _currentFiles.isEmpty
+                _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : _error != null
+                    ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            size: 48,
+                            color: Colors.red,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Error loading files',
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            _error!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 14,
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: _loadCurrentFolder,
+                            child: Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    )
+                    : _filteredFiles.isEmpty
                     ? Center(
                       child: Text(
                         'No files in this folder',
@@ -194,7 +329,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             Icon(Icons.arrow_back, size: 20, color: Colors.blue),
             SizedBox(width: 8),
             Text(
-              'Back',
+              AppLocalizations.of(context)!.documentPage_back,
               style: TextStyle(
                 color: Colors.blue,
                 fontFamily: "Montserrat",
@@ -209,27 +344,47 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
   Widget _buildSearchBar() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade300, width: 2),
         ),
-        child: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: 'Search files...',
-            prefixIcon: Icon(Icons.search, color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText:
+                      AppLocalizations.of(context)!.documentPage_searchBar,
+                  hintStyle: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Colors.grey,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 14,
+                  ),
+                ),
+                style: TextStyle(fontFamily: 'Montserrat'),
+              ),
             ),
-            filled: true,
-            fillColor: Colors.grey[100],
-            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          ),
+            if (_searchController.text.isNotEmpty)
+              IconButton(
+                icon: Icon(Icons.clear),
+                onPressed: () {
+                  _searchController.clear();
+                },
+              )
+            else
+              Padding(
+                padding: const EdgeInsets.only(right: 12.0),
+                child: Icon(Icons.search, color: Colors.grey),
+              ),
+          ],
         ),
       ),
     );
@@ -248,7 +403,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Storage',
+                AppLocalizations.of(context)!.documentPage_storage,
                 style: TextStyle(
                   fontFamily: "Montserrat",
                   fontWeight: FontWeight.w500,
@@ -282,14 +437,26 @@ class _DocumentsPageState extends State<DocumentsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildActionButton(Icons.upload_rounded, 'Upload', Colors.blue),
           _buildActionButton(
-            Icons.create_new_folder_outlined,
-            'New Folder',
+            Icons.upload_rounded,
+            AppLocalizations.of(context)!.documentPage_upload,
             Colors.blue,
           ),
-          _buildActionButton(Icons.download_rounded, 'Download', Colors.blue),
-          _buildActionButton(Icons.delete_outline, 'Delete', Colors.blue),
+          _buildActionButton(
+            Icons.create_new_folder_outlined,
+            AppLocalizations.of(context)!.documentPage_upload,
+            Colors.blue,
+          ),
+          _buildActionButton(
+            Icons.download_rounded,
+            AppLocalizations.of(context)!.documentPage_download,
+            Colors.blue,
+          ),
+          _buildActionButton(
+            Icons.delete_outline,
+            AppLocalizations.of(context)!.documentPage_delete,
+            Colors.blue,
+          ),
         ],
       ),
     );
@@ -315,9 +482,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
   Widget _buildListView() {
     return ListView.builder(
-      itemCount: _currentFiles.length,
+      itemCount: _filteredFiles.length,
       itemBuilder: (context, index) {
-        final file = _currentFiles[index];
+        final file = _filteredFiles[index];
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
           decoration: BoxDecoration(
@@ -350,17 +517,30 @@ class _DocumentsPageState extends State<DocumentsPage> {
               style: TextStyle(
                 fontFamily: "Montserrat",
                 fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: Colors.black87,
               ),
+              overflow: TextOverflow.fade,
+              softWrap: false,
+              maxLines: 1,
             ),
-            subtitle: Text(
-              file.type == FileType.folder
-                  ? '${file.itemCount} items'
-                  : '${file.size} • ${DateFormat('dd/MM/yyyy HH:mm').format(file.date)}',
-              style: TextStyle(fontSize: 12),
-            ),
+            subtitle:
+                file.type != FileType.folder
+                    ? Text(
+                      '${file.size} • ${DateFormat('dd/MM/yyyy HH:mm').format(file.date)}',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      maxLines: 1,
+                    )
+                    : null,
             onTap:
                 file.type == FileType.folder
-                    ? () => _navigateToFolder(file.path)
+                    ? () => _navigateToFolder(file)
                     : null,
             trailing: IconButton(
               icon: Icon(Icons.more_vert),
@@ -377,13 +557,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
       padding: EdgeInsets.all(16),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.85,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
+        childAspectRatio: 1.10,
+        crossAxisSpacing: 18,
+        mainAxisSpacing: 18,
       ),
-      itemCount: _currentFiles.length,
+      itemCount: _filteredFiles.length,
       itemBuilder: (context, index) {
-        final file = _currentFiles[index];
+        final file = _filteredFiles[index];
         return Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -399,49 +579,69 @@ class _DocumentsPageState extends State<DocumentsPage> {
           child: InkWell(
             onTap:
                 file.type == FileType.folder
-                    ? () => _navigateToFolder(file.path)
+                    ? () => _navigateToFolder(file)
                     : null,
             borderRadius: BorderRadius.circular(18),
             child: Stack(
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Icon(
-                        _getFileIcon(file.type),
-                        color: _getFileColor(file.type),
-                        size: 32,
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        file.name,
-                        style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontWeight: FontWeight.w500,
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
+                        child: Icon(
+                          _getFileIcon(file.type),
+                          color: _getFileColor(file.type),
+                          size: 32,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      file.type == FileType.folder
-                          ? '${file.itemCount} items'
-                          : file.size,
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                    ),
-                  ],
+                      SizedBox(height: 12),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            file.name,
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 13,
+                              color: Colors.black87,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      if (file.type != FileType.folder) ...[
+                        Text(
+                          DateFormat('dd/MM/yyyy HH:mm').format(file.date),
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 11,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          file.size,
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                      SizedBox(height: 4),
+                    ],
+                  ),
                 ),
                 Positioned(
                   top: 4,
@@ -449,6 +649,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   child: IconButton(
                     icon: Icon(Icons.more_vert, size: 20),
                     onPressed: () => _showOptionsMenu(context, file),
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    splashRadius: 24,
                   ),
                 ),
               ],

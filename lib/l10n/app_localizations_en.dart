@@ -208,4 +208,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get detailEmployee_certAttachment => 'Attachment';
+
+  @override
+  String get documentPage_title => 'Document Page';
+
+  @override
+  String get documentPage_searchBar => 'Search files and folders';
+
+  @override
+  String get documentPage_storage => 'Storage';
+
+  @override
+  String get documentPage_upload => 'Upload';
+
+  @override
+  String get documentPage_newFolder => 'New Folder';
+
+  @override
+  String get documentPage_download => 'Download';
+
+  @override
+  String get documentPage_share => 'Share';
+
+  @override
+  String get documentPage_delete => 'Delete';
+
+  @override
+  String get documentPage_rename => 'Rename';
+
+  @override
+  String get documentPage_back => 'Back';
 }
