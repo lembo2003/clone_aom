@@ -1,10 +1,8 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
-import 'package:clone_aom/packages/models/employeeDetail_response.dart';
+import 'package:clone_aom/packages/models/employee_detail_response.dart';
 import 'package:clone_aom/packages/screen/contact_user_edit.dart';
 import 'package:clone_aom/packages/services/contact_services.dart';
 import 'package:flutter/material.dart';
-
-import 'components/contact_user_tile.dart';
 
 class ContactUserDetail extends StatefulWidget {
   final String name;
@@ -153,10 +151,6 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
           } else if (snapshot.hasData) {
             final employeeData = snapshot.data!.data;
             final employeeDetail = employeeData.employee;
-            final address =
-                employeeData.employeeAddress.isNotEmpty
-                    ? employeeData.employeeAddress.first
-                    : null;
             return Stack(
               children: [
                 // Main content
@@ -962,80 +956,14 @@ class _ContactUserDetailState extends State<ContactUserDetail> {
                   onPressed: () {},
                   tooltip: 'Copy',
                 ),
-                IconButton(
-                  icon: const Icon(Icons.edit, size: 18, color: Colors.black45),
-                  onPressed: () {},
-                  tooltip: 'Edit',
-                ),
+                // IconButton(
+                //   icon: const Icon(Icons.edit, size: 18, color: Colors.black45),
+                //   onPressed: () {},
+                //   tooltip: 'Edit',
+                // ),
               ],
             ),
         ],
-      ),
-    );
-  }
-
-  // Linked clients and/or prospects Section
-  Widget _buildLinkedClientsSection() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Theme(
-        data: ThemeData().copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          childrenPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
-          ),
-          title: const Text(
-            'Linked clients and/or prospects',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-          trailing: const Icon(Icons.expand_more, color: Colors.black),
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.08),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                child: ContactUserTile(
-                  name: 'BOURGEOIS INDUSTRIE',
-                  code: 'P0018',
-                  company: '',
-                  address: '10 RUE DES ARCHIVES 94000 CRETEIL',
-                  phone: '01.97.37.77.99',
-                  email: 'info@bourgeois-industries.fr',
-                  isFemale: false,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
