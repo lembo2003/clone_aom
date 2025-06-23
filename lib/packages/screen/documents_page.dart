@@ -539,37 +539,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                       maxLines: 1,
                     )
                     : null,
-            onTap: () {
-              if (file.type == FileType.folder) {
-                _navigateToFolder(file);
-              } else {
-                // Check if file is an image by extension
-                final imageExtensions = [
-                  '.jpg',
-                  '.jpeg',
-                  '.png',
-                  '.gif',
-                  '.bmp',
-                  '.webp',
-                ];
-                final isImage = imageExtensions.any(
-                  (ext) => file.name.toLowerCase().endsWith(ext),
-                );
-
-                if (isImage && file.id != null) {
-                  showDialog(
-                    context: context,
-                    builder:
-                        (context) => ImagePreviewDialog(
-                          imageFuture: _documentServices.fetchImagePreview(
-                            file.id!,
-                          ),
-                          imageName: file.name,
-                        ),
-                  );
-                }
-              }
-            },
+            onTap: () => _handleFileTap(file),
             trailing: IconButton(
               icon: Icon(Icons.more_vert),
               onPressed: () => _showOptionsMenu(context, file),
@@ -605,37 +575,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             ],
           ),
           child: InkWell(
-            onTap: () {
-              if (file.type == FileType.folder) {
-                _navigateToFolder(file);
-              } else {
-                // Check if file is an image by extension
-                final imageExtensions = [
-                  '.jpg',
-                  '.jpeg',
-                  '.png',
-                  '.gif',
-                  '.bmp',
-                  '.webp',
-                ];
-                final isImage = imageExtensions.any(
-                  (ext) => file.name.toLowerCase().endsWith(ext),
-                );
-
-                if (isImage && file.id != null) {
-                  showDialog(
-                    context: context,
-                    builder:
-                        (context) => ImagePreviewDialog(
-                          imageFuture: _documentServices.fetchImagePreview(
-                            file.id!,
-                          ),
-                          imageName: file.name,
-                        ),
-                  );
-                }
-              }
-            },
+            onTap: () => _handleFileTap(file),
             borderRadius: BorderRadius.circular(18),
             child: Stack(
               children: [
@@ -740,6 +680,36 @@ class _DocumentsPageState extends State<DocumentsPage> {
         return Colors.green;
       default:
         return Colors.grey;
+    }
+  }
+
+  void _handleFileTap(FileItem file) {
+    if (file.type == FileType.folder) {
+      _navigateToFolder(file);
+    } else {
+      // Check if file is an image by extension
+      final imageExtensions = [
+        '.jpg',
+        '.jpeg',
+        '.png',
+        '.gif',
+        '.bmp',
+        '.webp',
+      ];
+      final isImage = imageExtensions.any(
+        (ext) => file.name.toLowerCase().endsWith(ext),
+      );
+
+      if (isImage && file.id != null) {
+        showDialog(
+          context: context,
+          builder:
+              (context) => ImagePreviewDialog(
+                imageFuture: _documentServices.fetchImagePreview(file.id!),
+                imageName: file.name,
+              ),
+        );
+      }
     }
   }
 }
