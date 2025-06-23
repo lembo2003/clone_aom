@@ -585,38 +585,38 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(
-                          _getFileIcon(file.type),
-                          color: _getFileColor(file.type),
-                          size: 32,
-                        ),
-                      ),
-                      SizedBox(height: 12),
                       Expanded(
                         child: Center(
-                          child: Text(
-                            _formatFileName(file.name, maxLength: 20),
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13,
-                              color: Colors.black87,
+                          child: Container(
+                            width: 56,
+                            height: 56,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            textAlign: TextAlign.center,
+                            child: Icon(
+                              _getFileIcon(file.type),
+                              color: _getFileColor(file.type),
+                              size: 32,
+                            ),
                           ),
                         ),
                       ),
+                      Text(
+                        _formatFileName(file.name, maxLength: 20),
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Colors.black87,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
+                        textAlign: TextAlign.center,
+                      ),
                       if (file.type != FileType.folder) ...[
+                        SizedBox(height: 4),
                         Text(
                           DateFormat('dd/MM/yyyy HH:mm').format(file.date),
                           style: TextStyle(
@@ -635,7 +635,6 @@ class _DocumentsPageState extends State<DocumentsPage> {
                           ),
                         ),
                       ],
-                      SizedBox(height: 4),
                     ],
                   ),
                 ),
@@ -719,7 +718,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
     // Find the last dot for file extension
     final lastDotIndex = fileName.lastIndexOf('.');
-    
+
     if (lastDotIndex == -1) {
       // No extension, just truncate in the middle
       final halfLength = (maxLength - 3) ~/ 2;
@@ -728,12 +727,12 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
     final extension = fileName.substring(lastDotIndex);
     final nameWithoutExt = fileName.substring(0, lastDotIndex);
-    
+
     if (nameWithoutExt.length <= maxLength - extension.length) return fileName;
-    
+
     final remainingLength = maxLength - extension.length - 3; // 3 for '...'
     final halfLength = remainingLength ~/ 2;
-    
+
     return '${nameWithoutExt.substring(0, halfLength)}...${nameWithoutExt.substring(nameWithoutExt.length - halfLength)}$extension';
   }
 }
