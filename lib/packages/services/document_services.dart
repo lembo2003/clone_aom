@@ -67,7 +67,10 @@ class FileItem {
 
     return FileItem(
       name: content.name ?? '',
-      size: sizeInBytes != null ? formatFileSize(sizeInBytes) : content.size ?? '0',
+      size:
+          sizeInBytes != null
+              ? formatFileSize(sizeInBytes)
+              : content.size ?? '0',
       date: content.createDate ?? DateTime.now(),
       type: _getFileTypeFromString(content.type),
       pathFolder: content.path,
@@ -97,6 +100,34 @@ class FileItem {
 class DocumentServices {
   static const String baseUrl = 'http://dev-api.intechno.io.vn/storage';
   final AuthService _authService = AuthService();
+
+  // Add the image preview URL getter
+  String getImagePreviewUrl(int imageId) {
+    return '$baseUrl/file/preview/$imageId';
+  }
+
+  // Fetch image preview with auth headers
+  Future<http.Response> fetchImagePreview(int imageId) async {
+    try {
+      final url = Uri.parse(getImagePreviewUrl(imageId));
+      final headers = await _authService.getAuthHeaders();
+      
+      final response = await http.get(url, headers: headers);
+      
+      if (response.statusCode == 200) {
+        return response;
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication failed. Please login again.');
+      }
+      throw Exception('Failed to load image: Server returned ${response.statusCode}');
+    } catch (e) {
+      print('Error fetching image preview: $e');
+      if (e is SocketException) {
+        throw Exception('Network connection error. Please check your internet connection.');
+      }
+      throw Exception('Failed to load image preview: $e');
+    }
+  }
 
   // Fetch root folders (with null parentId)
   Future<List<FileItem>> fetchRootFolders() async {
@@ -319,3 +350,5 @@ class DocumentServices {
   //   };
   // }
 }
+
+class ImageApi {}

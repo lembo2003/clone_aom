@@ -1,4 +1,5 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
+import 'package:clone_aom/packages/screen/components/image_preview_dialog.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/services/document_services.dart';
 import 'package:flutter/material.dart';
@@ -538,10 +539,37 @@ class _DocumentsPageState extends State<DocumentsPage> {
                       maxLines: 1,
                     )
                     : null,
-            onTap:
-                file.type == FileType.folder
-                    ? () => _navigateToFolder(file)
-                    : null,
+            onTap: () {
+              if (file.type == FileType.folder) {
+                _navigateToFolder(file);
+              } else {
+                // Check if file is an image by extension
+                final imageExtensions = [
+                  '.jpg',
+                  '.jpeg',
+                  '.png',
+                  '.gif',
+                  '.bmp',
+                  '.webp',
+                ];
+                final isImage = imageExtensions.any(
+                  (ext) => file.name.toLowerCase().endsWith(ext),
+                );
+
+                if (isImage && file.id != null) {
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => ImagePreviewDialog(
+                          imageFuture: _documentServices.fetchImagePreview(
+                            file.id!,
+                          ),
+                          imageName: file.name,
+                        ),
+                  );
+                }
+              }
+            },
             trailing: IconButton(
               icon: Icon(Icons.more_vert),
               onPressed: () => _showOptionsMenu(context, file),
@@ -577,10 +605,37 @@ class _DocumentsPageState extends State<DocumentsPage> {
             ],
           ),
           child: InkWell(
-            onTap:
-                file.type == FileType.folder
-                    ? () => _navigateToFolder(file)
-                    : null,
+            onTap: () {
+              if (file.type == FileType.folder) {
+                _navigateToFolder(file);
+              } else {
+                // Check if file is an image by extension
+                final imageExtensions = [
+                  '.jpg',
+                  '.jpeg',
+                  '.png',
+                  '.gif',
+                  '.bmp',
+                  '.webp',
+                ];
+                final isImage = imageExtensions.any(
+                  (ext) => file.name.toLowerCase().endsWith(ext),
+                );
+
+                if (isImage && file.id != null) {
+                  showDialog(
+                    context: context,
+                    builder:
+                        (context) => ImagePreviewDialog(
+                          imageFuture: _documentServices.fetchImagePreview(
+                            file.id!,
+                          ),
+                          imageName: file.name,
+                        ),
+                  );
+                }
+              }
+            },
             borderRadius: BorderRadius.circular(18),
             child: Stack(
               children: [
