@@ -1,4 +1,5 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
+import 'package:clone_aom/packages/screen/components/image_preview_dialog.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/services/document_services.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
   bool _isLoading = true;
   String? _error;
   FileItem? _currentFolder; // Track current folder
-  List<FileItem> _navigationStack = []; // Add navigation stack
+  final List<FileItem> _navigationStack = []; // Add navigation stack
 
   @override
   void initState() {
@@ -250,7 +251,8 @@ class _DocumentsPageState extends State<DocumentsPage> {
               style: TextStyle(color: Colors.blue, fontSize: 14),
             ),
           ),
-          _buildStorageIndicator(),
+          //TODO: DESIGN THIS LATER, taking too much screen estate!
+          // _buildStorageIndicator(),
           _buildActionButtons(),
           if (!isRootFolder) _buildBackNavigation(),
           Expanded(
@@ -513,7 +515,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
               ),
             ),
             title: Text(
-              file.name,
+              _formatFileName(file.name),
               style: TextStyle(
                 fontFamily: "Montserrat",
                 fontWeight: FontWeight.w500,
@@ -538,10 +540,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                       maxLines: 1,
                     )
                     : null,
-            onTap:
-                file.type == FileType.folder
-                    ? () => _navigateToFolder(file)
-                    : null,
+            onTap: () => _handleFileTap(file),
             trailing: IconButton(
               icon: Icon(Icons.more_vert),
               onPressed: () => _showOptionsMenu(context, file),
@@ -577,10 +576,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
             ],
           ),
           child: InkWell(
-            onTap:
-                file.type == FileType.folder
-                    ? () => _navigateToFolder(file)
-                    : null,
+            onTap: () => _handleFileTap(file),
             borderRadius: BorderRadius.circular(18),
             child: Stack(
               children: [
@@ -589,38 +585,38 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 56,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(
-                          _getFileIcon(file.type),
-                          color: _getFileColor(file.type),
-                          size: 32,
-                        ),
-                      ),
-                      SizedBox(height: 12),
                       Expanded(
                         child: Center(
-                          child: Text(
-                            file.name,
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13,
-                              color: Colors.black87,
+                          child: Container(
+                            width: 56,
+                            height: 56,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            textAlign: TextAlign.center,
+                            child: Icon(
+                              _getFileIcon(file.type),
+                              color: _getFileColor(file.type),
+                              size: 32,
+                            ),
                           ),
                         ),
                       ),
+                      Text(
+                        _formatFileName(file.name, maxLength: 20),
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Colors.black87,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
+                        textAlign: TextAlign.center,
+                      ),
                       if (file.type != FileType.folder) ...[
+                        SizedBox(height: 4),
                         Text(
                           DateFormat('dd/MM/yyyy HH:mm').format(file.date),
                           style: TextStyle(
@@ -639,7 +635,6 @@ class _DocumentsPageState extends State<DocumentsPage> {
                           ),
                         ),
                       ],
-                      SizedBox(height: 4),
                     ],
                   ),
                 ),
@@ -686,5 +681,58 @@ class _DocumentsPageState extends State<DocumentsPage> {
       default:
         return Colors.grey;
     }
+  }
+
+  void _handleFileTap(FileItem file) {
+    if (file.type == FileType.folder) {
+      _navigateToFolder(file);
+    } else {
+      // Check if file is an image by extension
+      final imageExtensions = [
+        '.jpg',
+        '.jpeg',
+        '.png',
+        '.gif',
+        '.bmp',
+        '.webp',
+      ];
+      final isImage = imageExtensions.any(
+        (ext) => file.name.toLowerCase().endsWith(ext),
+      );
+
+      if (isImage && file.id != null) {
+        showDialog(
+          context: context,
+          builder:
+              (context) => ImagePreviewDialog(
+                imageFuture: _documentServices.fetchImagePreview(file.id!),
+                imageName: file.name,
+              ),
+        );
+      }
+    }
+  }
+
+  String _formatFileName(String fileName, {int maxLength = 30}) {
+    if (fileName.length <= maxLength) return fileName;
+
+    // Find the last dot for file extension
+    final lastDotIndex = fileName.lastIndexOf('.');
+
+    if (lastDotIndex == -1) {
+      // No extension, just truncate in the middle
+      final halfLength = (maxLength - 3) ~/ 2;
+      return '${fileName.substring(0, halfLength)}...${fileName.substring(fileName.length - halfLength)}';
+    }
+
+    final extension = fileName.substring(lastDotIndex);
+    final nameWithoutExt = fileName.substring(0, lastDotIndex);
+
+    if (nameWithoutExt.length <= maxLength - extension.length) return fileName;
+
+    final remainingLength = maxLength - extension.length - 3; // 3 for '...'
+    final halfLength = remainingLength ~/ 2;
+
+    return '${nameWithoutExt.substring(0, halfLength)}...${nameWithoutExt.substring(nameWithoutExt.length - halfLength)}$extension';
   }
 }
