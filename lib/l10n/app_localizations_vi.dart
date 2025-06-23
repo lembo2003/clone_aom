@@ -238,4 +238,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get documentPage_back => 'Quay lại';
+
+  @override
+  String get loginScreen_rights => 'Bản quyền thuộc @ 2025 Intechno';
+
+  @override
+  String get loginScreen_version => 'Phiên bản alpha 0.0.1';
 }

@@ -556,6 +556,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back'**
   String get documentPage_back;
+
+  /// No description provided for @loginScreen_rights.
+  ///
+  /// In en, this message translates to:
+  /// **'@ 2025 Intechno. All rights reserved'**
+  String get loginScreen_rights;
+
+  /// No description provided for @loginScreen_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version alpha 0.0.1'**
+  String get loginScreen_version;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

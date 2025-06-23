@@ -167,15 +167,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Padding(
             padding: EdgeInsets.only(top: 50),
             child: Center(
               child: Image(
-                height: 200,
-                width: 200,
-                image: AssetImage('assets/images/loginscreen/Logo_Axelor.png'),
+                height: 250,
+                width: 250,
+                image: AssetImage(
+                  'assets/images/loginscreen/intechno_logo.png',
+                ),
               ),
             ),
           ),
@@ -198,7 +201,7 @@ class _LoginPageState extends State<LoginPage> {
           Expanded(
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              children: [LoginTiles(name: 'toila', url: 'axelor.com.vn')],
+              children: [LoginTiles(name: 'toila', url: 'intechno.io.vn')],
             ),
           ),
           Padding(
@@ -207,11 +210,11 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '@ 2025 Intechno. All rights reserved.',
+                  AppLocalizations.of(context)!.loginScreen_rights,
                   style: TextStyle(fontFamily: "Montserrat"),
                 ),
                 Text(
-                  'Version 0.0.11',
+                  AppLocalizations.of(context)!.loginScreen_version,
                   style: TextStyle(fontFamily: "Montserrat"),
                 ),
               ],

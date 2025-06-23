@@ -124,5 +124,8 @@
     "documentPage_share" : "Share",
     "documentPage_delete" : "Delete",
     "documentPage_rename" : "Rename",
-    "documentPage_back" : "Back"
+    "documentPage_back" : "Back",
+
+    "loginScreen_rights" : "@ 2025 Intechno. All rights reserved",
+    "loginScreen_version" : "Version alpha 0.0.1"
 } 

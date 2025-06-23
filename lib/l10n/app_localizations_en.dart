@@ -238,4 +238,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get documentPage_back => 'Back';
+
+  @override
+  String get loginScreen_rights => '@ 2025 Intechno. All rights reserved';
+
+  @override
+  String get loginScreen_version => 'Version alpha 0.0.1';
 }

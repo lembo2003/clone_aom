@@ -92,6 +92,9 @@
     "documentPage_share" : "Chia sẻ",
     "documentPage_delete" : "Xoá",
     "documentPage_rename" : "Đổi tên",
-    "documentPage_back" : "Quay lại"
+    "documentPage_back" : "Quay lại",
+
+    "loginScreen_rights" : "Bản quyền thuộc @ 2025 Intechno",
+    "loginScreen_version" : "Phiên bản alpha 0.0.1"
 
 }
