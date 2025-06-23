@@ -27,7 +27,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
   bool _isLoading = true;
   String? _error;
   FileItem? _currentFolder; // Track current folder
-  List<FileItem> _navigationStack = []; // Add navigation stack
+  final List<FileItem> _navigationStack = []; // Add navigation stack
 
   @override
   void initState() {
