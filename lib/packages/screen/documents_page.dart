@@ -251,7 +251,8 @@ class _DocumentsPageState extends State<DocumentsPage> {
               style: TextStyle(color: Colors.blue, fontSize: 14),
             ),
           ),
-          _buildStorageIndicator(),
+          //TODO: DESIGN THIS LATER, taking too much screen estate!
+          // _buildStorageIndicator(),
           _buildActionButtons(),
           if (!isRootFolder) _buildBackNavigation(),
           Expanded(
@@ -514,7 +515,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
               ),
             ),
             title: Text(
-              file.name,
+              _formatFileName(file.name),
               style: TextStyle(
                 fontFamily: "Montserrat",
                 fontWeight: FontWeight.w500,
@@ -601,7 +602,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                       Expanded(
                         child: Center(
                           child: Text(
-                            file.name,
+                            _formatFileName(file.name, maxLength: 20),
                             style: TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.w500,
@@ -711,5 +712,28 @@ class _DocumentsPageState extends State<DocumentsPage> {
         );
       }
     }
+  }
+
+  String _formatFileName(String fileName, {int maxLength = 30}) {
+    if (fileName.length <= maxLength) return fileName;
+
+    // Find the last dot for file extension
+    final lastDotIndex = fileName.lastIndexOf('.');
+    
+    if (lastDotIndex == -1) {
+      // No extension, just truncate in the middle
+      final halfLength = (maxLength - 3) ~/ 2;
+      return '${fileName.substring(0, halfLength)}...${fileName.substring(fileName.length - halfLength)}';
+    }
+
+    final extension = fileName.substring(lastDotIndex);
+    final nameWithoutExt = fileName.substring(0, lastDotIndex);
+    
+    if (nameWithoutExt.length <= maxLength - extension.length) return fileName;
+    
+    final remainingLength = maxLength - extension.length - 3; // 3 for '...'
+    final halfLength = remainingLength ~/ 2;
+    
+    return '${nameWithoutExt.substring(0, halfLength)}...${nameWithoutExt.substring(nameWithoutExt.length - halfLength)}$extension';
   }
 }
