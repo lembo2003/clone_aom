@@ -244,4 +244,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginScreen_version => 'Version alpha 0.0.1';
+
+  @override
+  String get filePicker_selectFile => 'Select File';
+
+  @override
+  String get filePicker_selectedFile => 'Selected File';
+
+  @override
+  String get filePicker_upload => 'Upload';
+
+  @override
+  String get filePicker_name => 'Name';
+
+  @override
+  String get filePicker_size => 'Size';
+
+  @override
+  String get filePicker_parentId => 'Uploading to folder with ID';
+
+  @override
+  String get filePicker_changeFile => 'Change File';
 }

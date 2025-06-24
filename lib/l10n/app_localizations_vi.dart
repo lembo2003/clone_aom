@@ -244,4 +244,25 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get loginScreen_version => 'Phiên bản alpha 0.0.1';
+
+  @override
+  String get filePicker_selectFile => 'Chọn file';
+
+  @override
+  String get filePicker_selectedFile => 'File đã chọn';
+
+  @override
+  String get filePicker_upload => 'Tải lên';
+
+  @override
+  String get filePicker_name => 'Tên';
+
+  @override
+  String get filePicker_size => 'Dung lượng file';
+
+  @override
+  String get filePicker_parentId => 'Tải lên file có ID';
+
+  @override
+  String get filePicker_changeFile => 'Thay đổi file';
 }

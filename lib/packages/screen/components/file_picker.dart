@@ -8,10 +8,10 @@ class FilePickerDialog extends StatefulWidget {
   final Function()? onUploadSuccess;
 
   const FilePickerDialog({
-    Key? key,
+    super.key,
     required this.folderId,
     this.onUploadSuccess,
-  }) : super(key: key);
+  });
 
   @override
   _FilePickerDialogState createState() => _FilePickerDialogState();
@@ -118,7 +118,7 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Selected File:',
+                      '${(AppLocalizations.of(context)!.filePicker_selectedFile)}:',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Montserrat',
@@ -126,15 +126,15 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Name: ${selectedFile!.name}',
+                      '${(AppLocalizations.of(context)!.filePicker_name)}: ${selectedFile!.name}',
                       style: TextStyle(fontFamily: 'Montserrat'),
                     ),
                     Text(
-                      'Size: ${(selectedFile!.size / 1024).toStringAsFixed(2)} KB',
+                      '${(AppLocalizations.of(context)!.filePicker_size)}: ${(selectedFile!.size / 1024).toStringAsFixed(2)} KB',
                       style: TextStyle(fontFamily: 'Montserrat'),
                     ),
                     Text(
-                      'Uploading to folder id: ${(widget.folderId)}',
+                      '${(AppLocalizations.of(context)!.filePicker_parentId)}: ${(widget.folderId)}',
                       style: TextStyle(fontFamily: 'Montserrat'),
                     ),
                   ],
@@ -168,7 +168,9 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                     onPressed: isUploading ? null : pickFile,
                     icon: Icon(Icons.file_upload),
                     label: Text(
-                      selectedFile == null ? 'Select File' : 'Change File',
+                      selectedFile == null
+                          ? AppLocalizations.of(context)!.filePicker_upload
+                          : AppLocalizations.of(context)!.filePicker_changeFile,
                       style: TextStyle(fontFamily: 'Montserrat'),
                     ),
                     style: ElevatedButton.styleFrom(
@@ -181,6 +183,10 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: isUploading ? null : uploadFile,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        backgroundColor: Colors.green,
+                      ),
                       child:
                           isUploading
                               ? SizedBox(
@@ -194,13 +200,9 @@ class _FilePickerDialogState extends State<FilePickerDialog> {
                                 ),
                               )
                               : Text(
-                                'Upload',
+                                AppLocalizations.of(context)!.filePicker_upload,
                                 style: TextStyle(fontFamily: 'Montserrat'),
                               ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        backgroundColor: Colors.green,
-                      ),
                     ),
                   ),
                 ],

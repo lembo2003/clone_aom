@@ -568,6 +568,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version alpha 0.0.1'**
   String get loginScreen_version;
+
+  /// No description provided for @filePicker_selectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select File'**
+  String get filePicker_selectFile;
+
+  /// No description provided for @filePicker_selectedFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected File'**
+  String get filePicker_selectedFile;
+
+  /// No description provided for @filePicker_upload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get filePicker_upload;
+
+  /// No description provided for @filePicker_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get filePicker_name;
+
+  /// No description provided for @filePicker_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get filePicker_size;
+
+  /// No description provided for @filePicker_parentId.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading to folder with ID'**
+  String get filePicker_parentId;
+
+  /// No description provided for @filePicker_changeFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Change File'**
+  String get filePicker_changeFile;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
