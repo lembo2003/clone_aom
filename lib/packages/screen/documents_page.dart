@@ -19,9 +19,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
   final TextEditingController _searchController = TextEditingController();
   final DocumentServices _documentServices = DocumentServices();
 
-  // Storage usage variables
-  final double _totalStorageGB = 1.0; // 1GB total
-  final double _usedStorageGB = 0.56; // 560MB used
+  // // Storage usage variables
+  // final double _totalStorageGB = 1.0; // 1GB total
+  // final double _usedStorageGB = 0.56; // 560MB used
 
   // Current folder content
   List<FileItem> _currentFiles = [];
@@ -199,15 +199,97 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     AppLocalizations.of(context)!.documentPage_delete,
                     style: TextStyle(color: Colors.red),
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    // Handle delete
-                  },
+                  onTap: () => _deleteFileById(file.id),
                 ),
               ],
             ),
           ),
     );
+  }
+
+  void _deleteFileById(int? fileId) async {
+    if (fileId == null) return;
+
+    // Close the options menu first
+    Navigator.pop(context);
+
+    // Show confirmation dialog
+    bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Confirm Delete',
+            style: TextStyle(fontFamily: 'Montserrat'),
+          ),
+          content: Text(
+            'Are you sure you want to delete this item?',
+            style: TextStyle(fontFamily: 'Montserrat'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('Cancel', style: TextStyle(fontFamily: 'Montserrat')),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(
+                'Delete',
+                style: TextStyle(color: Colors.red, fontFamily: 'Montserrat'),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    // If user didn't confirm, do nothing
+    if (confirm != true) return;
+
+    try {
+      // Show loading indicator
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+              SizedBox(width: 16),
+              Text('Deleting...'),
+            ],
+          ),
+          duration: Duration(seconds: 1),
+        ),
+      );
+
+      // Delete the file
+      await _documentServices.DeleteFile(fileId);
+
+      // Show success message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Item deleted successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        // Refresh the current folder
+        _loadCurrentFolder();
+      }
+    } catch (e) {
+      // Show error message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+        );
+      }
+    }
   }
 
   @override
@@ -393,46 +475,46 @@ class _DocumentsPageState extends State<DocumentsPage> {
     );
   }
 
-  Widget _buildStorageIndicator() {
-    final usedGB = _usedStorageGB.toStringAsFixed(2);
-    final totalGB = _totalStorageGB.toStringAsFixed(2);
-
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.documentPage_storage,
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                ),
-              ),
-              Text(
-                '$usedGB GB / $totalGB GB',
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: _usedStorageGB / _totalStorageGB,
-              backgroundColor: Colors.grey[200],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
-              minHeight: 6,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildStorageIndicator() {
+  //   final usedGB = _usedStorageGB.toStringAsFixed(2);
+  //   final totalGB = _totalStorageGB.toStringAsFixed(2);
+  //
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text(
+  //               AppLocalizations.of(context)!.documentPage_storage,
+  //               style: TextStyle(
+  //                 fontFamily: "Montserrat",
+  //                 fontWeight: FontWeight.w500,
+  //                 fontSize: 14,
+  //               ),
+  //             ),
+  //             Text(
+  //               '$usedGB GB / $totalGB GB',
+  //               style: TextStyle(color: Colors.grey[600], fontSize: 12),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 8),
+  //         ClipRRect(
+  //           borderRadius: BorderRadius.circular(4),
+  //           child: LinearProgressIndicator(
+  //             value: _usedStorageGB / _totalStorageGB,
+  //             backgroundColor: Colors.grey[200],
+  //             valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
+  //             minHeight: 6,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildActionButtons() {
     return Container(

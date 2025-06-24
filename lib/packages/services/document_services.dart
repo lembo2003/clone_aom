@@ -258,102 +258,6 @@ class DocumentServices {
     }
   }
 
-  // Keep the mock data for fallback and testing
-  // static Map<String, List<FileItem>> getInitialFolderContents() {
-  //   return {
-  //     "attachment": [
-  //       FileItem(
-  //         name: "Documents",
-  //         size: "--",
-  //         date: DateTime(2025, 6, 17, 10, 34, 28),
-  //         type: FileType.folder,
-  //         pathFolder: "attachment/Documents",
-  //       ),
-  //       FileItem(
-  //         name: "Images",
-  //         size: "--",
-  //         date: DateTime(2025, 6, 17, 10, 34, 28),
-  //         type: FileType.folder,
-  //         pathFolder: "attachment/Images",
-  //       ),
-  //       FileItem(
-  //         name: "Reports",
-  //         size: "--",
-  //         date: DateTime(2025, 6, 16, 14, 22, 20),
-  //         type: FileType.folder,
-  //         pathFolder: "attachment/Reports",
-  //       ),
-  //       FileItem(
-  //         name: "JPT_FS_0.docx",
-  //         size: formatFileSize(57058), // 55.7 KB
-  //         date: DateTime(2025, 6, 17, 10, 34, 28),
-  //         type: FileType.document,
-  //         pathFolder: "attachment/JPT_FS_0.docx",
-  //       ),
-  //       FileItem(
-  //         name: "profile.jpg",
-  //         size: formatFileSize(220518), // 215.4 KB
-  //         date: DateTime(2025, 6, 16, 14, 22, 20),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/profile.jpg",
-  //       ),
-  //     ],
-  //     "attachment/Images": [
-  //       FileItem(
-  //         name: "Screenshots",
-  //         size: "--",
-  //         date: DateTime(2025, 6, 17, 11, 00, 00),
-  //         type: FileType.folder,
-  //         pathFolder: "attachment/Images",
-  //       ),
-  //       FileItem(
-  //         name: "avatar.png",
-  //         size: formatFileSize(102400), // 100 KB
-  //         date: DateTime(2025, 6, 17, 10, 45, 00),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/Images/avatar.png",
-  //       ),
-  //       FileItem(
-  //         name: "background.jpg",
-  //         size: formatFileSize(2097152), // 2 MB
-  //         date: DateTime(2025, 6, 17, 10, 40, 00),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/Images/background.jpg",
-  //       ),
-  //       FileItem(
-  //         name: "logo.png",
-  //         size: formatFileSize(51200), // 50 KB
-  //         date: DateTime(2025, 6, 17, 10, 35, 00),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/Images/logo.png",
-  //       ),
-  //     ],
-  //     "attachment/Images/Screenshots": [
-  //       FileItem(
-  //         name: "screenshot_1.png",
-  //         size: formatFileSize(153600), // 150 KB
-  //         date: DateTime(2025, 6, 17, 11, 30, 00),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/Images/Screenshots/screenshot_1.png",
-  //       ),
-  //       FileItem(
-  //         name: "screenshot_2.png",
-  //         size: formatFileSize(179200), // 175 KB
-  //         date: DateTime(2025, 6, 17, 11, 35, 00),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/Images/Screenshots/screenshot_2.png",
-  //       ),
-  //       FileItem(
-  //         name: "screenshot_3.png",
-  //         size: formatFileSize(204800), // 200 KB
-  //         date: DateTime(2025, 6, 17, 11, 40, 00),
-  //         type: FileType.image,
-  //         pathFolder: "attachment/Images/Screenshots/screenshot_3.png",
-  //       ),
-  //     ],
-  //   };
-  // }
-
   Future<void> uploadFile({
     required String filePath,
     required String fileName,
@@ -392,4 +296,66 @@ class DocumentServices {
       throw Exception('Failed to upload file: $e');
     }
   }
+
+  Future<void> DeleteFile(int fileId) async {
+    try {
+      final url = Uri.parse('$baseUrl/file/$fileId');
+      print('Deleting file with ID: $fileId');
+
+      final headers = await _authService.getAuthHeaders();
+      final response = await http.delete(url, headers: headers);
+      final responseBody = response.body;
+
+      if (response.statusCode == 200) {
+        // Success - no need to do anything
+        return;
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication failed. Please login again.');
+      } else if (response.statusCode == 404) {
+        throw Exception('File not found.');
+      } else {
+        throw Exception(
+          'Failed to delete file: Server returned ${response.statusCode} - $responseBody',
+        );
+      }
+    } catch (e) {
+      print('Error deleting file: $e');
+      if (e is SocketException) {
+        throw Exception(
+          'Network connection error. Please check your internet connection.',
+        );
+      }
+      rethrow; // Re-throw the exception to let the caller handle it
+    }
+  }
+
+  // Future<void> DeleteFolder(int folderId) async {
+  //   try {
+  //     final url = Uri.parse('$baseUrl/folders/$folderId');
+  //     print('Deleting folder with ID: $folderId');
+  //
+  //     final headers = await _authService.getAuthHeaders();
+  //     final response = await http.delete(url, headers: headers);
+  //     final responseBody = response.body;
+  //
+  //     if (response.statusCode == 200) {
+  //       // Success - no need to do anything
+  //       return;
+  //     } else if (response.statusCode == 401) {
+  //       throw Exception('Authentication failed. Please login again.');
+  //     } else if (response.statusCode == 404) {
+  //       throw Exception('Folder not found.');
+  //     } else {
+  //       throw Exception('Failed to delete folder: Server returned ${response.statusCode} - $responseBody');
+  //     }
+  //   } catch (e) {
+  //     print('Error deleting folder: $e');
+  //     if (e is SocketException) {
+  //       throw Exception(
+  //         'Network connection error. Please check your internet connection.',
+  //       );
+  //     }
+  //     rethrow; // Re-throw the exception to let the caller handle it
+  //   }
+  // }
 }
