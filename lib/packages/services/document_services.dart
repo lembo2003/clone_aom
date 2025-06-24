@@ -111,19 +111,23 @@ class DocumentServices {
     try {
       final url = Uri.parse(getImagePreviewUrl(imageId));
       final headers = await _authService.getAuthHeaders();
-      
+
       final response = await http.get(url, headers: headers);
-      
+
       if (response.statusCode == 200) {
         return response;
       } else if (response.statusCode == 401) {
         throw Exception('Authentication failed. Please login again.');
       }
-      throw Exception('Failed to load image: Server returned ${response.statusCode}');
+      throw Exception(
+        'Failed to load image: Server returned ${response.statusCode}',
+      );
     } catch (e) {
       print('Error fetching image preview: $e');
       if (e is SocketException) {
-        throw Exception('Network connection error. Please check your internet connection.');
+        throw Exception(
+          'Network connection error. Please check your internet connection.',
+        );
       }
       throw Exception('Failed to load image preview: $e');
     }
@@ -349,6 +353,43 @@ class DocumentServices {
   //     ],
   //   };
   // }
-}
 
-class ImageApi {}
+  Future<void> uploadFile({
+    required String filePath,
+    required String fileName,
+    required int folderId,
+  }) async {
+    try {
+      // Get auth headers
+      final headers = await _authService.getAuthHeaders();
+
+      // Create multipart request
+      var uri = Uri.parse('$baseUrl/file/upload/$folderId');
+      var request = http.MultipartRequest('POST', uri);
+
+      // Add headers
+      request.headers.addAll(headers);
+
+      // Add file
+      var file = await http.MultipartFile.fromPath(
+        'file',
+        filePath,
+        filename: fileName,
+      );
+      request.files.add(file);
+
+      // Send request
+      var response = await request.send();
+      var responseBody = await response.stream.bytesToString();
+
+      if (response.statusCode != 200) {
+        throw Exception(
+          'Upload failed: ${response.statusCode} - $responseBody',
+        );
+      }
+    } catch (e) {
+      print('Error in uploadFile: $e'); // Debug log
+      throw Exception('Failed to upload file: $e');
+    }
+  }
+}

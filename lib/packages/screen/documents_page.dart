@@ -1,4 +1,5 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
+import 'package:clone_aom/packages/screen/components/file_picker.dart';
 import 'package:clone_aom/packages/screen/components/image_preview_dialog.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/services/document_services.dart';
@@ -439,10 +440,44 @@ class _DocumentsPageState extends State<DocumentsPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildActionButton(
-            Icons.upload_rounded,
-            AppLocalizations.of(context)!.documentPage_upload,
-            Colors.blue,
+          InkWell(
+            onTap: () {
+              if (_currentFolder?.id != null) {
+                showDialog(
+                  context: context,
+                  builder:
+                      (context) => FilePickerDialog(
+                        folderId: _currentFolder!.id!,
+                        onUploadSuccess: () {
+                          // Refresh the folder contents after successful upload
+                          _loadCurrentFolder();
+                        },
+                      ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Please select a folder first'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.upload_rounded, color: Colors.blue, size: 24),
+                SizedBox(height: 4),
+                Text(
+                  AppLocalizations.of(context)!.documentPage_upload,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.blue,
+                    fontFamily: "Montserrat",
+                  ),
+                ),
+              ],
+            ),
           ),
           _buildActionButton(
             Icons.create_new_folder_outlined,
