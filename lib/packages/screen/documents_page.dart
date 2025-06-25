@@ -169,7 +169,6 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      // Handle rename
                     },
                   ),
                   ListTile(
@@ -191,7 +190,7 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      // Handle rename
+                      // _renameFileById(file.id, file.name);
                     },
                   ),
                   ListTile(
@@ -340,6 +339,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
       }
     }
   }
+
+  // void _renameFileById(int? fileId, String? currentName) async {
+  //   //Close the option menu
+  //   Navigator.pop(context);
+  //
+  //   if (fileId == null || currentName == null) return;
+  // }
 
   void _deleteFolderById(int? folderId) async {
     if (folderId == null) return;
