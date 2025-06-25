@@ -174,8 +174,8 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.only(top: 50),
             child: Center(
               child: Image(
-                height: 250,
-                width: 250,
+                height: 200,
+                width: 200,
                 image: AssetImage(
                   'assets/images/loginscreen/intechno_logo.png',
                 ),
