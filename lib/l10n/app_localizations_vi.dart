@@ -274,4 +274,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get documentPage_tag => 'Thẻ';
+
+  @override
+  String get projectListPage_title => 'Danh Sách Dự Án';
+
+  @override
+  String get projectListPage_search => 'Tìm kiếm dự án';
 }

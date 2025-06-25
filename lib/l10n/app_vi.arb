@@ -107,7 +107,10 @@
 
     "documentPage_getSharableLink" : "Lấy liên kết chia sẻ",
     "documentPage_info" : "Thông tin",
-    "documentPage_tag" : "Thẻ"
+    "documentPage_tag" : "Thẻ",
+
+    "projectListPage_title" : "Danh Sách Dự Án",
+    "projectListPage_search" : "Tìm kiếm dự án"
 
 
 

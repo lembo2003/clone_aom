@@ -628,6 +628,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tag'**
   String get documentPage_tag;
+
+  /// No description provided for @projectListPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Project List'**
+  String get projectListPage_title;
+
+  /// No description provided for @projectListPage_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search projects...'**
+  String get projectListPage_search;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

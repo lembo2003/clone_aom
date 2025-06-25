@@ -139,7 +139,11 @@
 
     "documentPage_getSharableLink" : "Get Sharable Link",
     "documentPage_info" : "Info",
-    "documentPage_tag" : "Tag"
+    "documentPage_tag" : "Tag",
+
+    "projectListPage_title" : "Project List",
+    "projectListPage_search" : "Search projects..."
+
 
 
 

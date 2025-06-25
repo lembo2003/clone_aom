@@ -42,12 +42,9 @@ class Data {
       pageSize: json["pageSize"],
       page: json["page"],
       total: json["total"],
-      content:
-          json["content"] == null
-              ? []
-              : List<Content>.from(
-                json["content"]!.map((x) => Content.fromJson(x)),
-              ),
+      content: json["content"] == null
+          ? []
+          : List<Content>.from(json["content"]!.map((x) => Content.fromJson(x))),
     );
   }
 }
@@ -87,7 +84,7 @@ class Content {
       description: json["description"],
       state: json["state"],
       startDate: json["startDate"],
-      endDate: DateTime.tryParse(json["endDate"] ?? ""),
+      endDate: json["endDate"] == null ? null : DateTime.tryParse(json["endDate"]),
       progressPercent: json["progressPercent"],
       administrator: json["administrator"],
       administratorDto: json["administratorDto"],

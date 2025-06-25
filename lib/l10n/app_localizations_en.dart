@@ -274,4 +274,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get documentPage_tag => 'Tag';
+
+  @override
+  String get projectListPage_title => 'Project List';
+
+  @override
+  String get projectListPage_search => 'Search projects...';
 }
