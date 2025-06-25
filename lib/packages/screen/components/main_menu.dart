@@ -1,6 +1,7 @@
 import 'package:clone_aom/packages/screen/contact_page.dart';
 import 'package:clone_aom/packages/screen/documents_page.dart';
 import 'package:clone_aom/packages/screen/index_page.dart';
+import 'package:clone_aom/packages/screen/project_list_page.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget {
@@ -310,32 +311,39 @@ class MainMenu extends StatelessWidget {
                         //     ],
                         //   ),
                         // ]),
-                        // _buildMenuItem(context, Icons.task, 'Project', [
-                        //   _buildDialogOption(
-                        //     context,
-                        //     Icons.timer,
-                        //     'Active Project',
-                        //     () {},
-                        //   ),
-                        //   _buildDialogOption(
-                        //     context,
-                        //     Icons.folder,
-                        //     'Projects',
-                        //     () {},
-                        //   ),
-                        //   _buildDialogOption(
-                        //     context,
-                        //     Icons.business,
-                        //     'Business Projects',
-                        //     () {},
-                        //   ),
-                        //   _buildDialogOption(
-                        //     context,
-                        //     Icons.check_circle,
-                        //     'Tasks',
-                        //     () {},
-                        //   ),
-                        // ]),
+                        _buildMenuItem(context, Icons.task, 'Project', [
+                          // _buildDialogOption(
+                          //   context,
+                          //   Icons.timer,
+                          //   'Active Project',
+                          //   () {},
+                          // ),
+                          _buildDialogOption(
+                            context,
+                            Icons.folder,
+                            'Projects',
+                            () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProjectListPage(),
+                                ),
+                              );
+                            },
+                          ),
+                          // _buildDialogOption(
+                          //   context,
+                          //   Icons.business,
+                          //   'Business Projects',
+                          //   () {},
+                          // ),
+                          // _buildDialogOption(
+                          //   context,
+                          //   Icons.check_circle,
+                          //   'Tasks',
+                          //   () {},
+                          // ),
+                        ]),
                         _buildMenuItem(context, Icons.folder, 'DMS', [
                           _buildDialogOption(
                             context,
