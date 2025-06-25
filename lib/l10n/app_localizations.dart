@@ -610,6 +610,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change File'**
   String get filePicker_changeFile;
+
+  /// No description provided for @documentPage_getSharableLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Sharable Link'**
+  String get documentPage_getSharableLink;
+
+  /// No description provided for @documentPage_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get documentPage_info;
+
+  /// No description provided for @documentPage_tag.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag'**
+  String get documentPage_tag;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

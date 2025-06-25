@@ -265,4 +265,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filePicker_changeFile => 'Change File';
+
+  @override
+  String get documentPage_getSharableLink => 'Get Sharable Link';
+
+  @override
+  String get documentPage_info => 'Info';
+
+  @override
+  String get documentPage_tag => 'Tag';
 }

@@ -135,5 +135,12 @@
     "filePicker_name" : "Name",
     "filePicker_size" : "Size",
     "filePicker_parentId" : "Uploading to folder with ID",
-    "filePicker_changeFile" : "Change File"
+    "filePicker_changeFile" : "Change File",
+
+    "documentPage_getSharableLink" : "Get Sharable Link",
+    "documentPage_info" : "Info",
+    "documentPage_tag" : "Tag"
+
+
+
 } 

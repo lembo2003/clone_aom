@@ -265,4 +265,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get filePicker_changeFile => 'Thay đổi file';
+
+  @override
+  String get documentPage_getSharableLink => 'Lấy liên kết chia sẻ';
+
+  @override
+  String get documentPage_info => 'Thông tin';
+
+  @override
+  String get documentPage_tag => 'Thẻ';
 }

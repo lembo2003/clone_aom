@@ -158,20 +158,42 @@ class _DocumentsPageState extends State<DocumentsPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ListTile(
-                  leading: Icon(
-                    Icons.drive_file_rename_outline,
-                    color: Colors.blue,
+                if (file.type == FileType.folder) ...[
+                  ListTile(
+                    leading: Icon(
+                      Icons.drive_file_rename_outline,
+                      color: Colors.blue,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_rename,
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Handle rename
+                    },
                   ),
-                  title: Text(
-                    AppLocalizations.of(context)!.documentPage_rename,
+                  ListTile(
+                    leading: Icon(Icons.delete_outline, color: Colors.red),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_delete,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onTap: () => {_deleteFolderById(file.id)},
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    // Handle rename
-                  },
-                ),
-                if (file.type != FileType.folder) ...[
+                ] else ...[
+                  ListTile(
+                    leading: Icon(
+                      Icons.drive_file_rename_outline,
+                      color: Colors.blue,
+                    ),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_rename,
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Handle rename
+                    },
+                  ),
                   ListTile(
                     leading: Icon(Icons.download_rounded, color: Colors.blue),
                     title: Text(
@@ -192,15 +214,42 @@ class _DocumentsPageState extends State<DocumentsPage> {
                       // Handle share
                     },
                   ),
-                ],
-                ListTile(
-                  leading: Icon(Icons.delete_outline, color: Colors.red),
-                  title: Text(
-                    AppLocalizations.of(context)!.documentPage_delete,
-                    style: TextStyle(color: Colors.red),
+                  ListTile(
+                    leading: Icon(Icons.link, color: Colors.blue),
+                    title: Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.documentPage_getSharableLink,
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      // Handle share
+                    },
                   ),
-                  onTap: () => _deleteFileById(file.id),
-                ),
+                  ListTile(
+                    leading: Icon(Icons.info_outline, color: Colors.blue),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_info,
+                    ),
+                    onTap: () => {},
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.local_offer_outlined,
+                      color: Colors.blue,
+                    ),
+                    title: Text(AppLocalizations.of(context)!.documentPage_tag),
+                    onTap: () => {},
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.delete_outline, color: Colors.red),
+                    title: Text(
+                      AppLocalizations.of(context)!.documentPage_delete,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    onTap: () => _deleteFileById(file.id),
+                  ),
+                ],
               ],
             ),
           ),
@@ -270,6 +319,106 @@ class _DocumentsPageState extends State<DocumentsPage> {
 
       // Delete the file
       await _documentServices.DeleteFile(fileId);
+
+      // Show success message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Item deleted successfully'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        // Refresh the current folder
+        _loadCurrentFolder();
+      }
+    } catch (e) {
+      // Show error message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
+
+  void _deleteFolderById(int? folderId) async {
+    if (folderId == null) return;
+
+    // Close the options menu first
+    Navigator.pop(context);
+
+    // Show confirmation dialog
+    bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Confirm Delete?',
+            style: TextStyle(fontFamily: 'Montserrat'),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Are you sure you want to delete this folder?',
+                style: TextStyle(fontFamily: 'Montserrat'),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'This action cannot be undone.',
+                style: TextStyle(fontFamily: 'Montserrat'),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'All files inside will be lost!',
+                style: TextStyle(fontFamily: 'Montserrat'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('Cancel', style: TextStyle(fontFamily: 'Montserrat')),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(
+                'Delete',
+                style: TextStyle(color: Colors.red, fontFamily: 'Montserrat'),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    // If user didn't confirm, do nothing
+    if (confirm != true) return;
+
+    try {
+      // Show loading indicator
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+              SizedBox(width: 16),
+              Text('Deleting...'),
+            ],
+          ),
+          duration: Duration(seconds: 1),
+        ),
+      );
+
+      // Delete the file
+      await _documentServices.DeleteFolder(folderId);
 
       // Show success message
       if (mounted) {

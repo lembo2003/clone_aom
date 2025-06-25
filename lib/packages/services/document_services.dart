@@ -329,33 +329,35 @@ class DocumentServices {
     }
   }
 
-  // Future<void> DeleteFolder(int folderId) async {
-  //   try {
-  //     final url = Uri.parse('$baseUrl/folders/$folderId');
-  //     print('Deleting folder with ID: $folderId');
-  //
-  //     final headers = await _authService.getAuthHeaders();
-  //     final response = await http.delete(url, headers: headers);
-  //     final responseBody = response.body;
-  //
-  //     if (response.statusCode == 200) {
-  //       // Success - no need to do anything
-  //       return;
-  //     } else if (response.statusCode == 401) {
-  //       throw Exception('Authentication failed. Please login again.');
-  //     } else if (response.statusCode == 404) {
-  //       throw Exception('Folder not found.');
-  //     } else {
-  //       throw Exception('Failed to delete folder: Server returned ${response.statusCode} - $responseBody');
-  //     }
-  //   } catch (e) {
-  //     print('Error deleting folder: $e');
-  //     if (e is SocketException) {
-  //       throw Exception(
-  //         'Network connection error. Please check your internet connection.',
-  //       );
-  //     }
-  //     rethrow; // Re-throw the exception to let the caller handle it
-  //   }
-  // }
+  Future<void> DeleteFolder(int folderId) async {
+    try {
+      final url = Uri.parse('$baseUrl/folders/$folderId');
+      print('Deleting folder with ID: $folderId');
+
+      final headers = await _authService.getAuthHeaders();
+      final response = await http.delete(url, headers: headers);
+      final responseBody = response.body;
+
+      if (response.statusCode == 200) {
+        // Success - no need to do anything
+        return;
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication failed. Please login again.');
+      } else if (response.statusCode == 404) {
+        throw Exception('Folder not found.');
+      } else {
+        throw Exception(
+          'Failed to delete folder: Server returned ${response.statusCode} - $responseBody',
+        );
+      }
+    } catch (e) {
+      print('Error deleting folder: $e');
+      if (e is SocketException) {
+        throw Exception(
+          'Network connection error. Please check your internet connection.',
+        );
+      }
+      rethrow; // Re-throw the exception to let the caller handle it
+    }
+  }
 }
