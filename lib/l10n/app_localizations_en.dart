@@ -238,4 +238,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get documentPage_back => 'Back';
+
+  @override
+  String get loginScreen_rights => '@ 2025 Intechno. All rights reserved';
+
+  @override
+  String get loginScreen_version => 'Version alpha 0.0.1';
+
+  @override
+  String get filePicker_selectFile => 'Select File';
+
+  @override
+  String get filePicker_selectedFile => 'Selected File';
+
+  @override
+  String get filePicker_upload => 'Upload';
+
+  @override
+  String get filePicker_name => 'Name';
+
+  @override
+  String get filePicker_size => 'Size';
+
+  @override
+  String get filePicker_parentId => 'Uploading to folder with ID';
+
+  @override
+  String get filePicker_changeFile => 'Change File';
+
+  @override
+  String get documentPage_getSharableLink => 'Get Sharable Link';
+
+  @override
+  String get documentPage_info => 'Info';
+
+  @override
+  String get documentPage_tag => 'Tag';
+
+  @override
+  String get projectListPage_title => 'Project List';
+
+  @override
+  String get projectListPage_search => 'Search projects...';
 }

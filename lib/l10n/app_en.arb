@@ -124,5 +124,27 @@
     "documentPage_share" : "Share",
     "documentPage_delete" : "Delete",
     "documentPage_rename" : "Rename",
-    "documentPage_back" : "Back"
+    "documentPage_back" : "Back",
+
+    "loginScreen_rights" : "@ 2025 Intechno. All rights reserved",
+    "loginScreen_version" : "Version alpha 0.0.1",
+
+    "filePicker_selectFile" : "Select File",
+    "filePicker_selectedFile" : "Selected File",
+    "filePicker_upload" : "Upload",
+    "filePicker_name" : "Name",
+    "filePicker_size" : "Size",
+    "filePicker_parentId" : "Uploading to folder with ID",
+    "filePicker_changeFile" : "Change File",
+
+    "documentPage_getSharableLink" : "Get Sharable Link",
+    "documentPage_info" : "Info",
+    "documentPage_tag" : "Tag",
+
+    "projectListPage_title" : "Project List",
+    "projectListPage_search" : "Search projects..."
+
+
+
+
 } 

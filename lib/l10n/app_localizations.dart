@@ -556,6 +556,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back'**
   String get documentPage_back;
+
+  /// No description provided for @loginScreen_rights.
+  ///
+  /// In en, this message translates to:
+  /// **'@ 2025 Intechno. All rights reserved'**
+  String get loginScreen_rights;
+
+  /// No description provided for @loginScreen_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version alpha 0.0.1'**
+  String get loginScreen_version;
+
+  /// No description provided for @filePicker_selectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select File'**
+  String get filePicker_selectFile;
+
+  /// No description provided for @filePicker_selectedFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected File'**
+  String get filePicker_selectedFile;
+
+  /// No description provided for @filePicker_upload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get filePicker_upload;
+
+  /// No description provided for @filePicker_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get filePicker_name;
+
+  /// No description provided for @filePicker_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get filePicker_size;
+
+  /// No description provided for @filePicker_parentId.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading to folder with ID'**
+  String get filePicker_parentId;
+
+  /// No description provided for @filePicker_changeFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Change File'**
+  String get filePicker_changeFile;
+
+  /// No description provided for @documentPage_getSharableLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Sharable Link'**
+  String get documentPage_getSharableLink;
+
+  /// No description provided for @documentPage_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get documentPage_info;
+
+  /// No description provided for @documentPage_tag.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag'**
+  String get documentPage_tag;
+
+  /// No description provided for @projectListPage_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Project List'**
+  String get projectListPage_title;
+
+  /// No description provided for @projectListPage_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search projects...'**
+  String get projectListPage_search;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -92,6 +92,26 @@
     "documentPage_share" : "Chia sẻ",
     "documentPage_delete" : "Xoá",
     "documentPage_rename" : "Đổi tên",
-    "documentPage_back" : "Quay lại"
+    "documentPage_back" : "Quay lại",
+
+    "loginScreen_rights" : "Bản quyền thuộc @ 2025 Intechno",
+    "loginScreen_version" : "Phiên bản alpha 0.0.1",
+
+    "filePicker_selectFile" : "Chọn file",
+    "filePicker_selectedFile" : "File đã chọn",
+    "filePicker_upload" : "Tải lên",
+    "filePicker_name" : "Tên",
+    "filePicker_size" : "Dung lượng file",
+    "filePicker_parentId" : "Tải lên file có ID",
+    "filePicker_changeFile" : "Thay đổi file",
+
+    "documentPage_getSharableLink" : "Lấy liên kết chia sẻ",
+    "documentPage_info" : "Thông tin",
+    "documentPage_tag" : "Thẻ",
+
+    "projectListPage_title" : "Danh Sách Dự Án",
+    "projectListPage_search" : "Tìm kiếm dự án"
+
+
 
 }

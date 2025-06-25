@@ -297,7 +297,7 @@ class LoginTiles extends StatelessWidget {
                   height: 100,
                   width: 80,
                   image: AssetImage(
-                    'assets/images/loginscreen/Logo_Axelor.png',
+                    'assets/images/loginscreen/intechno_logo.png',
                   ),
                 ),
               ),

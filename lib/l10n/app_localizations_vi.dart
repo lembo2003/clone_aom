@@ -238,4 +238,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get documentPage_back => 'Quay lại';
+
+  @override
+  String get loginScreen_rights => 'Bản quyền thuộc @ 2025 Intechno';
+
+  @override
+  String get loginScreen_version => 'Phiên bản alpha 0.0.1';
+
+  @override
+  String get filePicker_selectFile => 'Chọn file';
+
+  @override
+  String get filePicker_selectedFile => 'File đã chọn';
+
+  @override
+  String get filePicker_upload => 'Tải lên';
+
+  @override
+  String get filePicker_name => 'Tên';
+
+  @override
+  String get filePicker_size => 'Dung lượng file';
+
+  @override
+  String get filePicker_parentId => 'Tải lên file có ID';
+
+  @override
+  String get filePicker_changeFile => 'Thay đổi file';
+
+  @override
+  String get documentPage_getSharableLink => 'Lấy liên kết chia sẻ';
+
+  @override
+  String get documentPage_info => 'Thông tin';
+
+  @override
+  String get documentPage_tag => 'Thẻ';
+
+  @override
+  String get projectListPage_title => 'Danh Sách Dự Án';
+
+  @override
+  String get projectListPage_search => 'Tìm kiếm dự án';
 }
