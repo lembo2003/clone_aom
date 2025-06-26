@@ -1,8 +1,9 @@
-import 'package:clone_aom/packages/screen/contact_page.dart';
-import 'package:clone_aom/packages/screen/documents_page.dart';
+import 'package:clone_aom/packages/screen/document/documents_page.dart';
 import 'package:clone_aom/packages/screen/index_page.dart';
-import 'package:clone_aom/packages/screen/project_list_page.dart';
+import 'package:clone_aom/packages/screen/project/project_list_page.dart';
 import 'package:flutter/material.dart';
+
+import '../hcm/contact_page.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});

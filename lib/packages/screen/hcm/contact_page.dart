@@ -1,10 +1,11 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
-import 'package:clone_aom/packages/models/employee_response.dart';
+import 'package:clone_aom/packages/models/contact/employee_response.dart';
 import 'package:clone_aom/packages/screen/components/contact_user_tile_from_json.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
-import 'package:clone_aom/packages/screen/contact_user_detail.dart';
 import 'package:clone_aom/packages/services/contact_services.dart';
 import 'package:flutter/material.dart';
+
+import 'contact_user_detail.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});

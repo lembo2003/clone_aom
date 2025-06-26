@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:clone_aom/packages/models/project_list_response.dart';
+import 'package:clone_aom/packages/models/project/project_list_response.dart';
 import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:http/http.dart' as http;
 

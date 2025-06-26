@@ -5,8 +5,8 @@ import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../models/folder_detail_response.dart';
-import '../models/folder_list_response.dart';
+import '../models/document/folder_detail_response.dart';
+import '../models/document/folder_list_response.dart';
 import 'auth_service.dart';
 
 enum FileType { folder, document, image, other }

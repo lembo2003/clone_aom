@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import '../models/login_response.dart';
+
+import '../models/auth/login_response.dart';
 import 'token_storage.dart';
 
 class AuthService {
@@ -15,12 +17,10 @@ class AuthService {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
           'Referer': 'http://map.intechno.io.vn/',
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+          'User-Agent':
+              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
         },
-        body: jsonEncode({
-          'username': username,
-          'password': password,
-        }),
+        body: jsonEncode({'username': username, 'password': password}),
       );
 
       if (response.statusCode == 200) {
@@ -48,11 +48,12 @@ class AuthService {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
       'Referer': 'http://map.intechno.io.vn/',
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+      'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
     };
   }
 
   Future<void> logout() async {
     await _tokenStorage.clearToken();
   }
-} 
+}
