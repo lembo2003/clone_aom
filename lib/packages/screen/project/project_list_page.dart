@@ -2,6 +2,7 @@ import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/models/project/project_list_response.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/screen/components/project_list_tile.dart';
+import 'package:clone_aom/packages/screen/project/project_detail_page.dart';
 import 'package:clone_aom/packages/services/project_services.dart';
 import 'package:flutter/material.dart';
 
@@ -220,7 +221,15 @@ class _ProjectListPageState extends State<ProjectListPage> {
                             final project = filteredProjects[index];
                             return GestureDetector(
                               onTap: () {
-                                // TODO: Navigate to project detail page
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder:
+                                        (context) => ProjectDetail(
+                                          projectId: project.id,
+                                        ),
+                                  ),
+                                );
                               },
                               child: ProjectListTile(
                                 projectName: project.name ?? 'Untitled Project',
