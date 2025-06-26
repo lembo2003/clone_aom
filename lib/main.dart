@@ -1,5 +1,5 @@
 import 'package:clone_aom/firebase_options.dart';
-import 'package:clone_aom/packages/screen/login_page.dart';
+import 'package:clone_aom/packages/screen/auth/login_page.dart';
 import 'package:clone_aom/packages/services/firebase_api.dart';
 import 'package:clone_aom/providers/language_provider.dart';
 import 'package:firebase_core/firebase_core.dart';

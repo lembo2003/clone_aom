@@ -1,8 +1,9 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
-import 'package:clone_aom/packages/models/employee_detail_response.dart';
-import 'package:clone_aom/packages/screen/contact_user_edit.dart';
+import 'package:clone_aom/packages/models/contact/employee_detail_response.dart';
 import 'package:clone_aom/packages/services/contact_services.dart';
 import 'package:flutter/material.dart';
+
+import 'contact_user_edit.dart';
 
 class ContactUserDetail extends StatefulWidget {
   final String name;

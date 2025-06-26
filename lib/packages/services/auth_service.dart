@@ -1,6 +1,8 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import '../models/login_response.dart';
+;
+import '../models/auth/login_response.dart';
 import 'token_storage.dart';
 
 class AuthService {
