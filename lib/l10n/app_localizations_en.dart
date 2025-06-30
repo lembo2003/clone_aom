@@ -280,4 +280,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get projectListPage_search => 'Search projects...';
+
+  @override
+  String get projectDetail_title => 'Project Detail';
+
+  @override
+  String get projectDetail_overview_name => 'Project Name';
+
+  @override
+  String get projectDetail_overview_description => 'Project Description';
+
+  @override
+  String get projectDetail_overview_status => 'Project Status';
+
+  @override
+  String get projectDetail_overview_statuslabel => 'Status';
+
+  @override
+  String get projectDetail_overview_startDate => 'Start Date';
+
+  @override
+  String get projectDetail_overview_endDate => 'End Date';
+
+  @override
+  String get projectDetail_overview_teamSize => 'Team Size';
+
+  @override
+  String get projectDetail_overview_projectProgress => 'Project Progress';
+
+  @override
+  String get projectDetail_overview_members => 'members';
+
+  @override
+  String get projectDetail_overview_overallProgress => 'Overall Progress';
+
+  @override
+  String get projectDetail_overview => 'Overview';
+
+  @override
+  String get projectDetail_wbs => 'WBS';
+
+  @override
+  String get projectDetail_wbs_searchTasks => 'Search tasks...';
+
+  @override
+  String get projectDetail_wbs_createNewTask => 'Create new task';
+
+  @override
+  String get projectDetail_resources_search => 'Search resources';
+
+  @override
+  String get projectDetail_resources => 'Resources';
 }

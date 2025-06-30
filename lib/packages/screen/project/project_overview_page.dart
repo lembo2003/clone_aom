@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/models/project/project_overview_response.dart';
 import 'package:clone_aom/packages/services/project_services.dart';
+import 'package:flutter/material.dart';
 
 class ProjectOverviewPage extends StatefulWidget {
   final int? projectId;
@@ -23,7 +24,9 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
 
   void _fetchProjectOverview() {
     if (widget.projectId != null) {
-      _futureProjectOverview = _projectService.fetchProjectOverview(widget.projectId!);
+      _futureProjectOverview = _projectService.fetchProjectOverview(
+        widget.projectId!,
+      );
     }
   }
 
@@ -73,7 +76,10 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple.shade50,
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -112,8 +118,10 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Project Name',
+                      Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.projectDetail_overview_name,
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 14,
@@ -147,7 +155,10 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
 
                 // Project Description Section
                 _buildSection(
-                  title: 'Project Description',
+                  title:
+                      AppLocalizations.of(
+                        context,
+                      )!.projectDetail_overview_description,
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
@@ -177,7 +188,10 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
 
                 // Project Status Section
                 _buildSection(
-                  title: 'Project Status',
+                  title:
+                      AppLocalizations.of(
+                        context,
+                      )!.projectDetail_overview_status,
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -195,7 +209,9 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                     child: Column(
                       children: [
                         _buildStatusRow(
-                          'Status',
+                          AppLocalizations.of(
+                            context,
+                          )!.projectDetail_overview_statuslabel,
                           Container(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 12,
@@ -218,7 +234,9 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                         ),
                         const SizedBox(height: 16),
                         _buildStatusRow(
-                          'Start Date',
+                          AppLocalizations.of(
+                            context,
+                          )!.projectDetail_overview_startDate,
                           Text(
                             projectData.startDate?.toString() ?? '--',
                             style: const TextStyle(
@@ -229,9 +247,12 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                         ),
                         const SizedBox(height: 16),
                         _buildStatusRow(
-                          'End Date',
+                          AppLocalizations.of(
+                            context,
+                          )!.projectDetail_overview_endDate,
                           Text(
-                            projectData.endDate?.toString().split(' ')[0] ?? '--',
+                            projectData.endDate?.toString().split(' ')[0] ??
+                                '--',
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w500,
@@ -240,9 +261,11 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                         ),
                         const SizedBox(height: 16),
                         _buildStatusRow(
-                          'Team Size',
+                          AppLocalizations.of(
+                            context,
+                          )!.projectDetail_overview_teamSize,
                           Text(
-                            '${projectData.teamSize ?? 0} members',
+                            '${projectData.teamSize ?? 0} ${AppLocalizations.of(context)!.projectDetail_overview_members}',
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.w500,
@@ -257,7 +280,10 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
 
                 // Progress Section
                 _buildSection(
-                  title: 'Project Progress',
+                  title:
+                      AppLocalizations.of(
+                        context,
+                      )!.projectDetail_overview_projectProgress,
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -278,8 +304,10 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Overall Progress',
+                            Text(
+                              AppLocalizations.of(
+                                context,
+                              )!.projectDetail_overview_overallProgress,
                               style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 14,
@@ -303,7 +331,9 @@ class _ProjectOverviewPageState extends State<ProjectOverviewPage> {
                             value: (projectData.progressPercent ?? 0) / 100,
                             backgroundColor: Colors.grey[200],
                             valueColor: AlwaysStoppedAnimation<Color>(
-                              _getProgressColor(projectData.progressPercent ?? 0),
+                              _getProgressColor(
+                                projectData.progressPercent ?? 0,
+                              ),
                             ),
                             minHeight: 8,
                           ),

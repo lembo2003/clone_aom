@@ -4,6 +4,8 @@ import 'package:clone_aom/packages/services/project_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 class ProjectWbsPage extends StatefulWidget {
   final int? projectId;
 
@@ -52,11 +54,12 @@ class _ProjectWbsPageState extends State<ProjectWbsPage> {
               controller: _searchController,
               style: const TextStyle(fontFamily: 'Montserrat'),
               decoration: InputDecoration(
-                hintText: 'Search tasks...',
                 hintStyle: TextStyle(
                   fontFamily: 'Montserrat',
                   color: Colors.grey[400],
                 ),
+                hintText:
+                    AppLocalizations.of(context)!.projectDetail_wbs_searchTasks,
                 prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
@@ -99,7 +102,9 @@ class _ProjectWbsPageState extends State<ProjectWbsPage> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'Create new task',
+                        AppLocalizations.of(
+                          context,
+                        )!.projectDetail_wbs_createNewTask,
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           color: Colors.deepPurple.shade300,

@@ -110,8 +110,26 @@
     "documentPage_tag" : "Thẻ",
 
     "projectListPage_title" : "Danh Sách Dự Án",
-    "projectListPage_search" : "Tìm kiếm dự án"
+    "projectListPage_search" : "Tìm kiếm dự án",
 
+    "projectDetail_title" : "Chi Tiết Dự Án",
+    "projectDetail_overview_name" : "Tên Dự Án",
+    "projectDetail_overview_description" : "Mô tả Dự Án",
+    "projectDetail_overview_status" : "Trạng Thái Dự Án",
+    "projectDetail_overview_startDate" : "Ngày Bắt Đầu",
+    "projectDetail_overview_endDate" : "Ngày Kết Thúc",
+    "projectDetail_overview_teamSize" : "Quy mô",
+    "projectDetail_overview_projectProgress" : "Tiến Độ Dự Án",
+    "projectDetail_overview_members" : "thành viên",
+    "projectDetail_overview_overallProgress" : "Tiến Độ Tổng Quan",
+    "projectDetail_overview" : "Tổng Quan",
+    "projectDetail_overview_statuslabel" : "Trạng thái",
 
+    "projectDetail_wbs" : "WBS",
+    "projectDetail_wbs_searchTasks" : "Tìm kiếm nhiệm vụ...",
+    "projectDetail_wbs_createNewTask" : "Tạo nhiệm vụ",
+
+    "projectDetail_resources_search" : "Tìm kiếm nhân lực...",
+    "projectDetail_resources" : "Nhân Lực"
 
 }
