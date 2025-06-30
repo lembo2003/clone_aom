@@ -1,6 +1,6 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
-import 'package:clone_aom/packages/screen/components/file_picker.dart';
-import 'package:clone_aom/packages/screen/components/image_preview_dialog.dart';
+import 'package:clone_aom/packages/screen/components/document/file_picker.dart';
+import 'package:clone_aom/packages/screen/components/document/image_preview_dialog.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/services/document_services.dart';
 import 'package:flutter/material.dart';
