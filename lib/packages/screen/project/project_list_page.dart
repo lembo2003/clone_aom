@@ -1,7 +1,7 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/models/project/project_list_response.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
-import 'package:clone_aom/packages/screen/components/project_list_tile.dart';
+import 'package:clone_aom/packages/screen/components/project/project_list_tile.dart';
 import 'package:clone_aom/packages/screen/project/project_detail_page.dart';
 import 'package:clone_aom/packages/services/project_services.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
-import 'package:clone_aom/packages/screen/components/index_user_tiles.dart';
+import 'package:clone_aom/packages/screen/components/auth/index_user_tiles.dart';
 import 'package:clone_aom/packages/screen/components/main_menu.dart';
 import 'package:clone_aom/packages/screen/pdf_test_page.dart';
 import 'package:clone_aom/providers/language_provider.dart';

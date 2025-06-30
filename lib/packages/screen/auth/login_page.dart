@@ -1,5 +1,5 @@
 import 'package:clone_aom/l10n/app_localizations.dart';
-import 'package:clone_aom/packages/screen/components/login_tiles.dart';
+import 'package:clone_aom/packages/screen/components/auth/login_tiles.dart';
 import 'package:clone_aom/packages/screen/index_page.dart';
 import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:clone_aom/packages/screen/project/project_overview_page.dart';
+import 'package:clone_aom/packages/screen/project/project_resources_page.dart';
 import 'package:clone_aom/packages/screen/project/project_wbs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -23,10 +24,16 @@ class _ProjectDetailState extends State<ProjectDetail> {
   List<Widget> get _pages => [
     ProjectOverviewPage(projectId: widget.projectId),
     ProjectWbsPage(projectId: widget.projectId),
-    Center(child: Text('Gantt', style: TextStyle(fontFamily: 'Montserrat'))),
     Center(
-      child: Text('Resources', style: TextStyle(fontFamily: 'Montserrat')),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Gantt', style: TextStyle(fontFamily: 'Montserrat')),
+          Text('Currently skipped', style: TextStyle(fontFamily: 'Montserrat')),
+        ],
+      ),
     ),
+    ProjectResourcesPage(projectId: widget.projectId),
   ];
 
   @override

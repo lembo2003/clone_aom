@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:clone_aom/packages/models/project/project_list_response.dart';
 import 'package:clone_aom/packages/models/project/project_overview_response.dart';
+import 'package:clone_aom/packages/models/project/project_resources_response.dart';
 import 'package:clone_aom/packages/models/project/project_wbs_response.dart';
 import 'package:clone_aom/packages/services/auth_service.dart';
 import 'package:http/http.dart' as http;
@@ -86,6 +87,38 @@ class ProjectApiServices {
       }
     } catch (e) {
       print('Error fetching tasks list: $e');
+      throw Exception('Network error: $e');
+    }
+  }
+
+  //fetch resources list
+  Future<ProjectResourcesResponse> fetchResourcesList(int projectId) async {
+    try {
+      final url = Uri.parse('$baseUrl/pm/project/$projectId/get-resource');
+      print('Fetching resources with projectID $projectId from: $url');
+
+      //get auth header
+      final headers = await _authService.getAuthHeaders();
+      final response = await http.get(url, headers: headers);
+
+      print('Resources API Response Status Code: ${response.statusCode}');
+      print('Resources API Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        print('Decoded JSON Data: $jsonData');
+        final resourceResponse = ProjectResourcesResponse.fromJson(jsonData);
+        print('Number of resources: ${resourceResponse.data.length}');
+        return resourceResponse;
+      } else if (response.statusCode == 401) {
+        throw Exception('Authentication failed. Please login again.');
+      } else {
+        throw Exception(
+          'Failed to fetch resources list: ${response.statusCode} - ${response.body}',
+        );
+      }
+    } catch (e) {
+      print('Error fetching resources list: $e');
       throw Exception('Network error: $e');
     }
   }

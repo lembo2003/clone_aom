@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:clone_aom/packages/models/project/project_wbs_response.dart';
+import 'package:clone_aom/packages/screen/components/project/task_list_tile.dart';
 import 'package:clone_aom/packages/services/project_services.dart';
-import 'package:clone_aom/packages/screen/components/task_list_tile.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProjectWbsPage extends StatefulWidget {
@@ -140,7 +140,11 @@ class _ProjectWbsPageState extends State<ProjectWbsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                      const Icon(
+                        Icons.error_outline,
+                        size: 64,
+                        color: Colors.red,
+                      ),
                       const SizedBox(height: 16),
                       const Text(
                         'Error loading tasks',
@@ -184,10 +188,7 @@ class _ProjectWbsPageState extends State<ProjectWbsPage> {
                   return const Center(
                     child: Text(
                       'No tasks found',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 16,
-                      ),
+                      style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
                     ),
                   );
                 }
@@ -197,7 +198,8 @@ class _ProjectWbsPageState extends State<ProjectWbsPage> {
                   itemCount: tasks.length,
                   itemBuilder: (context, index) {
                     final task = tasks[index];
-                    final assignee = task.assignees.isNotEmpty ? task.assignees.first : null;
+                    final assignee =
+                        task.assignees.isNotEmpty ? task.assignees.first : null;
 
                     return TaskListTile(
                       taskName: task.name ?? 'Unnamed Task',
