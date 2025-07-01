@@ -280,38 +280,43 @@ class MainMenu extends StatelessWidget {
                         //     ),
                         //   ]),
                         // ]),
-                        _buildMenuItem(context, Icons.shopping_cart, 'Sales', [
-                          _buildExpandableDialogOption(
-                            context,
-                            'Sales Follow-Up',
-                            [
-                              // _buildDialogOption(
-                              //   context,
-                              //   Icons.category,
-                              //   'Products & Services',
-                              //   () {},
-                              // ),
-                              // _buildDialogOption(
-                              //   context,
-                              //   Icons.description,
-                              //   'Sale Quotations',
-                              //   () {},
-                              // ),
-                              // _buildDialogOption(
-                              //   context,
-                              //   Icons.shopping_bag,
-                              //   'Sale Orders',
-                              //   () {},
-                              // ),
-                              _buildDialogOption(
-                                context,
-                                Icons.group,
-                                'Organization',
-                                () {},
-                              ),
-                            ],
-                          ),
-                        ]),
+                        _buildMenuItem(
+                          context,
+                          Icons.shopping_cart,
+                          'Category',
+                          [
+                            _buildExpandableDialogOption(
+                              context,
+                              'Sales Follow-Up',
+                              [
+                                // _buildDialogOption(
+                                //   context,
+                                //   Icons.category,
+                                //   'Products & Services',
+                                //   () {},
+                                // ),
+                                // _buildDialogOption(
+                                //   context,
+                                //   Icons.description,
+                                //   'Sale Quotations',
+                                //   () {},
+                                // ),
+                                // _buildDialogOption(
+                                //   context,
+                                //   Icons.shopping_bag,
+                                //   'Sale Orders',
+                                //   () {},
+                                // ),
+                                _buildDialogOption(
+                                  context,
+                                  Icons.group,
+                                  'Organization',
+                                  () {},
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                         _buildMenuItem(context, Icons.task, 'Project', [
                           // _buildDialogOption(
                           //   context,
