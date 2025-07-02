@@ -34,16 +34,20 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
   }
 
   // Recursive function to build organization tree items
-  List<Widget> _buildOrganizationTree(List<Content> organizations, {double indentation = 0}) {
+  List<Widget> _buildOrganizationTree(
+    List<Content> organizations, {
+    double indentation = 0,
+  }) {
     List<Widget> widgets = [];
-    
+
     for (var org in organizations) {
       // Check if this org matches search criteria
       final searchTerm = _searchController.text.toLowerCase();
       final orgName = (org.name ?? '').toLowerCase();
       final orgCode = (org.code ?? '').toLowerCase();
-      final matchesSearch = searchTerm.isEmpty || 
-          orgName.contains(searchTerm) || 
+      final matchesSearch =
+          searchTerm.isEmpty ||
+          orgName.contains(searchTerm) ||
           orgCode.contains(searchTerm);
 
       if (matchesSearch) {
@@ -87,11 +91,13 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
       }
 
       // Recursively add children with increased indentation
-      if (org.children != null && org.children!.isNotEmpty) {
-        widgets.addAll(_buildOrganizationTree(
-          org.children!,
-          indentation: indentation + 32, // Increase indentation for children
-        ));
+      if (org.children != null && org.children.isNotEmpty) {
+        widgets.addAll(
+          _buildOrganizationTree(
+            org.children,
+            indentation: indentation + 32, // Increase indentation for children
+          ),
+        );
       }
     }
 
@@ -111,14 +117,15 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
               child: Row(
                 children: [
                   Builder(
-                    builder: (context) => IconButton(
-                      icon: const Icon(
-                        Icons.menu,
-                        color: Colors.deepPurple,
-                        size: 28,
-                      ),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                    ),
+                    builder:
+                        (context) => IconButton(
+                          icon: const Icon(
+                            Icons.menu,
+                            color: Colors.deepPurple,
+                            size: 28,
+                          ),
+                          onPressed: () => Scaffold.of(context).openDrawer(),
+                        ),
                   ),
                   const SizedBox(width: 8),
                   const Text(
@@ -243,7 +250,8 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                             ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  _futureOrganizations = _categoryService.fetchOrg();
+                                  _futureOrganizations =
+                                      _categoryService.fetchOrg();
                                 });
                               },
                               child: const Text("Retry"),
@@ -253,15 +261,21 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                       );
                     } else if (snapshot.hasData && snapshot.data != null) {
                       final apiResponse = snapshot.data!;
-                      if (apiResponse.success == true && apiResponse.data != null) {
+                      if (apiResponse.success == true &&
+                          apiResponse.data != null) {
                         final organizations = apiResponse.data!.content;
-                        
+
                         // Filter root level organizations (those with null parentId)
-                        final rootOrganizations = organizations.where((org) => org.parentId == null).toList();
-                        
+                        final rootOrganizations =
+                            organizations
+                                .where((org) => org.parentId == null)
+                                .toList();
+
                         // Build tree structure
-                        final treeWidgets = _buildOrganizationTree(rootOrganizations);
-                        
+                        final treeWidgets = _buildOrganizationTree(
+                          rootOrganizations,
+                        );
+
                         if (treeWidgets.isEmpty) {
                           return const Center(
                             child: Column(
@@ -289,7 +303,8 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                         return RefreshIndicator(
                           onRefresh: () async {
                             setState(() {
-                              _futureOrganizations = _categoryService.fetchOrg();
+                              _futureOrganizations =
+                                  _categoryService.fetchOrg();
                             });
                           },
                           child: ListView(
