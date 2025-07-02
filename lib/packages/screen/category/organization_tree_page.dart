@@ -29,6 +29,9 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
   static const double _maxScale = 2.0;
   static const double _scaleChange = 0.1;
 
+  // Track expanded/collapsed state of nodes
+  final Set<String> _expandedNodes = {rootNodeId}; // Root node starts expanded
+
   @override
   void initState() {
     super.initState();
@@ -80,7 +83,23 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
     });
   }
 
+  void _toggleNode(String nodeId) {
+    setState(() {
+      if (_expandedNodes.contains(nodeId)) {
+        _expandedNodes.remove(nodeId);
+      } else {
+        _expandedNodes.add(nodeId);
+      }
+      // Rebuild the graph with the new expanded/collapsed state
+      _buildGraphFromOrganizations(_currentOrganizations);
+    });
+  }
+
+  // Keep track of current organizations for rebuilding
+  List<Content> _currentOrganizations = [];
+
   void _buildGraphFromOrganizations(List<Content> organizations) {
+    _currentOrganizations = organizations;
     // Clear existing graph
     graph.nodes.clear();
     graph.edges.clear();
@@ -100,8 +119,8 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
         graph.addNode(node);
       }
 
-      // Process children if they exist
-      if (org.children != null) {
+      // Only process children if the node is expanded
+      if (_expandedNodes.contains(org.id.toString()) && org.children != null) {
         for (var child in org.children!) {
           // Create child node if it doesn't exist
           if (!nodeMap.containsKey(child.id.toString())) {
@@ -309,7 +328,11 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
                             );
                           }
 
-                          return OrgNodeWidget(organization: org);
+                          return OrgNodeWidget(
+                            organization: org,
+                            isExpanded: _expandedNodes.contains(orgId),
+                            onToggle: () => _toggleNode(orgId),
+                          );
                         },
                       ),
                     ),
@@ -359,13 +382,21 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
 
 class OrgNodeWidget extends StatelessWidget {
   final Content organization;
+  final bool isExpanded;
+  final VoidCallback onToggle;
 
-  const OrgNodeWidget({super.key, required this.organization});
+  const OrgNodeWidget({
+    super.key,
+    required this.organization,
+    required this.isExpanded,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
     final isActive = organization.state?.toLowerCase() == 'active';
-
+    final hasChildren = organization.children != null && organization.children!.isNotEmpty;
+    
     return Container(
       width: 180,
       padding: const EdgeInsets.all(12.0),
@@ -390,15 +421,32 @@ class OrgNodeWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            organization.name ?? 'Untitled',
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  organization.name ?? 'Untitled',
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (hasChildren)
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: const BoxConstraints(),
+                  icon: Icon(
+                    isExpanded ? Icons.remove_circle : Icons.add_circle,
+                    size: 20,
+                    color: Colors.deepPurple,
+                  ),
+                  onPressed: onToggle,
+                ),
+            ],
           ),
           const SizedBox(height: 4),
           Text(
@@ -429,6 +477,15 @@ class OrgNodeWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
+              if (hasChildren)
+                Text(
+                  '${organization.children!.length}',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 11,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
             ],
           ),
         ],
