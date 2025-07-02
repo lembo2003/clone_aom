@@ -48,6 +48,7 @@ dependencies:
   provider: ^6.1.5
   google_nav_bar: ^5.0.7
   graphview: ^1.2.0
+  flutter_local_notifications: ^19.3.0
 
 
 dev_dependencies:

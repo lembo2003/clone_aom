@@ -1,6 +1,7 @@
 import 'package:clone_aom/firebase_options.dart';
 import 'package:clone_aom/packages/screen/auth/login_page.dart';
 import 'package:clone_aom/packages/services/firebase_api.dart';
+import 'package:clone_aom/packages/services/noti_service.dart';
 import 'package:clone_aom/providers/language_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,10 @@ import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //init local noti
+  await NotiService().initNotification();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   debugPrint("FCM_DEBUG: Firebase core initialized");
 
