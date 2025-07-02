@@ -18,16 +18,62 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
   final Map<String, Node> nodeMap = {};
   // Special ID for our virtual root node
   static const String rootNodeId = 'department_root';
+  
+  // Add controllers and state variables
+  final TransformationController _transformationController = TransformationController();
+  bool _isVerticalLayout = true;
+  double _currentScale = 1.0;
+  static const double _minScale = 0.3;
+  static const double _maxScale = 2.0;
+  static const double _scaleChange = 0.1;
 
   @override
   void initState() {
     super.initState();
     _futureOrganizations = _categoryService.fetchOrg();
+    _initBuilder();
+  }
+
+  @override
+  void dispose() {
+    _transformationController.dispose();
+    super.dispose();
+  }
+
+  void _initBuilder() {
     builder = BuchheimWalkerConfiguration()
       ..siblingSeparation = 50
       ..levelSeparation = 100
       ..subtreeSeparation = 50
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
+      ..orientation = _isVerticalLayout
+          ? BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM
+          : BuchheimWalkerConfiguration.ORIENTATION_LEFT_RIGHT;
+  }
+
+  void _toggleOrientation() {
+    setState(() {
+      _isVerticalLayout = !_isVerticalLayout;
+      _initBuilder();
+    });
+  }
+
+  void _handleZoom(double scale) {
+    final newScale = _currentScale + scale;
+    if (newScale >= _minScale && newScale <= _maxScale) {
+      setState(() {
+        _currentScale = newScale;
+        final Matrix4 matrix = Matrix4.identity()
+          ..scale(_currentScale, _currentScale, 1.0);
+        _transformationController.value = matrix;
+      });
+    }
+  }
+
+  void _resetZoom() {
+    setState(() {
+      _currentScale = 1.0;
+      _transformationController.value = Matrix4.identity();
+    });
   }
 
   void _buildGraphFromOrganizations(List<Content> organizations) {
@@ -138,115 +184,164 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
+        actions: [
+          // Orientation toggle button
+          IconButton(
+            icon: Icon(
+              _isVerticalLayout ? Icons.swap_horiz : Icons.swap_vert,
+              color: Colors.deepPurple,
+            ),
+            onPressed: _toggleOrientation,
+            tooltip: 'Toggle Layout',
+          ),
+        ],
       ),
-      body: FutureBuilder<OrganizationResponse>(
-        future: _futureOrganizations,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Stack(
+        children: [
+          FutureBuilder<OrganizationResponse>(
+            future: _futureOrganizations,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-          if (snapshot.hasError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, size: 48, color: Colors.red),
-                  const SizedBox(height: 16),
-                  Text('Error: ${snapshot.error}'),
-                ],
-              ),
-            );
-          }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                      const SizedBox(height: 16),
+                      Text('Error: ${snapshot.error}'),
+                    ],
+                  ),
+                );
+              }
 
-          if (!snapshot.hasData || snapshot.data?.data?.content == null) {
-            return const Center(child: Text('No data available'));
-          }
+              if (!snapshot.hasData || snapshot.data?.data?.content == null) {
+                return const Center(child: Text('No data available'));
+              }
 
-          final organizations = snapshot.data!.data!.content;
-          _buildGraphFromOrganizations(organizations);
+              final organizations = snapshot.data!.data!.content;
+              _buildGraphFromOrganizations(organizations);
 
-          return Container(
-            color: Colors.grey.shade50,
-            child: Center(
-              child: InteractiveViewer(
-                constrained: false,
-                boundaryMargin: const EdgeInsets.all(20),
-                minScale: 0.1,
-                maxScale: 2.0,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  child: GraphView(
-                    graph: graph,
-                    algorithm: BuchheimWalkerAlgorithm(
-                      builder,
-                      TreeEdgeRenderer(builder),
-                    ),
-                    paint: Paint()
-                      ..color = Colors.deepPurple.shade200
-                      ..strokeWidth = 2
-                      ..style = PaintingStyle.stroke,
-                    builder: (Node node) {
-                      final orgId = node.key?.value as String;
-                      final org = _findOrgById(organizations, orgId);
-                      
-                      if (org == null) {
-                        return Container();
-                      }
+              return Container(
+                color: Colors.grey.shade50,
+                child: Center(
+                  child: InteractiveViewer(
+                    transformationController: _transformationController,
+                    constrained: false,
+                    boundaryMargin: const EdgeInsets.all(20),
+                    minScale: _minScale,
+                    maxScale: _maxScale,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      child: GraphView(
+                        graph: graph,
+                        algorithm: BuchheimWalkerAlgorithm(
+                          builder,
+                          TreeEdgeRenderer(builder),
+                        ),
+                        paint: Paint()
+                          ..color = Colors.deepPurple.shade200
+                          ..strokeWidth = 2
+                          ..style = PaintingStyle.stroke,
+                        builder: (Node node) {
+                          final orgId = node.key?.value as String;
+                          final org = _findOrgById(organizations, orgId);
+                          
+                          if (org == null) {
+                            return Container();
+                          }
 
-                      // Special styling for root node
-                      if (orgId == rootNodeId) {
-                        return Container(
-                          width: 180,
-                          padding: const EdgeInsets.all(12.0),
-                          margin: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: Colors.deepPurple.shade50,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Colors.deepPurple.shade300,
-                              width: 2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.deepPurple.withOpacity(0.1),
-                                spreadRadius: 2,
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: const Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.account_tree,
-                                color: Colors.deepPurple,
-                                size: 24,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'Department',
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: Colors.deepPurple,
+                          // Special styling for root node
+                          if (orgId == rootNodeId) {
+                            return Container(
+                              width: 180,
+                              padding: const EdgeInsets.all(12.0),
+                              margin: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.deepPurple.shade50,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.deepPurple.shade300,
+                                  width: 2,
                                 ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.deepPurple.withOpacity(0.1),
+                                    spreadRadius: 2,
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      }
+                              child: const Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.account_tree,
+                                    color: Colors.deepPurple,
+                                    size: 24,
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'Department',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
 
-                      return OrgNodeWidget(organization: org);
-                    },
+                          return OrgNodeWidget(organization: org);
+                        },
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              );
+            },
+          ),
+          // Zoom controls overlay
+          Positioned(
+            right: 16,
+            bottom: 16,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FloatingActionButton(
+                  heroTag: 'zoomIn',
+                  mini: true,
+                  onPressed: () => _handleZoom(_scaleChange),
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.add, color: Colors.deepPurple),
+                ),
+                const SizedBox(height: 8),
+                FloatingActionButton(
+                  heroTag: 'zoomReset',
+                  mini: true,
+                  onPressed: _resetZoom,
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.refresh, color: Colors.deepPurple),
+                ),
+                const SizedBox(height: 8),
+                FloatingActionButton(
+                  heroTag: 'zoomOut',
+                  mini: true,
+                  onPressed: () => _handleZoom(-_scaleChange),
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.remove, color: Colors.deepPurple),
+                ),
+              ],
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
