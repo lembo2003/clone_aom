@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/models/category/organization_response.dart';
 import 'package:clone_aom/packages/screen/category/organization_tree_page.dart';
 import 'package:clone_aom/packages/screen/components/category/organization_list_tile.dart';
@@ -128,8 +129,8 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                         ),
                   ),
                   const SizedBox(width: 8),
-                  const Text(
-                    'Organization List',
+                  Text(
+                    AppLocalizations.of(context)!.organizationList_title,
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
@@ -178,8 +179,11 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                       child: TextField(
                         controller: _searchController,
                         style: const TextStyle(fontFamily: 'Montserrat'),
-                        decoration: const InputDecoration(
-                          hintText: 'Search organizations...',
+                        decoration: InputDecoration(
+                          hintText:
+                              AppLocalizations.of(
+                                context,
+                              )!.organizationList_search,
                           hintStyle: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Colors.grey,

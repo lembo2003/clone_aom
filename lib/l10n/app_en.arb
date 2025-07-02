@@ -163,7 +163,11 @@
     "projectDetail_wbs_createNewTask" : "Create new task",
 
     "projectDetail_resources_search" : "Search resources",
-    "projectDetail_resources" : "Resources"
+    "projectDetail_resources" : "Resources",
+
+    "organizationList_title" : "Department",
+    "organizationList_search" : "Search departments...",
+    "organizationList_tree" : "Organization Tree"
 
 
 

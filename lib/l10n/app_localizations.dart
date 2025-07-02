@@ -742,6 +742,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resources'**
   String get projectDetail_resources;
+
+  /// No description provided for @organizationList_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get organizationList_title;
+
+  /// No description provided for @organizationList_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search departments...'**
+  String get organizationList_search;
+
+  /// No description provided for @organizationList_tree.
+  ///
+  /// In en, this message translates to:
+  /// **'Organization Tree'**
+  String get organizationList_tree;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

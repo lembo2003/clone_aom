@@ -331,4 +331,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get projectDetail_resources => 'Resources';
+
+  @override
+  String get organizationList_title => 'Department';
+
+  @override
+  String get organizationList_search => 'Search departments...';
+
+  @override
+  String get organizationList_tree => 'Organization Tree';
 }

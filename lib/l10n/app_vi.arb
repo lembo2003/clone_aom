@@ -130,6 +130,10 @@
     "projectDetail_wbs_createNewTask" : "Tạo nhiệm vụ",
 
     "projectDetail_resources_search" : "Tìm kiếm nhân lực...",
-    "projectDetail_resources" : "Nhân Lực"
+    "projectDetail_resources" : "Nhân Lực",
+
+    "organizationList_title" : "Phòng Ban",
+    "organizationList_search" : "Tìm phòng ban",
+    "organizationList_tree" : "Đồ thị cây tổ chức"
 
 }

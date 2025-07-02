@@ -331,4 +331,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get projectDetail_resources => 'Nhân Lực';
+
+  @override
+  String get organizationList_title => 'Phòng Ban';
+
+  @override
+  String get organizationList_search => 'Tìm phòng ban';
+
+  @override
+  String get organizationList_tree => 'Đồ thị cây tổ chức';
 }

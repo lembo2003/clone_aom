@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/models/category/organization_response.dart';
 import 'package:clone_aom/packages/services/category_services.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,10 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
   final Map<String, Node> nodeMap = {};
   // Special ID for our virtual root node
   static const String rootNodeId = 'department_root';
-  
+
   // Add controllers and state variables
-  final TransformationController _transformationController = TransformationController();
+  final TransformationController _transformationController =
+      TransformationController();
   bool _isVerticalLayout = true;
   double _currentScale = 1.0;
   static const double _minScale = 0.3;
@@ -41,13 +43,15 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
   }
 
   void _initBuilder() {
-    builder = BuchheimWalkerConfiguration()
-      ..siblingSeparation = 50
-      ..levelSeparation = 100
-      ..subtreeSeparation = 50
-      ..orientation = _isVerticalLayout
-          ? BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM
-          : BuchheimWalkerConfiguration.ORIENTATION_LEFT_RIGHT;
+    builder =
+        BuchheimWalkerConfiguration()
+          ..siblingSeparation = 50
+          ..levelSeparation = 100
+          ..subtreeSeparation = 50
+          ..orientation =
+              _isVerticalLayout
+                  ? BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM
+                  : BuchheimWalkerConfiguration.ORIENTATION_LEFT_RIGHT;
   }
 
   void _toggleOrientation() {
@@ -62,8 +66,8 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
     if (newScale >= _minScale && newScale <= _maxScale) {
       setState(() {
         _currentScale = newScale;
-        final Matrix4 matrix = Matrix4.identity()
-          ..scale(_currentScale, _currentScale, 1.0);
+        final Matrix4 matrix =
+            Matrix4.identity()..scale(_currentScale, _currentScale, 1.0);
         _transformationController.value = matrix;
       });
     }
@@ -120,8 +124,9 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
     }
 
     // Process root organizations (those with null parentId)
-    final rootOrgs = organizations.where((org) => org.parentId == null).toList();
-    
+    final rootOrgs =
+        organizations.where((org) => org.parentId == null).toList();
+
     // First process all organizations
     for (var org in rootOrgs) {
       processOrg(org);
@@ -149,7 +154,7 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
         task: 'Manage departments',
         managerId: null,
         children: [],
-        employeeDto: null
+        employeeDto: null,
       );
     }
 
@@ -174,8 +179,8 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Organization Tree',
+        title: Text(
+          AppLocalizations.of(context)!.organizationList_tree,
           style: TextStyle(
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.w600,
@@ -210,7 +215,11 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.error_outline, size: 48, color: Colors.red),
+                      const Icon(
+                        Icons.error_outline,
+                        size: 48,
+                        color: Colors.red,
+                      ),
                       const SizedBox(height: 16),
                       Text('Error: ${snapshot.error}'),
                     ],
@@ -242,14 +251,15 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
                           builder,
                           TreeEdgeRenderer(builder),
                         ),
-                        paint: Paint()
-                          ..color = Colors.deepPurple.shade200
-                          ..strokeWidth = 2
-                          ..style = PaintingStyle.stroke,
+                        paint:
+                            Paint()
+                              ..color = Colors.deepPurple.shade200
+                              ..strokeWidth = 2
+                              ..style = PaintingStyle.stroke,
                         builder: (Node node) {
                           final orgId = node.key?.value as String;
                           final org = _findOrgById(organizations, orgId);
-                          
+
                           if (org == null) {
                             return Container();
                           }
@@ -350,15 +360,12 @@ class _OrganizationTreePageState extends State<OrganizationTreePage> {
 class OrgNodeWidget extends StatelessWidget {
   final Content organization;
 
-  const OrgNodeWidget({
-    super.key,
-    required this.organization,
-  });
+  const OrgNodeWidget({super.key, required this.organization});
 
   @override
   Widget build(BuildContext context) {
     final isActive = organization.state?.toLowerCase() == 'active';
-    
+
     return Container(
       width: 180,
       padding: const EdgeInsets.all(12.0),
