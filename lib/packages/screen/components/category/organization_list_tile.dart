@@ -6,6 +6,7 @@ class OrganizationListTile extends StatelessWidget {
   final String type;
   final String status;
   final String manager;
+  final int? childCount;
   final VoidCallback? onTap;
 
   const OrganizationListTile({
@@ -15,6 +16,7 @@ class OrganizationListTile extends StatelessWidget {
     required this.type,
     required this.status,
     required this.manager,
+    this.childCount,
     this.onTap,
   });
 
@@ -66,13 +68,35 @@ class OrganizationListTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    name,
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: const TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      if (childCount != null)
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple.shade50,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '$childCount ${childCount == 1 ? 'child' : 'children'}',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 12,
+                              color: Colors.deepPurple.shade700,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                   Text(
                     code,
@@ -133,12 +157,15 @@ class OrganizationListTile extends StatelessWidget {
                         color: Colors.black54,
                       ),
                       const SizedBox(width: 4),
-                      Text(
-                        manager,
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 14,
-                          color: Colors.black87,
+                      Expanded(
+                        child: Text(
+                          manager,
+                          style: const TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 14,
+                            color: Colors.black87,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],

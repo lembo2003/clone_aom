@@ -16,6 +16,7 @@ class OrganizationListPage extends StatefulWidget {
 class _OrganizationListPageState extends State<OrganizationListPage> {
   final TextEditingController _searchController = TextEditingController();
   final CategoryApiServices _categoryService = CategoryApiServices();
+  final Set<String> _expandedNodes = {}; // Track expanded nodes by ID
 
   Future<OrganizationResponse>? _futureOrganizations;
 
@@ -32,6 +33,16 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
   void dispose() {
     _searchController.dispose();
     super.dispose();
+  }
+
+  void _toggleNode(String nodeId) {
+    setState(() {
+      if (_expandedNodes.contains(nodeId)) {
+        _expandedNodes.remove(nodeId);
+      } else {
+        _expandedNodes.add(nodeId);
+      }
+    });
   }
 
   // Recursive function to build organization tree items
@@ -51,6 +62,9 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
           orgName.contains(searchTerm) ||
           orgCode.contains(searchTerm);
 
+      final hasChildren = org.children != null && org.children!.isNotEmpty;
+      final isExpanded = _expandedNodes.contains(org.id.toString());
+
       if (matchesSearch) {
         widgets.add(
           Padding(
@@ -58,32 +72,51 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    if (indentation > 0)
-                      Container(
-                        width: 24,
-                        height: 24,
-                        margin: const EdgeInsets.only(right: 8),
-                        child: const Icon(
-                          Icons.subdirectory_arrow_right,
-                          size: 20,
-                          color: Colors.grey,
+                IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      if (indentation > 0)
+                        Container(
+                          width: 24,
+                          height: 24,
+                          margin: const EdgeInsets.only(right: 8),
+                          child: const Icon(
+                            Icons.subdirectory_arrow_right,
+                            size: 20,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      if (hasChildren)
+                        Container(
+                          width: 24,
+                          height: 24,
+                          margin: const EdgeInsets.only(right: 8),
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            icon: Icon(
+                              isExpanded ? Icons.remove_circle : Icons.add_circle,
+                              size: 20,
+                              color: Colors.deepPurple,
+                            ),
+                            onPressed: () => _toggleNode(org.id.toString()),
+                          ),
+                        ),
+                      Expanded(
+                        child: OrganizationListTile(
+                          code: org.code ?? 'N/A',
+                          name: org.name ?? 'Untitled Organization',
+                          type: org.type ?? 'Unknown',
+                          status: org.state ?? 'Unknown',
+                          manager: org.employeeDto?.fullName ?? 'No Manager',
+                          childCount: hasChildren ? org.children!.length : null,
+                          onTap: () {
+                            // TODO: Navigate to organization detail page
+                          },
                         ),
                       ),
-                    Expanded(
-                      child: OrganizationListTile(
-                        code: org.code ?? 'N/A',
-                        name: org.name ?? 'Untitled Organization',
-                        type: org.type ?? 'Unknown',
-                        status: org.state ?? 'Unknown',
-                        manager: org.employeeDto?.fullName ?? 'No Manager',
-                        onTap: () {
-                          // TODO: Navigate to organization detail page
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -91,11 +124,11 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
         );
       }
 
-      // Recursively add children with increased indentation
-      if (org.children != null && org.children.isNotEmpty) {
+      // Recursively add children with increased indentation if expanded
+      if (matchesSearch && hasChildren && isExpanded) {
         widgets.addAll(
           _buildOrganizationTree(
-            org.children,
+            org.children!,
             indentation: indentation + 32, // Increase indentation for children
           ),
         );
@@ -118,20 +151,19 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
               child: Row(
                 children: [
                   Builder(
-                    builder:
-                        (context) => IconButton(
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.deepPurple,
-                            size: 28,
-                          ),
-                          onPressed: () => Scaffold.of(context).openDrawer(),
-                        ),
+                    builder: (context) => IconButton(
+                      icon: const Icon(
+                        Icons.menu,
+                        color: Colors.deepPurple,
+                        size: 28,
+                      ),
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Text(
                     AppLocalizations.of(context)!.organizationList_title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.w600,
                       fontSize: 22,
@@ -180,16 +212,13 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                         controller: _searchController,
                         style: const TextStyle(fontFamily: 'Montserrat'),
                         decoration: InputDecoration(
-                          hintText:
-                              AppLocalizations.of(
-                                context,
-                              )!.organizationList_search,
-                          hintStyle: TextStyle(
+                          hintText: AppLocalizations.of(context)!.organizationList_search,
+                          hintStyle: const TextStyle(
                             fontFamily: 'Montserrat',
                             color: Colors.grey,
                           ),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 14,
                           ),
@@ -254,8 +283,7 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                             ElevatedButton(
                               onPressed: () {
                                 setState(() {
-                                  _futureOrganizations =
-                                      _categoryService.fetchOrg();
+                                  _futureOrganizations = _categoryService.fetchOrg();
                                 });
                               },
                               child: const Text("Retry"),
@@ -265,20 +293,16 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                       );
                     } else if (snapshot.hasData && snapshot.data != null) {
                       final apiResponse = snapshot.data!;
-                      if (apiResponse.success == true &&
-                          apiResponse.data != null) {
+                      if (apiResponse.success == true && apiResponse.data != null) {
                         final organizations = apiResponse.data!.content;
 
                         // Filter root level organizations (those with null parentId)
-                        final rootOrganizations =
-                            organizations
-                                .where((org) => org.parentId == null)
-                                .toList();
+                        final rootOrganizations = organizations
+                            .where((org) => org.parentId == null)
+                            .toList();
 
                         // Build tree structure
-                        final treeWidgets = _buildOrganizationTree(
-                          rootOrganizations,
-                        );
+                        final treeWidgets = _buildOrganizationTree(rootOrganizations);
 
                         if (treeWidgets.isEmpty) {
                           return const Center(
@@ -307,8 +331,7 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
                         return RefreshIndicator(
                           onRefresh: () async {
                             setState(() {
-                              _futureOrganizations =
-                                  _categoryService.fetchOrg();
+                              _futureOrganizations = _categoryService.fetchOrg();
                             });
                           },
                           child: ListView(
