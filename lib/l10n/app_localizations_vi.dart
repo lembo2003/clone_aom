@@ -280,4 +280,64 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get projectListPage_search => 'Tìm kiếm dự án';
+
+  @override
+  String get projectDetail_title => 'Chi Tiết Dự Án';
+
+  @override
+  String get projectDetail_overview_name => 'Tên Dự Án';
+
+  @override
+  String get projectDetail_overview_description => 'Mô tả Dự Án';
+
+  @override
+  String get projectDetail_overview_status => 'Trạng Thái Dự Án';
+
+  @override
+  String get projectDetail_overview_statuslabel => 'Trạng thái';
+
+  @override
+  String get projectDetail_overview_startDate => 'Ngày Bắt Đầu';
+
+  @override
+  String get projectDetail_overview_endDate => 'Ngày Kết Thúc';
+
+  @override
+  String get projectDetail_overview_teamSize => 'Quy mô';
+
+  @override
+  String get projectDetail_overview_projectProgress => 'Tiến Độ Dự Án';
+
+  @override
+  String get projectDetail_overview_members => 'thành viên';
+
+  @override
+  String get projectDetail_overview_overallProgress => 'Tiến Độ Tổng Quan';
+
+  @override
+  String get projectDetail_overview => 'Tổng Quan';
+
+  @override
+  String get projectDetail_wbs => 'WBS';
+
+  @override
+  String get projectDetail_wbs_searchTasks => 'Tìm kiếm nhiệm vụ...';
+
+  @override
+  String get projectDetail_wbs_createNewTask => 'Tạo nhiệm vụ';
+
+  @override
+  String get projectDetail_resources_search => 'Tìm kiếm nhân lực...';
+
+  @override
+  String get projectDetail_resources => 'Nhân Lực';
+
+  @override
+  String get organizationList_title => 'Phòng Ban';
+
+  @override
+  String get organizationList_search => 'Tìm phòng ban';
+
+  @override
+  String get organizationList_tree => 'Đồ thị cây tổ chức';
 }

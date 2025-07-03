@@ -142,7 +142,33 @@
     "documentPage_tag" : "Tag",
 
     "projectListPage_title" : "Project List",
-    "projectListPage_search" : "Search projects..."
+    "projectListPage_search" : "Search projects...",
+
+
+    "projectDetail_title" : "Project Detail",
+    "projectDetail_overview_name" : "Project Name",
+    "projectDetail_overview_description" : "Project Description",
+    "projectDetail_overview_status" : "Project Status",
+    "projectDetail_overview_statuslabel" : "Status",
+    "projectDetail_overview_startDate" : "Start Date",
+    "projectDetail_overview_endDate" : "End Date",
+    "projectDetail_overview_teamSize" : "Team Size",
+    "projectDetail_overview_projectProgress" : "Project Progress",
+    "projectDetail_overview_members" : "members",
+    "projectDetail_overview_overallProgress" : "Overall Progress",
+    "projectDetail_overview" : "Overview",
+
+    "projectDetail_wbs" : "WBS",
+    "projectDetail_wbs_searchTasks" : "Search tasks...",
+    "projectDetail_wbs_createNewTask" : "Create new task",
+
+    "projectDetail_resources_search" : "Search resources",
+    "projectDetail_resources" : "Resources",
+
+    "organizationList_title" : "Department",
+    "organizationList_search" : "Search departments...",
+    "organizationList_tree" : "Organization Tree"
+
 
 
 

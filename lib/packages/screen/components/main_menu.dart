@@ -1,3 +1,4 @@
+import 'package:clone_aom/packages/screen/category/organization_list_page.dart';
 import 'package:clone_aom/packages/screen/document/documents_page.dart';
 import 'package:clone_aom/packages/screen/index_page.dart';
 import 'package:clone_aom/packages/screen/project/project_list_page.dart';
@@ -280,38 +281,47 @@ class MainMenu extends StatelessWidget {
                         //     ),
                         //   ]),
                         // ]),
-                        // _buildMenuItem(context, Icons.shopping_cart, 'Sales', [
-                        //   _buildExpandableDialogOption(
-                        //     context,
-                        //     'Sales Follow-Up',
-                        //     [
-                        //       _buildDialogOption(
-                        //         context,
-                        //         Icons.category,
-                        //         'Products & Services',
-                        //         () {},
-                        //       ),
-                        //       _buildDialogOption(
-                        //         context,
-                        //         Icons.description,
-                        //         'Sale Quotations',
-                        //         () {},
-                        //       ),
-                        //       _buildDialogOption(
-                        //         context,
-                        //         Icons.shopping_bag,
-                        //         'Sale Orders',
-                        //         () {},
-                        //       ),
-                        //       _buildDialogOption(
-                        //         context,
-                        //         Icons.group,
-                        //         'Clients',
-                        //         () {},
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ]),
+                        _buildMenuItem(
+                          context,
+                          Icons.shopping_cart,
+                          'Category',
+                          [
+                            _buildExpandableDialogOption(context, 'Company', [
+                              // _buildDialogOption(
+                              //   context,
+                              //   Icons.category,
+                              //   'Products & Services',
+                              //   () {},
+                              // ),
+                              // _buildDialogOption(
+                              //   context,
+                              //   Icons.description,
+                              //   'Sale Quotations',
+                              //   () {},
+                              // ),
+                              // _buildDialogOption(
+                              //   context,
+                              //   Icons.shopping_bag,
+                              //   'Sale Orders',
+                              //   () {},
+                              // ),
+                              _buildDialogOption(
+                                context,
+                                Icons.group,
+                                'Organization',
+                                () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => OrganizationListPage(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ]),
+                          ],
+                        ),
                         _buildMenuItem(context, Icons.task, 'Project', [
                           // _buildDialogOption(
                           //   context,

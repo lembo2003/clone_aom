@@ -1,3 +1,4 @@
+import 'package:clone_aom/l10n/app_localizations.dart';
 import 'package:clone_aom/packages/screen/project/project_overview_page.dart';
 import 'package:clone_aom/packages/screen/project/project_resources_page.dart';
 import 'package:clone_aom/packages/screen/project/project_wbs_page.dart';
@@ -48,7 +49,7 @@ class _ProjectDetailState extends State<ProjectDetail> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Project Detail',
+          AppLocalizations.of(context)!.projectDetail_title,
           style: TextStyle(
             color: Colors.black,
             fontFamily: 'Montserrat',
@@ -103,10 +104,19 @@ class _ProjectDetailState extends State<ProjectDetail> {
                 color: Colors.black,
               ),
               tabs: [
-                GButton(icon: Icons.dashboard_outlined, text: 'Overview'),
-                GButton(icon: Icons.account_tree_outlined, text: 'WBS'),
+                GButton(
+                  icon: Icons.dashboard_outlined,
+                  text: AppLocalizations.of(context)!.projectDetail_overview,
+                ),
+                GButton(
+                  icon: Icons.account_tree_outlined,
+                  text: AppLocalizations.of(context)!.projectDetail_wbs,
+                ),
                 GButton(icon: Icons.timeline, text: 'Gantt'),
-                GButton(icon: Icons.people_outline, text: 'Resources'),
+                GButton(
+                  icon: Icons.people_outline,
+                  text: AppLocalizations.of(context)!.projectDetail_resources,
+                ),
               ],
             ),
           ),

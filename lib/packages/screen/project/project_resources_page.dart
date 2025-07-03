@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
+// import 'dart:convert';
+
 import 'package:clone_aom/packages/models/project/project_resources_response.dart';
-import 'package:clone_aom/packages/services/project_services.dart';
 import 'package:clone_aom/packages/screen/components/project/resource_list_tile.dart';
-import 'dart:convert';
+import 'package:clone_aom/packages/services/project_services.dart';
+import 'package:flutter/material.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 class ProjectResourcesPage extends StatefulWidget {
   final int? projectId;
@@ -18,19 +21,20 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
   final TextEditingController _searchController = TextEditingController();
   Future<ProjectResourcesResponse>? _futureResources;
 
-  ImageProvider? _getAvatarImage(String? base64String) {
-    if (base64String == null || base64String.isEmpty) return null;
-    try {
-      // Remove data:image/xyz;base64, prefix if present
-      final cleanBase64 = base64String.contains(',') 
-          ? base64String.split(',')[1] 
-          : base64String;
-      return MemoryImage(base64Decode(cleanBase64));
-    } catch (e) {
-      debugPrint('Error decoding base64 image: $e');
-      return null;
-    }
-  }
+  // ImageProvider? _getAvatarImage(String? base64String) {
+  //   if (base64String == null || base64String.isEmpty) return null;
+  //   try {
+  //     // Remove data:image/xyz;base64, prefix if present
+  //     final cleanBase64 =
+  //         base64String.contains(',')
+  //             ? base64String.split(',')[1]
+  //             : base64String;
+  //     return MemoryImage(base64Decode(cleanBase64));
+  //   } catch (e) {
+  //     debugPrint('Error decoding base64 image: $e');
+  //     return null;
+  //   }
+  // }
 
   @override
   void initState() {
@@ -54,7 +58,9 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
     print('Refreshing resources for projectId: ${widget.projectId}');
     setState(() {
       if (widget.projectId != null) {
-        _futureResources = _projectService.fetchResourcesList(widget.projectId!);
+        _futureResources = _projectService.fetchResourcesList(
+          widget.projectId!,
+        );
       }
     });
   }
@@ -67,10 +73,10 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
       final fullName = resource.humanResourceDto?.fullName?.toLowerCase() ?? '';
       final position = resource.position?.toLowerCase() ?? '';
       final email = resource.humanResourceDto?.email?.toLowerCase() ?? '';
-      
-      return fullName.contains(searchTerm) || 
-             position.contains(searchTerm) || 
-             email.contains(searchTerm);
+
+      return fullName.contains(searchTerm) ||
+          position.contains(searchTerm) ||
+          email.contains(searchTerm);
     }).toList();
   }
 
@@ -93,8 +99,11 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
                   child: TextField(
                     controller: _searchController,
                     style: const TextStyle(fontFamily: 'Montserrat'),
-                    decoration: const InputDecoration(
-                      hintText: 'Search resources...',
+                    decoration: InputDecoration(
+                      hintText:
+                          AppLocalizations.of(
+                            context,
+                          )!.projectDetail_resources_search,
                       hintStyle: TextStyle(
                         fontFamily: 'Montserrat',
                         color: Colors.grey,
@@ -123,9 +132,13 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
               future: _futureResources,
               builder: (context, snapshot) {
                 print('FutureBuilder state: ${snapshot.connectionState}');
-                if (snapshot.hasData) print('Response data: ${snapshot.data?.data.length} resources');
-                if (snapshot.hasError) print('Error in FutureBuilder: ${snapshot.error}');
-                
+                if (snapshot.hasData)
+                  print(
+                    'Response data: ${snapshot.data?.data.length} resources',
+                  );
+                if (snapshot.hasError)
+                  print('Error in FutureBuilder: ${snapshot.error}');
+
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: Column(
@@ -177,8 +190,10 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
                     ),
                   );
                 } else if (snapshot.hasData && snapshot.data != null) {
-                  final filteredResources = _filterResources(snapshot.data!.data);
-                  
+                  final filteredResources = _filterResources(
+                    snapshot.data!.data,
+                  );
+
                   if (filteredResources.isEmpty) {
                     return const Center(
                       child: Column(
@@ -209,7 +224,7 @@ class _ProjectResourcesPageState extends State<ProjectResourcesPage> {
                     itemBuilder: (context, index) {
                       final resource = filteredResources[index];
                       final humanResource = resource.humanResourceDto;
-                      
+
                       return ResourceListTile(
                         fullName: humanResource?.fullName,
                         position: resource.position,

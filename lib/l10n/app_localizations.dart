@@ -640,6 +640,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search projects...'**
   String get projectListPage_search;
+
+  /// No description provided for @projectDetail_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Detail'**
+  String get projectDetail_title;
+
+  /// No description provided for @projectDetail_overview_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Name'**
+  String get projectDetail_overview_name;
+
+  /// No description provided for @projectDetail_overview_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Description'**
+  String get projectDetail_overview_description;
+
+  /// No description provided for @projectDetail_overview_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Status'**
+  String get projectDetail_overview_status;
+
+  /// No description provided for @projectDetail_overview_statuslabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get projectDetail_overview_statuslabel;
+
+  /// No description provided for @projectDetail_overview_startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get projectDetail_overview_startDate;
+
+  /// No description provided for @projectDetail_overview_endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get projectDetail_overview_endDate;
+
+  /// No description provided for @projectDetail_overview_teamSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Team Size'**
+  String get projectDetail_overview_teamSize;
+
+  /// No description provided for @projectDetail_overview_projectProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Progress'**
+  String get projectDetail_overview_projectProgress;
+
+  /// No description provided for @projectDetail_overview_members.
+  ///
+  /// In en, this message translates to:
+  /// **'members'**
+  String get projectDetail_overview_members;
+
+  /// No description provided for @projectDetail_overview_overallProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Progress'**
+  String get projectDetail_overview_overallProgress;
+
+  /// No description provided for @projectDetail_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get projectDetail_overview;
+
+  /// No description provided for @projectDetail_wbs.
+  ///
+  /// In en, this message translates to:
+  /// **'WBS'**
+  String get projectDetail_wbs;
+
+  /// No description provided for @projectDetail_wbs_searchTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tasks...'**
+  String get projectDetail_wbs_searchTasks;
+
+  /// No description provided for @projectDetail_wbs_createNewTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new task'**
+  String get projectDetail_wbs_createNewTask;
+
+  /// No description provided for @projectDetail_resources_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search resources'**
+  String get projectDetail_resources_search;
+
+  /// No description provided for @projectDetail_resources.
+  ///
+  /// In en, this message translates to:
+  /// **'Resources'**
+  String get projectDetail_resources;
+
+  /// No description provided for @organizationList_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get organizationList_title;
+
+  /// No description provided for @organizationList_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search departments...'**
+  String get organizationList_search;
+
+  /// No description provided for @organizationList_tree.
+  ///
+  /// In en, this message translates to:
+  /// **'Organization Tree'**
+  String get organizationList_tree;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
